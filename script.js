@@ -1279,6 +1279,7 @@ function openModal(fixture) {
 
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
+    document.getElementById('match-modal').scrollTop = 0;
 }
 
 function closeModal() {
