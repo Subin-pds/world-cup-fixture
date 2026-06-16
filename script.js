@@ -101,7 +101,6 @@ let currentStatusFilter = 'upcoming';
 let currentGroupFilter  = 'all';
 let currentDateFilter   = null;
 let currentTimezone     = 'IST';
-let featuredMatchId     = 1;
 
 // teamsData and teamSlugs loaded from teams-data.js
 
@@ -266,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeroCountdown();
     buildDateStrip();
     renderFixtures();
-    renderFeaturedMatch();
+
     updateStatistics();
     setupFilterButtons();
     setupGroupSelect();
@@ -351,6 +350,13 @@ function buildDateStrip() {
     }
 }
 
+function teamFifaLink(name, flag) {
+    const slug = teamSlugs[name];
+    const base = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams';
+    if (!slug) return `<span>${flag}</span> ${name}`;
+    return `<a class="gc-team-link" href="${base}/${slug}" target="_blank" rel="noopener noreferrer"><span>${flag}</span> ${name}</a>`;
+}
+
 // ── All Groups Grid ───────────────────────────────────────
 function renderAllGroups() {
     const container = document.getElementById('all-groups-grid');
@@ -366,7 +372,7 @@ function renderAllGroups() {
             const qual  = i < 2 ? 'gq' : '';
             return `<tr class="${qual}">
                 <td class="gc-pos">${i + 1}</td>
-                <td class="gc-team"><span>${t.flag}</span> ${t.name}</td>
+                <td class="gc-team">${teamFifaLink(t.name, t.flag)}</td>
                 <td>${t.p}</td>
                 <td>${t.pts}</td>
                 <td class="gc-gd">${gdStr}</td>
@@ -526,44 +532,6 @@ function updateStatistics() {
     countUp(document.getElementById('hero-teams'),            teams);
 }
 
-// ── Featured Match ────────────────────────────────────────
-function renderFeaturedMatch() {
-    const f   = fixturesData.find(x => x.id === featuredMatchId);
-    const box = document.getElementById('featured-match');
-    if (!f) { box.innerHTML = '<p style="color:var(--text2);padding:20px">No featured match.</p>'; return; }
-
-    const fmtDate = new Date(f.date + 'T12:00:00').toLocaleDateString('en-IN', {
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-    });
-
-    const statusLabel = f.status === 'completed'
-        ? `<span style="color:var(--green);font-weight:700;font-size:.9rem">✓ Full Time</span>`
-        : `<span style="color:var(--blue-light);font-weight:700;font-size:.9rem">⏱ Upcoming</span>`;
-
-    box.innerHTML = `
-        <div class="featured-content">
-            ${statusLabel}
-            <div class="featured-teams" style="margin-top:20px">
-                <div class="featured-team">
-                    <span class="featured-flag">${f.team1Flag}</span>
-                    <div class="featured-name">${f.team1}</div>
-                </div>
-                <div style="text-align:center;flex:0 0 auto">
-                    <div class="featured-score">${f.status === 'completed' ? f.score1 + ' – ' + f.score2 : 'vs'}</div>
-                    <div style="color:var(--text2);font-size:.82rem;margin-top:8px">${f.group} · Group Stage</div>
-                </div>
-                <div class="featured-team">
-                    <span class="featured-flag">${f.team2Flag}</span>
-                    <div class="featured-name">${f.team2}</div>
-                </div>
-            </div>
-            <div class="featured-meta">
-                <span>📍 ${f.venue}, ${f.city}</span>
-                <span>📅 ${fmtDate}</span>
-                <span>🕐 ${f.time}</span>
-            </div>
-        </div>`;
-}
 
 // ── Scroll Reveal ─────────────────────────────────────────
 function initScrollReveal() {
