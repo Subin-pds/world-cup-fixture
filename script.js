@@ -731,7 +731,11 @@ function renderFixtures() {
         f.team1.toLowerCase().includes(search) || f.team2.toLowerCase().includes(search)
     );
 
-    filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+    if (currentStatusFilter === 'completed') {
+        filtered = [...filtered].sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time));
+    } else {
+        filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+    }
 
     // Upcoming with no date/search selected → show only today + tomorrow (Match Day view)
     const isMatchDayView = currentStatusFilter === 'upcoming' && !currentDateFilter && !search;
