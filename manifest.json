@@ -1,0 +1,13 @@
+{
+    "name": "FIFA World Cup 2026",
+    "short_name": "WC 2026",
+    "description": "Live fixtures, scores and standings for FIFA World Cup 2026",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#05081a",
+    "theme_color": "#05081a",
+    "orientation": "portrait-primary",
+    "icons": [
+        { "src": "emblem.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+    ]
+}

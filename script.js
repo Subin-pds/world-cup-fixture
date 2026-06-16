@@ -258,6 +258,171 @@ function initParticles() {
     tick();
 }
 
+// ── Scroll Progress Bar ───────────────────────────────────
+function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+        const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        bar.style.width = Math.min(pct, 100) + '%';
+    }, { passive: true });
+}
+
+// ── Floating Flag Rain ────────────────────────────────────
+function initFloatingFlags() {
+    const hero = document.querySelector('.hero-header');
+    if (!hero) return;
+    const flags = [...new Set(fixturesData.flatMap(f => [f.team1Flag, f.team2Flag]))];
+    flags.forEach(flag => {
+        const el = document.createElement('span');
+        el.className = 'float-flag';
+        el.textContent = flag;
+        el.style.cssText = `left:${2 + Math.random()*96}%;animation-delay:${(Math.random()*12).toFixed(1)}s;animation-duration:${(10+Math.random()*8).toFixed(1)}s;font-size:${(1.1+Math.random()*1.1).toFixed(1)}rem`;
+        hero.appendChild(el);
+    });
+}
+
+// ── Per-card Countdown ────────────────────────────────────
+function timeUntil(fixture) {
+    const diff = getMatchUtcMs(fixture) - Date.now();
+    if (diff <= 0) return null;
+    const totalMins = Math.floor(diff / 60000);
+    const d = Math.floor(totalMins / 1440);
+    const h = Math.floor((totalMins % 1440) / 60);
+    const m = totalMins % 60;
+    if (d > 0) return `in ${d}d ${h}h`;
+    if (h > 0) return `in ${h}h ${m}m`;
+    return `in ${m}m`;
+}
+
+// ── Top Scorers ───────────────────────────────────────────
+function calculateTopScorers() {
+    const map = {};
+    for (const [id, events] of Object.entries(matchEvents)) {
+        const f = fixturesData.find(x => x.id === Number(id));
+        if (!f) continue;
+        events.filter(e => e.type === 'goal').forEach(e => {
+            const team = e.team === 1 ? f.team1 : f.team2;
+            const flag = e.team === 1 ? f.team1Flag : f.team2Flag;
+            const key  = `${e.player}||${team}`;
+            if (!map[key]) map[key] = { name: e.player, team, flag, goals: 0 };
+            map[key].goals++;
+        });
+    }
+    return Object.values(map).sort((a, b) => b.goals - a.goals).slice(0, 10);
+}
+
+function renderTopScorers() {
+    const container = document.getElementById('scorers-container');
+    if (!container) return;
+    const scorers = calculateTopScorers();
+    if (!scorers.length) { container.innerHTML = '<p style="color:var(--text2);text-align:center;padding:40px 0">No goals recorded yet</p>'; return; }
+
+    const podium = scorers.slice(0, 3).map((s, i) => `
+        <div class="podium-card rank-${i+1}">
+            <div class="podium-rank">${['🥇','🥈','🥉'][i]}</div>
+            <div class="podium-flag">${s.flag}</div>
+            <div class="podium-name">${s.name}</div>
+            <div class="podium-team">${s.team}</div>
+            <div class="podium-goals">${s.goals}<span>⚽</span></div>
+        </div>`).join('');
+
+    const list = scorers.slice(3).map((s, i) => `
+        <div class="scorer-row">
+            <span class="scorer-rank">${i + 4}</span>
+            <span class="scorer-flag">${s.flag}</span>
+            <span class="scorer-name">${s.name}</span>
+            <span class="scorer-team">${s.team}</span>
+            <span class="scorer-goals">${s.goals} ⚽</span>
+        </div>`).join('');
+
+    container.innerHTML = `
+        <div class="podium-wrap">${podium}</div>
+        ${list ? `<div class="scorers-list">${list}</div>` : ''}`;
+}
+
+// ── My Team ───────────────────────────────────────────────
+let myTeam = localStorage.getItem('myTeam') || null;
+
+function setupMyTeam() {
+    const btn      = document.getElementById('myteam-btn');
+    const dropdown = document.getElementById('myteam-dropdown');
+    if (!btn) return;
+
+    function updateBtn() {
+        if (myTeam) {
+            const f = fixturesData.find(x => x.team1 === myTeam || x.team2 === myTeam);
+            const flag = f ? (f.team1 === myTeam ? f.team1Flag : f.team2Flag) : '';
+            btn.innerHTML = `${flag} ${myTeam} <span class="myteam-clear" id="myteam-clear">✕</span>`;
+            btn.classList.add('selected');
+        } else {
+            btn.innerHTML = '⭐ My Team';
+            btn.classList.remove('selected');
+        }
+    }
+
+    function buildDropdown() {
+        const teams = [...new Set(fixturesData.flatMap(f => [f.team1, f.team2]))].sort();
+        dropdown.innerHTML = `
+            <div class="myteam-search-wrap"><input class="myteam-search" id="myteam-search" placeholder="Search country…" autocomplete="off"></div>
+            <div class="myteam-list" id="myteam-list">
+            ${teams.map(t => {
+                const f = fixturesData.find(x => x.team1 === t || x.team2 === t);
+                const flag = f ? (f.team1 === t ? f.team1Flag : f.team2Flag) : '';
+                return `<button class="myteam-item${t === myTeam ? ' selected' : ''}" data-team="${t}">${flag} ${t}</button>`;
+            }).join('')}
+            </div>`;
+
+        dropdown.querySelectorAll('.myteam-item').forEach(item => {
+            item.addEventListener('click', () => {
+                myTeam = item.dataset.team;
+                localStorage.setItem('myTeam', myTeam);
+                closeDropdown();
+                updateBtn();
+                renderFixtures();
+            });
+        });
+
+        const search = document.getElementById('myteam-search');
+        if (search) {
+            search.addEventListener('input', () => {
+                const q = search.value.toLowerCase();
+                dropdown.querySelectorAll('.myteam-item').forEach(item => {
+                    item.style.display = item.dataset.team.toLowerCase().includes(q) ? '' : 'none';
+                });
+            });
+        }
+    }
+
+    function openDropdown() {
+        buildDropdown();
+        dropdown.classList.add('open');
+        btn.classList.add('active');
+        setTimeout(() => { const s = document.getElementById('myteam-search'); if (s) s.focus(); }, 50);
+    }
+    function closeDropdown() {
+        dropdown.classList.remove('open');
+        btn.classList.remove('active');
+    }
+
+    btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const clearBtn = document.getElementById('myteam-clear');
+        if (clearBtn && clearBtn.contains(e.target)) {
+            myTeam = null;
+            localStorage.removeItem('myTeam');
+            updateBtn();
+            renderFixtures();
+            return;
+        }
+        dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
+    });
+    document.addEventListener('click', () => closeDropdown());
+    dropdown.addEventListener('click', e => e.stopPropagation());
+
+    updateBtn();
+}
+
 // ── Bootstrap ────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     initParticles();
@@ -277,9 +442,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initSearch();
     setupModal();
+    initScrollProgress();
+    initFloatingFlags();
+    renderTopScorers();
+    setupMyTeam();
 
     // Re-render fixtures every 30s to flip cards to LIVE when kickoff arrives
-    setInterval(() => { renderFixtures(); updateStatistics(); }, 30000);
+    setInterval(() => { renderFixtures(); updateStatistics(); renderTopScorers(); }, 30000);
 });
 
 // ── Navigation ───────────────────────────────────────────
@@ -292,6 +461,14 @@ function setupNavigation() {
             link.classList.add('active');
             const target = document.querySelector(link.getAttribute('href'));
             if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // Bottom nav active state on click
+    document.querySelectorAll('.bn-item').forEach(link => {
+        link.addEventListener('click', () => {
+            document.querySelectorAll('.bn-item').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
         });
     });
 }
@@ -534,6 +711,10 @@ function createFixtureCard(fixture) {
     const card = document.createElement('div');
     card.className = `fixture-card ${live ? 'live' : fixture.status}`;
 
+    if (myTeam && (fixture.team1 === myTeam || fixture.team2 === myTeam)) {
+        card.classList.add('my-team-card');
+    }
+
     const dateObj = new Date(fixture.date + 'T12:00:00');
     const fmtDate = dateObj.toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' });
 
@@ -547,7 +728,7 @@ function createFixtureCard(fixture) {
         ? `<span class="match-status completed">✓ FT</span>`
         : live
             ? `<span class="match-status live-badge"><span class="live-dot-sm"></span> LIVE NOW</span>`
-            : `<span class="match-status upcoming">⏱ Soon</span>`;
+            : (() => { const t = timeUntil(fixture); return `<span class="match-status upcoming">${t ? `⏱ ${t}` : '⏱ Soon'}</span>`; })();
 
     card.innerHTML = `
         <div class="match-header">
