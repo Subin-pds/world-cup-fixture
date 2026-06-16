@@ -1665,6 +1665,12 @@ body::after {
     transition: color .15s;
 }
 .gc-team-link:hover { color: #6ba4ff; text-decoration: underline; }
+.team-cell-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color .15s;
+}
+.team-cell-link:hover { color: #6ba4ff; text-decoration: underline; }
 .group-card-table tbody tr.gq td { color: var(--text1); }
 .group-card-table tbody tr.gq .gc-pos {
     color: #FFD700;

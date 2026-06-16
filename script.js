@@ -634,7 +634,7 @@ function renderGroupStandings(groupName) {
                 <td class="col-team">
                     <div class="team-cell">
                         <span class="team-cell-flag">${t.flag}</span>
-                        <span class="team-cell-name">${t.name}</span>
+                        ${(() => { const slug = teamSlugs[t.name]; const url = slug ? `https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/${slug}/squad` : null; return url ? `<a class="team-cell-name team-cell-link" href="${url}" target="_blank" rel="noopener noreferrer">${t.name}</a>` : `<span class="team-cell-name">${t.name}</span>`; })()}
                     </div>
                 </td>
                 <td>${t.p}</td>
