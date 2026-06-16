@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build files
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Netlify
+.netlify/
+
+# Python venv
+venv/
+
+# Scraper utilities (dev-only)
+scrape-squads.js
+fix-slugs.js
+fix-images.js
+inspect-squad.js
+process-data.js
+teams-data-generated.js
+
+# Large local images
+gettyimages-*.jpg
+IMG_*.png

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA World Cup 2026 — Live Fixtures & Standings</title>
+
+    <!-- Primary meta -->
+    <meta name="description" content="Live FIFA World Cup 2026 fixtures, scores, group standings and squad details. All 72 group stage matches with real-time results.">
+    <meta name="keywords" content="FIFA World Cup 2026, World Cup fixtures, World Cup scores, World Cup standings, FIFA 2026">
+    <meta name="author" content="Subin">
+    <meta name="theme-color" content="#05081a">
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:type"        content="website">
+    <meta property="og:title"       content="FIFA World Cup 2026 — Live Fixtures & Standings">
+    <meta property="og:description" content="Live scores, group standings and squad info for all 72 World Cup 2026 group stage matches. Updated after every game.">
+    <meta property="og:image"       content="https://YOUR-SITE-URL/emblem.svg">
+    <meta property="og:url"         content="https://YOUR-SITE-URL">
+    <meta property="og:site_name"   content="World Cup 2026 Fixtures">
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="FIFA World Cup 2026 — Live Fixtures & Standings">
+    <meta name="twitter:description" content="Live scores, group standings and squad info for all 72 World Cup 2026 group stage matches.">
+    <meta name="twitter:image"       content="https://YOUR-SITE-URL/emblem.svg">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- ── Navbar ─────────────────────────────────────────── -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo-brand">⚽ FIFA 2026</div>
+            <div class="nav-links">
+                <a href="#matches"   class="nav-link active">Matches</a>
+                <a href="#standings" class="nav-link">Standings</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── Hero ───────────────────────────────────────────── -->
+    <header class="hero-header">
+        <div class="hero-background"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+        <div class="hero-content">
+            <div class="hero-emblem">
+                <img src="emblem.svg" alt="FIFA World Cup 2026" class="emblem-img">
+            </div>
+            <h1 class="hero-title">FIFA World Cup<br><span class="hero-year">2026</span></h1>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ── Fixtures ───────────────────────────────────── -->
+        <section id="matches" class="matches-section reveal">
+            <div class="section-header">
+                <h2>Fixtures</h2>
+            </div>
+
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input id="search-input" class="search-input" type="text" placeholder="Search by team…" autocomplete="off">
+            </div>
+
+            <div class="filters-wrap">
+                <button class="filter-btn active" data-filter="upcoming">Upcoming</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <div class="group-select-wrap">
+                    <select id="group-select" class="group-select">
+                        <option value="all">All Groups</option>
+                        <option value="Group A">Group A</option>
+                        <option value="Group B">Group B</option>
+                        <option value="Group C">Group C</option>
+                        <option value="Group D">Group D</option>
+                        <option value="Group E">Group E</option>
+                        <option value="Group F">Group F</option>
+                        <option value="Group G">Group G</option>
+                        <option value="Group H">Group H</option>
+                        <option value="Group I">Group I</option>
+                        <option value="Group J">Group J</option>
+                        <option value="Group K">Group K</option>
+                        <option value="Group L">Group L</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="fixtures" id="fixtures"></div>
+        </section>
+
+        <!-- ── Featured Match ─────────────────────────────── -->
+        <section class="featured-section reveal">
+            <h2 class="section-label">Featured Match</h2>
+            <div class="featured-match" id="featured-match"></div>
+        </section>
+
+        <!-- ── Stats + Standings ──────────────────────────── -->
+        <section id="standings" class="stats-section">
+            <div class="section-header reveal">
+                <h2>Statistics</h2>
+            </div>
+            <div class="stats-grid reveal">
+                <div class="stat-card">
+                    <span class="stat-icon">🏆</span>
+                    <h3 id="total-matches-stat">0</h3>
+                    <p>Total Matches</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">✅</span>
+                    <h3 id="matches-played-stat">0</h3>
+                    <p>Completed</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">⚽</span>
+                    <h3 id="total-goals-stat">0</h3>
+                    <p>Goals Scored</p>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">📅</span>
+                    <h3 id="upcoming-matches-stat">0</h3>
+                    <p>Upcoming</p>
+                </div>
+            </div>
+
+            <div class="section-header reveal" style="margin-top:72px">
+                <h2>Standings</h2>
+                <p class="section-subtitle">Win = 3pts &nbsp;·&nbsp; Draw = 1pt</p>
+            </div>
+            <div class="group-tabs reveal" id="group-tabs">
+                <button class="group-tab active" data-group="Group A">A</button>
+                <button class="group-tab" data-group="Group B">B</button>
+                <button class="group-tab" data-group="Group C">C</button>
+                <button class="group-tab" data-group="Group D">D</button>
+                <button class="group-tab" data-group="Group E">E</button>
+                <button class="group-tab" data-group="Group F">F</button>
+                <button class="group-tab" data-group="Group G">G</button>
+                <button class="group-tab" data-group="Group H">H</button>
+                <button class="group-tab" data-group="Group I">I</button>
+                <button class="group-tab" data-group="Group J">J</button>
+                <button class="group-tab" data-group="Group K">K</button>
+                <button class="group-tab" data-group="Group L">L</button>
+            </div>
+            <div id="standings-table-container" class="reveal"></div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2026 FIFA World Cup &nbsp;·&nbsp; USA &nbsp;·&nbsp; Canada &nbsp;·&nbsp; Mexico</p>
+            <p style="margin-top:10px;font-size:.8rem;color:rgba(255,255,255,.45)">Crafted with ❤️ by <span style="color:#FFD700;font-weight:700">Subin</span></p>
+            <div class="footer-disclaimer">
+                <span class="disclaimer-badge">Fan Made</span>
+                This is an unofficial fan-made page and is not affiliated with, endorsed by, or connected to FIFA, the 2026 FIFA World Cup™, or any official governing body. All trademarks and registered trademarks are the property of their respective owners.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ── Match Detail Modal ─────────────────────────── -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="match-modal">
+            <button class="modal-close" id="modal-close">✕</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script src="teams-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

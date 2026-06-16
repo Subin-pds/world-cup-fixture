@@ -1,0 +1,764 @@
+// FIFA World Cup 2026 - Official Fixture Data (All times in IST)
+const fixturesData = [
+    // ===== GROUP A =====
+    { id: 1,  date: "2026-06-12", time: "05:30 IST", group: "Group A", team1: "Mexico",       team1Flag: "🇲🇽", team2: "South Africa",          team2Flag: "🇿🇦", score1: 2,    score2: 0,    status: "completed", venue: "Estadio Azteca",          city: "Mexico City" },
+    { id: 2,  date: "2026-06-12", time: "08:30 IST", group: "Group A", team1: "South Korea",  team1Flag: "🇰🇷", team2: "Czechia",                team2Flag: "🇨🇿", score1: 2,    score2: 1,    status: "completed", venue: "Estadio Akron",           city: "Guadalajara" },
+    { id: 3,  date: "2026-06-18", time: "21:30 IST", group: "Group A", team1: "Czechia",      team1Flag: "🇨🇿", team2: "South Africa",          team2Flag: "🇿🇦", score1: null, score2: null, status: "upcoming",  venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
+    { id: 4,  date: "2026-06-19", time: "06:30 IST", group: "Group A", team1: "Mexico",       team1Flag: "🇲🇽", team2: "South Korea",           team2Flag: "🇰🇷", score1: null, score2: null, status: "upcoming",  venue: "Estadio Akron",           city: "Guadalajara" },
+    { id: 5,  date: "2026-06-25", time: "06:30 IST", group: "Group A", team1: "Czechia",      team1Flag: "🇨🇿", team2: "Mexico",                team2Flag: "🇲🇽", score1: null, score2: null, status: "upcoming",  venue: "Estadio Azteca",          city: "Mexico City" },
+    { id: 6,  date: "2026-06-25", time: "06:30 IST", group: "Group A", team1: "South Africa", team1Flag: "🇿🇦", team2: "South Korea",           team2Flag: "🇰🇷", score1: null, score2: null, status: "upcoming",  venue: "Estadio BBVA",            city: "Monterrey" },
+
+    // ===== GROUP B =====
+    { id: 7,  date: "2026-06-13", time: "00:30 IST", group: "Group B", team1: "Canada",                 team1Flag: "🇨🇦", team2: "Bosnia and Herzegovina", team2Flag: "🇧🇦", score1: 1,    score2: 1,    status: "completed", venue: "BMO Field",              city: "Toronto" },
+    { id: 8,  date: "2026-06-14", time: "00:30 IST", group: "Group B", team1: "Qatar",                  team1Flag: "🇶🇦", team2: "Switzerland",            team2Flag: "🇨🇭", score1: 1,    score2: 1,    status: "completed",  venue: "Levi's Stadium",         city: "San Francisco Bay Area" },
+    { id: 9,  date: "2026-06-19", time: "00:30 IST", group: "Group B", team1: "Switzerland",            team1Flag: "🇨🇭", team2: "Bosnia and Herzegovina", team2Flag: "🇧🇦", score1: null, score2: null, status: "upcoming",  venue: "SoFi Stadium",           city: "Los Angeles" },
+    { id: 10, date: "2026-06-19", time: "03:30 IST", group: "Group B", team1: "Canada",                 team1Flag: "🇨🇦", team2: "Qatar",                  team2Flag: "🇶🇦", score1: null, score2: null, status: "upcoming",  venue: "BC Place",               city: "Vancouver" },
+    { id: 11, date: "2026-06-25", time: "00:30 IST", group: "Group B", team1: "Switzerland",            team1Flag: "🇨🇭", team2: "Canada",                 team2Flag: "🇨🇦", score1: null, score2: null, status: "upcoming",  venue: "BC Place",               city: "Vancouver" },
+    { id: 12, date: "2026-06-25", time: "00:30 IST", group: "Group B", team1: "Bosnia and Herzegovina", team1Flag: "🇧🇦", team2: "Qatar",                  team2Flag: "🇶🇦", score1: null, score2: null, status: "upcoming",  venue: "Lumen Field",            city: "Seattle" },
+
+    // ===== GROUP C =====
+    { id: 13, date: "2026-06-14", time: "03:30 IST", group: "Group C", team1: "Brazil",   team1Flag: "🇧🇷", team2: "Morocco",  team2Flag: "🇲🇦", score1: 1,    score2: 1,    status: "completed", venue: "MetLife Stadium",          city: "New York/New Jersey" },
+    { id: 14, date: "2026-06-14", time: "06:30 IST", group: "Group C", team1: "Haiti",    team1Flag: "🇭🇹", team2: "Scotland", team2Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", score1: 0,    score2: 1,    status: "completed", venue: "Gillette Stadium",         city: "Boston" },
+    { id: 15, date: "2026-06-20", time: "03:30 IST", group: "Group C", team1: "Scotland", team1Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", team2: "Morocco",  team2Flag: "🇲🇦", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",         city: "Boston" },
+    { id: 16, date: "2026-06-20", time: "06:30 IST", group: "Group C", team1: "Brazil",   team1Flag: "🇧🇷", team2: "Haiti",    team2Flag: "🇭🇹", score1: null, score2: null, status: "upcoming", venue: "Lincoln Financial Field",  city: "Philadelphia" },
+    { id: 17, date: "2026-06-25", time: "03:30 IST", group: "Group C", team1: "Scotland", team1Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", team2: "Brazil",   team2Flag: "🇧🇷", score1: null, score2: null, status: "upcoming", venue: "Hard Rock Stadium",        city: "Miami" },
+    { id: 18, date: "2026-06-25", time: "03:30 IST", group: "Group C", team1: "Morocco",  team1Flag: "🇲🇦", team2: "Haiti",    team2Flag: "🇭🇹", score1: null, score2: null, status: "upcoming", venue: "Mercedes-Benz Stadium",   city: "Atlanta" },
+
+    // ===== GROUP D =====
+    { id: 19, date: "2026-06-13", time: "06:30 IST", group: "Group D", team1: "USA",       team1Flag: "🇺🇸", team2: "Paraguay",  team2Flag: "🇵🇾", score1: 4,    score2: 1,    status: "completed", venue: "SoFi Stadium",            city: "Los Angeles" },
+    { id: 20, date: "2026-06-14", time: "09:30 IST", group: "Group D", team1: "Australia", team1Flag: "🇦🇺", team2: "Türkiye",   team2Flag: "🇹🇷", score1: 2,    score2: 0,    status: "completed",  venue: "BC Place",                city: "Vancouver" },
+    { id: 21, date: "2026-06-20", time: "00:30 IST", group: "Group D", team1: "USA",       team1Flag: "🇺🇸", team2: "Australia", team2Flag: "🇦🇺", score1: null, score2: null, status: "upcoming",  venue: "Lumen Field",             city: "Seattle" },
+    { id: 22, date: "2026-06-20", time: "09:30 IST", group: "Group D", team1: "Türkiye",   team1Flag: "🇹🇷", team2: "Paraguay",  team2Flag: "🇵🇾", score1: null, score2: null, status: "upcoming",  venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
+    { id: 23, date: "2026-06-26", time: "07:30 IST", group: "Group D", team1: "Türkiye",   team1Flag: "🇹🇷", team2: "USA",       team2Flag: "🇺🇸", score1: null, score2: null, status: "upcoming",  venue: "SoFi Stadium",            city: "Los Angeles" },
+    { id: 24, date: "2026-06-26", time: "07:30 IST", group: "Group D", team1: "Paraguay",  team1Flag: "🇵🇾", team2: "Australia", team2Flag: "🇦🇺", score1: null, score2: null, status: "upcoming",  venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
+
+    // ===== GROUP E =====
+    { id: 25, date: "2026-06-14", time: "22:30 IST", group: "Group E", team1: "Germany",     team1Flag: "🇩🇪", team2: "Curaçao",     team2Flag: "🇨🇼", score1: 7,    score2: 1,    status: "completed", venue: "NRG Stadium",             city: "Houston" },
+    { id: 26, date: "2026-06-15", time: "04:30 IST", group: "Group E", team1: "Ivory Coast", team1Flag: "🇨🇮", team2: "Ecuador",     team2Flag: "🇪🇨", score1: 1,    score2: 0,    status: "completed", venue: "Lincoln Financial Field",  city: "Philadelphia" },
+    { id: 27, date: "2026-06-21", time: "01:30 IST", group: "Group E", team1: "Germany",     team1Flag: "🇩🇪", team2: "Ivory Coast", team2Flag: "🇨🇮", score1: null, score2: null, status: "upcoming", venue: "BMO Field",               city: "Toronto" },
+    { id: 28, date: "2026-06-21", time: "05:30 IST", group: "Group E", team1: "Ecuador",     team1Flag: "🇪🇨", team2: "Curaçao",     team2Flag: "🇨🇼", score1: null, score2: null, status: "upcoming", venue: "Arrowhead Stadium",       city: "Kansas City" },
+    { id: 29, date: "2026-06-26", time: "01:30 IST", group: "Group E", team1: "Ecuador",     team1Flag: "🇪🇨", team2: "Germany",     team2Flag: "🇩🇪", score1: null, score2: null, status: "upcoming", venue: "MetLife Stadium",         city: "New York/New Jersey" },
+    { id: 30, date: "2026-06-26", time: "01:30 IST", group: "Group E", team1: "Curaçao",     team1Flag: "🇨🇼", team2: "Ivory Coast", team2Flag: "🇨🇮", score1: null, score2: null, status: "upcoming", venue: "Lincoln Financial Field",  city: "Philadelphia" },
+
+    // ===== GROUP F =====
+    { id: 31, date: "2026-06-15", time: "01:30 IST", group: "Group F", team1: "Netherlands", team1Flag: "🇳🇱", team2: "Japan",       team2Flag: "🇯🇵", score1: 2,    score2: 2,    status: "completed", venue: "AT&T Stadium",            city: "Dallas" },
+    { id: 32, date: "2026-06-15", time: "07:30 IST", group: "Group F", team1: "Sweden",      team1Flag: "🇸🇪", team2: "Tunisia",     team2Flag: "🇹🇳", score1: 5,    score2: 1,    status: "completed", venue: "Estadio BBVA",            city: "Monterrey" },
+    { id: 33, date: "2026-06-20", time: "22:30 IST", group: "Group F", team1: "Netherlands", team1Flag: "🇳🇱", team2: "Sweden",      team2Flag: "🇸🇪", score1: null, score2: null, status: "upcoming", venue: "NRG Stadium",             city: "Houston" },
+    { id: 34, date: "2026-06-21", time: "09:30 IST", group: "Group F", team1: "Tunisia",     team1Flag: "🇹🇳", team2: "Japan",       team2Flag: "🇯🇵", score1: null, score2: null, status: "upcoming", venue: "Estadio BBVA",            city: "Monterrey" },
+    { id: 35, date: "2026-06-26", time: "04:30 IST", group: "Group F", team1: "Japan",       team1Flag: "🇯🇵", team2: "Sweden",      team2Flag: "🇸🇪", score1: null, score2: null, status: "upcoming", venue: "AT&T Stadium",            city: "Dallas" },
+    { id: 36, date: "2026-06-26", time: "04:30 IST", group: "Group F", team1: "Tunisia",     team1Flag: "🇹🇳", team2: "Netherlands", team2Flag: "🇳🇱", score1: null, score2: null, status: "upcoming", venue: "Arrowhead Stadium",       city: "Kansas City" },
+
+    // ===== GROUP G =====
+    { id: 37, date: "2026-06-16", time: "06:30 IST", group: "Group G", team1: "Iran",        team1Flag: "🇮🇷", team2: "New Zealand", team2Flag: "🇳🇿", score1: 2,    score2: 2,    status: "completed", venue: "SoFi Stadium",            city: "Los Angeles" },
+    { id: 38, date: "2026-06-16", time: "00:30 IST", group: "Group G", team1: "Belgium",     team1Flag: "🇧🇪", team2: "Egypt",       team2Flag: "🇪🇬", score1: 1,    score2: 1,    status: "completed", venue: "Lumen Field",             city: "Seattle" },
+    { id: 39, date: "2026-06-22", time: "00:30 IST", group: "Group G", team1: "Belgium",     team1Flag: "🇧🇪", team2: "Iran",        team2Flag: "🇮🇷", score1: null, score2: null, status: "upcoming", venue: "SoFi Stadium",            city: "Los Angeles" },
+    { id: 40, date: "2026-06-22", time: "06:30 IST", group: "Group G", team1: "New Zealand", team1Flag: "🇳🇿", team2: "Egypt",       team2Flag: "🇪🇬", score1: null, score2: null, status: "upcoming", venue: "BC Place",                city: "Vancouver" },
+    { id: 41, date: "2026-06-27", time: "08:30 IST", group: "Group G", team1: "Egypt",       team1Flag: "🇪🇬", team2: "Iran",        team2Flag: "🇮🇷", score1: null, score2: null, status: "upcoming", venue: "Lumen Field",             city: "Seattle" },
+    { id: 42, date: "2026-06-27", time: "08:30 IST", group: "Group G", team1: "New Zealand", team1Flag: "🇳🇿", team2: "Belgium",     team2Flag: "🇧🇪", score1: null, score2: null, status: "upcoming", venue: "BC Place",                city: "Vancouver" },
+
+    // ===== GROUP H =====
+    { id: 43, date: "2026-06-15", time: "21:30 IST", group: "Group H", team1: "Spain",        team1Flag: "🇪🇸", team2: "Cape Verde",  team2Flag: "🇨🇻", score1: 0,    score2: 0,    status: "completed", venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
+    { id: 44, date: "2026-06-16", time: "03:30 IST", group: "Group H", team1: "Saudi Arabia", team1Flag: "🇸🇦", team2: "Uruguay",     team2Flag: "🇺🇾", score1: 1,    score2: 1,    status: "completed", venue: "Hard Rock Stadium",       city: "Miami" },
+    { id: 45, date: "2026-06-21", time: "21:30 IST", group: "Group H", team1: "Spain",        team1Flag: "🇪🇸", team2: "Saudi Arabia",team2Flag: "🇸🇦", score1: null, score2: null, status: "upcoming", venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
+    { id: 46, date: "2026-06-22", time: "03:30 IST", group: "Group H", team1: "Uruguay",      team1Flag: "🇺🇾", team2: "Cape Verde",  team2Flag: "🇨🇻", score1: null, score2: null, status: "upcoming", venue: "Hard Rock Stadium",       city: "Miami" },
+    { id: 47, date: "2026-06-27", time: "05:30 IST", group: "Group H", team1: "Cape Verde",   team1Flag: "🇨🇻", team2: "Saudi Arabia",team2Flag: "🇸🇦", score1: null, score2: null, status: "upcoming", venue: "NRG Stadium",             city: "Houston" },
+    { id: 48, date: "2026-06-27", time: "05:30 IST", group: "Group H", team1: "Uruguay",      team1Flag: "🇺🇾", team2: "Spain",       team2Flag: "🇪🇸", score1: null, score2: null, status: "upcoming", venue: "Estadio Akron",           city: "Guadalajara" },
+
+    // ===== GROUP I =====
+    { id: 49, date: "2026-06-17", time: "00:30 IST", group: "Group I", team1: "France",  team1Flag: "🇫🇷", team2: "Senegal", team2Flag: "🇸🇳", score1: null, score2: null, status: "upcoming", venue: "MetLife Stadium",         city: "New York/New Jersey" },
+    { id: 50, date: "2026-06-17", time: "03:30 IST", group: "Group I", team1: "Iraq",    team1Flag: "🇮🇶", team2: "Norway",  team2Flag: "🇳🇴", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",        city: "Boston" },
+    { id: 51, date: "2026-06-23", time: "02:30 IST", group: "Group I", team1: "France",  team1Flag: "🇫🇷", team2: "Iraq",    team2Flag: "🇮🇶", score1: null, score2: null, status: "upcoming", venue: "Lincoln Financial Field", city: "Philadelphia" },
+    { id: 52, date: "2026-06-23", time: "05:30 IST", group: "Group I", team1: "Norway",  team1Flag: "🇳🇴", team2: "Senegal", team2Flag: "🇸🇳", score1: null, score2: null, status: "upcoming", venue: "MetLife Stadium",         city: "New York/New Jersey" },
+    { id: 53, date: "2026-06-27", time: "00:30 IST", group: "Group I", team1: "Norway",  team1Flag: "🇳🇴", team2: "France",  team2Flag: "🇫🇷", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",        city: "Boston" },
+    { id: 54, date: "2026-06-27", time: "00:30 IST", group: "Group I", team1: "Senegal", team1Flag: "🇸🇳", team2: "Iraq",    team2Flag: "🇮🇶", score1: null, score2: null, status: "upcoming", venue: "BMO Field",               city: "Toronto" },
+
+    // ===== GROUP J =====
+    { id: 55, date: "2026-06-17", time: "06:30 IST", group: "Group J", team1: "Argentina", team1Flag: "🇦🇷", team2: "Algeria",   team2Flag: "🇩🇿", score1: null, score2: null, status: "upcoming", venue: "Arrowhead Stadium",       city: "Kansas City" },
+    { id: 56, date: "2026-06-17", time: "09:30 IST", group: "Group J", team1: "Austria",   team1Flag: "🇦🇹", team2: "Jordan",    team2Flag: "🇯🇴", score1: null, score2: null, status: "upcoming", venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
+    { id: 57, date: "2026-06-22", time: "22:30 IST", group: "Group J", team1: "Argentina", team1Flag: "🇦🇷", team2: "Austria",   team2Flag: "🇦🇹", score1: null, score2: null, status: "upcoming", venue: "AT&T Stadium",            city: "Dallas" },
+    { id: 58, date: "2026-06-23", time: "08:30 IST", group: "Group J", team1: "Jordan",    team1Flag: "🇯🇴", team2: "Algeria",   team2Flag: "🇩🇿", score1: null, score2: null, status: "upcoming", venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
+    { id: 59, date: "2026-06-28", time: "07:30 IST", group: "Group J", team1: "Algeria",   team1Flag: "🇩🇿", team2: "Austria",   team2Flag: "🇦🇹", score1: null, score2: null, status: "upcoming", venue: "Arrowhead Stadium",       city: "Kansas City" },
+    { id: 60, date: "2026-06-28", time: "07:30 IST", group: "Group J", team1: "Jordan",    team1Flag: "🇯🇴", team2: "Argentina", team2Flag: "🇦🇷", score1: null, score2: null, status: "upcoming", venue: "AT&T Stadium",            city: "Dallas" },
+
+    // ===== GROUP K =====
+    { id: 61, date: "2026-06-17", time: "22:30 IST", group: "Group K", team1: "Portugal",   team1Flag: "🇵🇹", team2: "DR Congo",   team2Flag: "🇨🇩", score1: null, score2: null, status: "upcoming", venue: "NRG Stadium",             city: "Houston" },
+    { id: 62, date: "2026-06-18", time: "07:30 IST", group: "Group K", team1: "Uzbekistan", team1Flag: "🇺🇿", team2: "Colombia",   team2Flag: "🇨🇴", score1: null, score2: null, status: "upcoming", venue: "Estadio Azteca",          city: "Mexico City" },
+    { id: 63, date: "2026-06-23", time: "22:30 IST", group: "Group K", team1: "Portugal",   team1Flag: "🇵🇹", team2: "Uzbekistan", team2Flag: "🇺🇿", score1: null, score2: null, status: "upcoming", venue: "NRG Stadium",             city: "Houston" },
+    { id: 64, date: "2026-06-24", time: "07:30 IST", group: "Group K", team1: "Colombia",   team1Flag: "🇨🇴", team2: "DR Congo",   team2Flag: "🇨🇩", score1: null, score2: null, status: "upcoming", venue: "Estadio Akron",           city: "Guadalajara" },
+    { id: 65, date: "2026-06-28", time: "05:00 IST", group: "Group K", team1: "Colombia",   team1Flag: "🇨🇴", team2: "Portugal",   team2Flag: "🇵🇹", score1: null, score2: null, status: "upcoming", venue: "Hard Rock Stadium",       city: "Miami" },
+    { id: 66, date: "2026-06-28", time: "05:00 IST", group: "Group K", team1: "DR Congo",   team1Flag: "🇨🇩", team2: "Uzbekistan", team2Flag: "🇺🇿", score1: null, score2: null, status: "upcoming", venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
+
+    // ===== GROUP L =====
+    { id: 67, date: "2026-06-18", time: "01:30 IST", group: "Group L", team1: "England", team1Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", team2: "Croatia", team2Flag: "🇭🇷", score1: null, score2: null, status: "upcoming", venue: "AT&T Stadium",            city: "Dallas" },
+    { id: 68, date: "2026-06-18", time: "04:30 IST", group: "Group L", team1: "Ghana",   team1Flag: "🇬🇭", team2: "Panama",  team2Flag: "🇵🇦", score1: null, score2: null, status: "upcoming", venue: "BMO Field",               city: "Toronto" },
+    { id: 69, date: "2026-06-24", time: "01:30 IST", group: "Group L", team1: "England", team1Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", team2: "Ghana",   team2Flag: "🇬🇭", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",        city: "Boston" },
+    { id: 70, date: "2026-06-24", time: "04:30 IST", group: "Group L", team1: "Panama",  team1Flag: "🇵🇦", team2: "Croatia", team2Flag: "🇭🇷", score1: null, score2: null, status: "upcoming", venue: "BMO Field",               city: "Toronto" },
+    { id: 71, date: "2026-06-28", time: "02:30 IST", group: "Group L", team1: "Panama",  team1Flag: "🇵🇦", team2: "England", team2Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", score1: null, score2: null, status: "upcoming", venue: "MetLife Stadium",         city: "New York/New Jersey" },
+    { id: 72, date: "2026-06-28", time: "02:30 IST", group: "Group L", team1: "Croatia", team1Flag: "🇭🇷", team2: "Ghana",   team2Flag: "🇬🇭", score1: null, score2: null, status: "upcoming", venue: "Lincoln Financial Field", city: "Philadelphia" },
+];
+
+let currentStatusFilter = 'upcoming';
+let currentGroupFilter  = 'all';
+let featuredMatchId     = 1;
+
+// teamsData and teamSlugs loaded from teams-data.js
+
+// ── Particle Background ───────────────────────────────────
+function initParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas || !canvas.getContext) return;
+    const ctx = canvas.getContext('2d');
+
+    let W, H;
+    function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const COUNT = Math.min(70, Math.floor((W * H) / 14000));
+    const MAX_D = 130;
+
+    const pts = Array.from({ length: COUNT }, () => ({
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r:  Math.random() * 1.6 + 0.8,
+        gold: Math.random() > 0.72,
+    }));
+
+    function tick() {
+        ctx.clearRect(0, 0, W, H);
+
+        for (let i = 0; i < pts.length; i++) {
+            for (let j = i + 1; j < pts.length; j++) {
+                const dx = pts[i].x - pts[j].x;
+                const dy = pts[i].y - pts[j].y;
+                const d  = Math.sqrt(dx * dx + dy * dy);
+                if (d < MAX_D) {
+                    ctx.globalAlpha = (1 - d / MAX_D) * 0.18;
+                    ctx.strokeStyle = '#5a9cf5';
+                    ctx.lineWidth   = 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(pts[j].x, pts[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        ctx.globalAlpha = 1;
+        pts.forEach(p => {
+            ctx.beginPath();
+            ctx.fillStyle = p.gold ? 'rgba(255,215,0,.65)' : 'rgba(90,156,245,.65)';
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > W) p.vx *= -1;
+            if (p.y < 0 || p.y > H) p.vy *= -1;
+        });
+
+        requestAnimationFrame(tick);
+    }
+
+    tick();
+}
+
+// ── Bootstrap ────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    initParticles();
+    renderFixtures();
+    renderFeaturedMatch();
+    updateStatistics();
+    setupFilterButtons();
+    setupGroupSelect();
+    setupNavigation();
+    setupGroupTabs();
+    renderGroupStandings('Group A');
+    initScrollReveal();
+    initSearch();
+    setupModal();
+});
+
+// ── Navigation ───────────────────────────────────────────
+function setupNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+}
+
+// ── Filters ──────────────────────────────────────────────
+function setupFilterButtons() {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentStatusFilter = btn.getAttribute('data-filter');
+            renderFixtures();
+        });
+    });
+}
+
+function setupGroupSelect() {
+    const sel = document.getElementById('group-select');
+    if (sel) sel.addEventListener('change', () => { currentGroupFilter = sel.value; renderFixtures(); });
+}
+
+// ── Search ────────────────────────────────────────────────
+function initSearch() {
+    const input = document.getElementById('search-input');
+    if (input) input.addEventListener('input', () => renderFixtures());
+}
+
+// ── Render Fixtures ───────────────────────────────────────
+function renderFixtures() {
+    const container = document.getElementById('fixtures');
+    container.innerHTML = '';
+
+    const search = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+
+    let filtered = fixturesData;
+    if (currentStatusFilter === 'upcoming')  filtered = filtered.filter(f => f.status === 'upcoming');
+    if (currentStatusFilter === 'completed') filtered = filtered.filter(f => f.status === 'completed');
+    if (currentGroupFilter  !== 'all')       filtered = filtered.filter(f => f.group === currentGroupFilter);
+    if (search) filtered = filtered.filter(f =>
+        f.team1.toLowerCase().includes(search) || f.team2.toLowerCase().includes(search)
+    );
+    if (currentStatusFilter === 'upcoming') {
+        filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+    }
+    if (currentStatusFilter === 'completed') {
+        filtered = [...filtered].sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time));
+    }
+
+    if (!filtered.length) {
+        container.innerHTML = `<div class="empty-state"><p>No matches found.</p></div>`;
+        return;
+    }
+
+    filtered.forEach((fixture, i) => {
+        const card = createFixtureCard(fixture);
+        card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
+        container.appendChild(card);
+    });
+}
+
+// ── Fixture Card ──────────────────────────────────────────
+function createFixtureCard(fixture) {
+    const card = document.createElement('div');
+    card.className = `fixture-card ${fixture.status}`;
+
+    const dateObj = new Date(fixture.date + 'T12:00:00');
+    const fmtDate = dateObj.toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' });
+
+    const scoreHtml = fixture.status === 'completed'
+        ? `<div class="score-box"><div class="score">${fixture.score1}&nbsp;-&nbsp;${fixture.score2}</div><div class="vs-text">FULL TIME</div></div>`
+        : `<div class="score-box"><div class="score">vs</div><div class="vs-text">UPCOMING</div></div>`;
+
+    const statusHtml = fixture.status === 'completed'
+        ? `<span class="match-status completed">✓ FT</span>`
+        : `<span class="match-status upcoming">⏱ Soon</span>`;
+
+    card.innerHTML = `
+        <div class="match-header">
+            <div class="match-date">${fmtDate} · ${fixture.time}</div>
+            <div class="match-group-badge">${fixture.group}</div>
+        </div>
+        <div class="match-container">
+            <div class="team">
+                <span class="team-flag">${fixture.team1Flag}</span>
+                <div class="team-name">${fixture.team1}</div>
+            </div>
+            ${scoreHtml}
+            <div class="team">
+                <span class="team-flag">${fixture.team2Flag}</span>
+                <div class="team-name">${fixture.team2}</div>
+            </div>
+        </div>
+        <div class="match-footer">
+            <div class="match-venue">📍 ${fixture.venue}, ${fixture.city}</div>
+            ${statusHtml}
+        </div>`;
+
+    // mouse-follow radial glow
+    card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${((e.clientX - r.left) / r.width  * 100).toFixed(1)}%`);
+        card.style.setProperty('--my', `${((e.clientY - r.top)  / r.height * 100).toFixed(1)}%`);
+    });
+
+    // open detail modal on click
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => openModal(fixture));
+
+    return card;
+}
+
+// ── Count-Up Animation ────────────────────────────────────
+function countUp(el, target, duration = 1100) {
+    if (!el) return;
+    const start = parseInt(el.textContent) || 0;
+    const t0 = performance.now();
+    const tick = now => {
+        const p = Math.min((now - t0) / duration, 1);
+        el.textContent = Math.round(start + (target - start) * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+}
+
+// ── Statistics ────────────────────────────────────────────
+function updateStatistics() {
+    const total    = fixturesData.length;
+    const played   = fixturesData.filter(f => f.status === 'completed').length;
+    const goals    = fixturesData.filter(f => f.status === 'completed').reduce((s, f) => s + f.score1 + f.score2, 0);
+    const upcoming = fixturesData.filter(f => f.status === 'upcoming').length;
+    const teams    = new Set([...fixturesData.map(f => f.team1), ...fixturesData.map(f => f.team2)]).size;
+
+    countUp(document.getElementById('total-matches-stat'),    total);
+    countUp(document.getElementById('matches-played-stat'),   played);
+    countUp(document.getElementById('total-goals-stat'),      goals);
+    countUp(document.getElementById('upcoming-matches-stat'), upcoming);
+    countUp(document.getElementById('hero-matches'),          total);
+    countUp(document.getElementById('hero-goals'),            goals);
+    countUp(document.getElementById('hero-teams'),            teams);
+}
+
+// ── Featured Match ────────────────────────────────────────
+function renderFeaturedMatch() {
+    const f   = fixturesData.find(x => x.id === featuredMatchId);
+    const box = document.getElementById('featured-match');
+    if (!f) { box.innerHTML = '<p style="color:var(--text2);padding:20px">No featured match.</p>'; return; }
+
+    const fmtDate = new Date(f.date + 'T12:00:00').toLocaleDateString('en-IN', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    const statusLabel = f.status === 'completed'
+        ? `<span style="color:var(--green);font-weight:700;font-size:.9rem">✓ Full Time</span>`
+        : `<span style="color:var(--blue-light);font-weight:700;font-size:.9rem">⏱ Upcoming</span>`;
+
+    box.innerHTML = `
+        <div class="featured-content">
+            ${statusLabel}
+            <div class="featured-teams" style="margin-top:20px">
+                <div class="featured-team">
+                    <span class="featured-flag">${f.team1Flag}</span>
+                    <div class="featured-name">${f.team1}</div>
+                </div>
+                <div style="text-align:center;flex:0 0 auto">
+                    <div class="featured-score">${f.status === 'completed' ? f.score1 + ' – ' + f.score2 : 'vs'}</div>
+                    <div style="color:var(--text2);font-size:.82rem;margin-top:8px">${f.group} · Group Stage</div>
+                </div>
+                <div class="featured-team">
+                    <span class="featured-flag">${f.team2Flag}</span>
+                    <div class="featured-name">${f.team2}</div>
+                </div>
+            </div>
+            <div class="featured-meta">
+                <span>📍 ${f.venue}, ${f.city}</span>
+                <span>📅 ${fmtDate}</span>
+                <span>🕐 ${f.time}</span>
+            </div>
+        </div>`;
+}
+
+// ── Scroll Reveal ─────────────────────────────────────────
+function initScrollReveal() {
+    const revealEls = document.querySelectorAll('.reveal');
+
+    if (!('IntersectionObserver' in window)) {
+        revealEls.forEach(el => el.classList.add('visible'));
+        return;
+    }
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+    }, { threshold: 0.04, rootMargin: '0px 0px -20px 0px' });
+
+    revealEls.forEach(el => io.observe(el));
+
+    // Safety fallback — if any element hasn't revealed after 1.5s, force it visible
+    setTimeout(() => {
+        revealEls.forEach(el => { if (!el.classList.contains('visible')) el.classList.add('visible'); });
+    }, 1500);
+}
+
+// ── Group Tabs ────────────────────────────────────────────
+function setupGroupTabs() {
+    document.querySelectorAll('.group-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.group-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            renderGroupStandings(tab.getAttribute('data-group'));
+        });
+    });
+}
+
+// ── Standings Calculation ─────────────────────────────────
+function calculateGroupStandings(groupName) {
+    const matches = fixturesData.filter(f => f.group === groupName);
+    const teams   = {};
+
+    matches.forEach(f => {
+        if (!teams[f.team1]) teams[f.team1] = { name: f.team1, flag: f.team1Flag, p:0, w:0, d:0, l:0, gf:0, ga:0, pts:0 };
+        if (!teams[f.team2]) teams[f.team2] = { name: f.team2, flag: f.team2Flag, p:0, w:0, d:0, l:0, gf:0, ga:0, pts:0 };
+    });
+
+    matches.filter(f => f.status === 'completed').forEach(f => {
+        const t1 = teams[f.team1], t2 = teams[f.team2];
+        t1.p++; t2.p++;
+        t1.gf += f.score1; t1.ga += f.score2;
+        t2.gf += f.score2; t2.ga += f.score1;
+        if      (f.score1 > f.score2) { t1.w++; t1.pts += 3; t2.l++; }
+        else if (f.score2 > f.score1) { t2.w++; t2.pts += 3; t1.l++; }
+        else                           { t1.d++; t1.pts++;    t2.d++; t2.pts++; }
+    });
+
+    return Object.values(teams).sort((a, b) => {
+        if (b.pts !== a.pts) return b.pts - a.pts;
+        const gd = (b.gf - b.ga) - (a.gf - a.ga);
+        if (gd !== 0) return gd;
+        return b.gf - a.gf;
+    });
+}
+
+// ── Render Standings Table ────────────────────────────────
+function renderGroupStandings(groupName) {
+    const container = document.getElementById('standings-table-container');
+    const standings = calculateGroupStandings(groupName);
+
+    const rows = standings.map((t, i) => {
+        const gd       = t.gf - t.ga;
+        const gdClass  = gd > 0 ? 'gd-positive' : gd < 0 ? 'gd-negative' : 'gd-zero';
+        const gdStr    = gd > 0 ? `+${gd}` : `${gd}`;
+        const rowClass = i < 2 ? 'qualifies' : '';
+        return `
+            <tr class="${rowClass}">
+                <td><span class="pos-badge pos-${i+1}">${i+1}</span></td>
+                <td class="col-team">
+                    <div class="team-cell">
+                        <span class="team-cell-flag">${t.flag}</span>
+                        <span class="team-cell-name">${t.name}</span>
+                    </div>
+                </td>
+                <td>${t.p}</td>
+                <td>${t.w}</td>
+                <td>${t.d}</td>
+                <td>${t.l}</td>
+                <td>${t.gf}</td>
+                <td>${t.ga}</td>
+                <td class="${gdClass}">${gdStr}</td>
+                <td class="pts-cell">${t.pts}</td>
+            </tr>`;
+    }).join('');
+
+    container.innerHTML = `
+        <div class="standings-table-wrap">
+            <table class="standings-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="col-team">Team</th>
+                        <th title="Played">P</th>
+                        <th title="Won">W</th>
+                        <th title="Drawn">D</th>
+                        <th title="Lost">L</th>
+                        <th title="Goals For">GF</th>
+                        <th title="Goals Against">GA</th>
+                        <th title="Goal Difference">GD</th>
+                        <th title="Points">PTS</th>
+                    </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+            </table>
+        </div>`;
+}
+
+// ── Utility: update score programmatically ────────────────
+function updateFixtureScore(fixtureId, score1, score2) {
+    const f = fixturesData.find(x => x.id === fixtureId);
+    if (!f) return;
+    f.score1 = score1; f.score2 = score2; f.status = 'completed';
+    renderFixtures();
+    updateStatistics();
+}
+
+// ── Match Events Data ────────────────────────────────────
+const matchEvents = {
+    1: [
+        { type: 'goal',   team: 1, player: 'Quiñones',       minute: '9'    },
+        { type: 'goal',   team: 1, player: 'R. Jiménez',     minute: '67'   },
+        { type: 'red',    team: 2, player: 'Sithole',        minute: '49'   },
+        { type: 'red',    team: 2, player: 'Zwane',          minute: '84'   },
+        { type: 'red',    team: 1, player: 'Montes',         minute: '90+2' },
+    ],
+    2: [
+        { type: 'goal',   team: 2, player: 'Krejčí',         minute: '59'   },
+        { type: 'goal',   team: 1, player: 'Hwang Inbeom',   minute: '67'   },
+        { type: 'goal',   team: 1, player: 'Oh Hyeongyu',    minute: '80'   },
+        { type: 'yellow', team: 1, player: 'Lee Gi-hyuk',    minute: '89'   },
+    ],
+    7: [
+        { type: 'goal',   team: 2, player: 'Lukić',          minute: '21'   },
+        { type: 'yellow', team: 2, player: 'Katić',          minute: '65'   },
+        { type: 'goal',   team: 1, player: 'Larin',          minute: '78'   },
+    ],
+    8: [
+        { type: 'goal',   team: 2, player: 'Embolo (P)',     minute: '17'   },
+        { type: 'goal',   team: 1, player: 'Khoukhi',        minute: '90+4' },
+    ],
+    13: [
+        { type: 'goal',   team: 2, player: 'Saibari',        minute: '21'   },
+        { type: 'goal',   team: 1, player: 'Vinícius Jr',    minute: '32'   },
+    ],
+    14: [
+        { type: 'goal',   team: 2, player: 'McGinn',         minute: '28'   },
+    ],
+    19: [
+        { type: 'og',     team: 1, player: 'Bobadilla',      minute: '7'    },
+        { type: 'goal',   team: 1, player: 'Balogun',        minute: '31'   },
+        { type: 'goal',   team: 1, player: 'Balogun',        minute: '45+5' },
+        { type: 'goal',   team: 2, player: 'Mauricio',       minute: '73'   },
+        { type: 'goal',   team: 1, player: 'Reyna',          minute: '90+8' },
+        { type: 'yellow', team: 2, player: 'Arce',           minute: '88'   },
+        { type: 'yellow', team: 2, player: 'Alonso',         minute: '90+3' },
+    ],
+    20: [
+        { type: 'goal',   team: 1, player: 'Irankunda',      minute: '27'   },
+        { type: 'goal',   team: 1, player: 'Metcalfe',       minute: '75'   },
+    ],
+    25: [
+        { type: 'goal',   team: 1, player: 'Nmecha',         minute: '6'    },
+        { type: 'goal',   team: 2, player: 'Comenencia',     minute: '21'   },
+        { type: 'goal',   team: 1, player: 'Schlotterbeck',  minute: '38'   },
+        { type: 'goal',   team: 1, player: 'Havertz (P)',    minute: '45+5' },
+        { type: 'goal',   team: 1, player: 'Musiala',        minute: '47'   },
+        { type: 'goal',   team: 1, player: 'Brown',          minute: '68'   },
+        { type: 'goal',   team: 1, player: 'Undav',          minute: '78'   },
+        { type: 'goal',   team: 1, player: 'Havertz',        minute: '88'   },
+    ],
+    26: [
+        { type: 'goal',   team: 1, player: 'Diallo',         minute: '90'   },
+    ],
+    31: [
+        { type: 'goal',   team: 1, player: 'Van Dijk',       minute: '50'   },
+        { type: 'goal',   team: 2, player: 'Nakamura',       minute: '57'   },
+        { type: 'goal',   team: 1, player: 'Summerville',    minute: '64'   },
+        { type: 'goal',   team: 2, player: 'Kamada',         minute: '88'   },
+    ],
+    32: [
+        { type: 'goal',   team: 1, player: 'Ayari',          minute: '7'    },
+        { type: 'goal',   team: 1, player: 'Isak',           minute: '30'   },
+        { type: 'goal',   team: 2, player: 'Rekik',          minute: '43'   },
+        { type: 'goal',   team: 1, player: 'Gyökeres',       minute: '59'   },
+        { type: 'goal',   team: 1, player: 'Svanberg',       minute: '84'   },
+        { type: 'goal',   team: 1, player: 'Ayari',          minute: '90+6' },
+    ],
+    37: [
+        { type: 'goal',   team: 2, player: 'Just',           minute: '7'    },
+        { type: 'goal',   team: 1, player: 'Rezaeian',       minute: '33'   },
+        { type: 'goal',   team: 2, player: 'Just',           minute: '54'   },
+        { type: 'goal',   team: 1, player: 'Mohebbi',        minute: '64'   },
+    ],
+    38: [
+        { type: 'goal',   team: 2, player: 'Ashour',         minute: '19'   },
+        { type: 'og',     team: 1, player: 'Hany',           minute: '66'   },
+    ],
+    44: [
+        { type: 'goal',   team: 1, player: 'Al-Amri',        minute: '41'   },
+        { type: 'goal',   team: 2, player: 'Araujo',         minute: '80'   },
+    ],
+};
+
+// ── Match Highlights (Official FIFA) ─────────────────────
+const matchHighlights = {
+    1:  'https://www.fifa.com/en/watch/7wv3jFr0T2wczSuQbhgrSW',
+    2:  'https://www.fifa.com/en/watch/1iidGe97khg8lmdSRopdh4',
+    7:  'https://www.fifa.com/en/watch/5ekSKA6XJZqv9Fag9pI7sH',
+    8:  'https://www.fifa.com/en/watch/NdoxOQqn5cnkmfioABvsL',
+    13: 'https://www.fifa.com/en/watch/1e8ayUzYWGZDbZUEU42bgQ',
+    14: 'https://www.fifa.com/en/watch/1amePIIN9Rt7kvMwQGMPke',
+    19: 'https://www.fifa.com/en/watch/6jzgitUqP6YyXpwwuY6VRc',
+    20: 'https://www.fifa.com/en/watch/6qvmyR3k0BcpuPrSmer7Mf',
+    25: 'https://www.fifa.com/en/watch/3MSlsbd2rcnTGlcG4jhpdR',
+    26: 'https://www.fifa.com/en/watch/4P79SuyJHO3ZGVuRYxjots',
+    31: 'https://www.fifa.com/en/watch/hfEd1R54PslEMX4Rqb0EP',
+    32: 'https://www.fifa.com/en/watch/1xJ82g9ocfLQaweWUFgFMw',
+    37: 'https://www.fifa.com/en/watch/5c6T3T7Y1XfKrT3aXzJRqL',
+    38: 'https://www.fifa.com/en/watch/2XSqobMgEwKFuhEozWztJl',
+    43: 'https://www.fifa.com/en/watch/jLS5YXPMr0XAd5lMHtbiJ',
+    44: 'https://www.fifa.com/en/watch/2OO54UvFW7GK8vnsarneGk',
+};
+
+function buildEventsSection(fixture) {
+    const events = matchEvents[fixture.id];
+    if (!events || events.length === 0) return '';
+
+    const t1 = events.filter(e => e.team === 1);
+    const t2 = events.filter(e => e.team === 2);
+
+    const icon = e => {
+        if (e.type === 'goal' || e.type === 'og') return '⚽';
+        if (e.type === 'yellow') return '<span class="ev-card ev-yellow"></span>';
+        if (e.type === 'red')    return '<span class="ev-card ev-red"></span>';
+        return '';
+    };
+
+    const nameHtml = e => e.type === 'og'
+        ? `${e.player} <span class="ev-og">OG</span>`
+        : e.player;
+
+    const buildCol = list => list.length === 0
+        ? `<span class="ev-none">–</span>`
+        : list.map(e => `
+            <div class="ev-item">
+                ${icon(e)}
+                <span class="ev-name">${nameHtml(e)}</span>
+                <span class="ev-min">${e.minute}'</span>
+            </div>`).join('');
+
+    return `
+        <div class="events-section">
+            <div class="events-label">Match Events</div>
+            <div class="events-cols">
+                <div class="events-col ev-col-1">
+                    <div class="events-col-head">${fixture.team1Flag} ${fixture.team1}</div>
+                    ${buildCol(t1)}
+                </div>
+                <div class="events-col-sep"></div>
+                <div class="events-col ev-col-2">
+                    <div class="events-col-head">${fixture.team2Flag} ${fixture.team2}</div>
+                    ${buildCol(t2)}
+                </div>
+            </div>
+        </div>
+        <div class="modal-divider"></div>`;
+}
+
+// ── Match Detail Modal ────────────────────────────────────
+function buildPlayerCard(p) {
+    const posClass = { GK:'pos-gk', DEF:'pos-def', MID:'pos-mid', FWD:'pos-fwd' }[p.pos] || 'pos-mid';
+    const posColor = { GK:'#FFD700', DEF:'#64b5f6', MID:'#00e676', FWD:'#ff5252' }[p.pos] || '#fff';
+    return `
+        <div class="player-card">
+            <div class="player-avatar ${posClass}">#${p.num}</div>
+            <div class="player-info">
+                <span class="player-name">${p.name}</span>
+                <span class="player-pos-badge" style="color:${posColor}">${p.pos}</span>
+            </div>
+        </div>`;
+}
+
+function buildTeamPanel(teamName, teamFlag) {
+    const data = teamsData[teamName];
+    const slug = teamSlugs[teamName];
+    const fifaUrl = slug
+        ? `https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/${slug}/squad`
+        : null;
+    const fifaLinkHtml = fifaUrl
+        ? `<a class="fifa-squad-link" href="${fifaUrl}" target="_blank" rel="noopener noreferrer">
+               View Full Squad &amp; Photos on FIFA.com ↗
+           </a>`
+        : '';
+
+    if (!data) {
+        return `<div class="modal-panel">
+            <div class="panel-header">
+                <span class="modal-flag">${teamFlag}</span>
+                <span class="modal-team-name">${teamName}</span>
+            </div>
+            ${fifaLinkHtml}
+            <p style="color:var(--text2);padding:24px 0;text-align:center;font-size:.9rem">Squad data coming soon</p>
+        </div>`;
+    }
+    const players = data.players.map(buildPlayerCard).join('');
+    return `
+        <div class="modal-panel">
+            <div class="panel-header">
+                <span class="modal-flag">${teamFlag}</span>
+                <span class="modal-team-name">${teamName}</span>
+            </div>
+            ${fifaLinkHtml}
+            <div class="players-list">${players}</div>
+        </div>`;
+}
+
+function openModal(fixture) {
+    const overlay = document.getElementById('modal-overlay');
+    const content = document.getElementById('modal-content');
+
+    const fmtDate = new Date(fixture.date + 'T12:00:00').toLocaleDateString('en-IN', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    const scoreHtml = fixture.status === 'completed'
+        ? `<span class="modal-score">${fixture.score1}</span>
+           <span class="modal-score-sep">–</span>
+           <span class="modal-score">${fixture.score2}</span>`
+        : `<span class="modal-score-vs">VS</span>`;
+
+    const hlUrl = matchHighlights[fixture.id];
+    const highlightsBtnHtml = (fixture.status === 'completed' && hlUrl)
+        ? `<a class="highlights-btn" href="${hlUrl}" target="_blank" rel="noopener noreferrer">
+               <svg class="yt-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 8.5l6 3.5-6 3.5V8.5z"/></svg>
+               Watch Official Highlights
+           </a>`
+        : '';
+
+    content.innerHTML = `
+        <div class="modal-header">
+            <div class="modal-group-badge">${fixture.group} · Group Stage</div>
+            <div class="modal-teams-row">
+                <span class="modal-big-flag">${fixture.team1Flag}</span>
+                <div class="modal-score-block">${scoreHtml}</div>
+                <span class="modal-big-flag">${fixture.team2Flag}</span>
+            </div>
+            <div class="modal-teams-names">
+                <span>${fixture.team1}</span>
+                <span>${fixture.team2}</span>
+            </div>
+            <div class="modal-meta-strip">
+                <span>📍 ${fixture.venue}, ${fixture.city}</span>
+                <span>📅 ${fmtDate}</span>
+                <span>🕐 ${fixture.time}</span>
+                <span>${fixture.status === 'completed' ? '✅ Full Time' : '⏱ Upcoming'}</span>
+            </div>
+            ${highlightsBtnHtml}
+        </div>
+        <div class="modal-divider"></div>
+        ${fixture.status === 'completed' ? buildEventsSection(fixture) : ''}
+        <div class="modal-panels">
+            ${buildTeamPanel(fixture.team1, fixture.team1Flag)}
+            <div class="panel-separator"></div>
+            ${buildTeamPanel(fixture.team2, fixture.team2Flag)}
+        </div>`;
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function setupModal() {
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    document.getElementById('modal-overlay').addEventListener('click', e => {
+        if (e.target === document.getElementById('modal-overlay')) closeModal();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+}

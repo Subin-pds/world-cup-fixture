@@ -1,0 +1,15 @@
+[build]
+  publish = "."
+  command = "echo 'Build successful'"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production]
+  command = "echo 'Production build'"
+
+[dev]
+  port = 8888
+  command = "python -m http.server 8000"
