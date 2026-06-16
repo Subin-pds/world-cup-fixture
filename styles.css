@@ -1555,6 +1555,8 @@ body::after {
     color: #fff;
 }
 .date-pill:first-child { font-size: .82rem; font-weight: 700; padding: 9px 14px; }
+.date-pill.past { opacity: .45; }
+.date-pill.today { border-color: rgba(255,215,0,.4); color: var(--gold); }
 .dp-day { font-size: .68rem; opacity: .75; text-transform: uppercase; letter-spacing: .05em; }
 .dp-num { font-size: .95rem; font-weight: 700; line-height: 1; }
 

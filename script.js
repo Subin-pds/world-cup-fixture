@@ -310,7 +310,7 @@ function buildDateStrip() {
     if (!container) return;
 
     const today = new Date().toISOString().slice(0, 10);
-    const dates = [...new Set(fixturesData.map(f => f.date))].sort().filter(d => d >= today);
+    const dates = [...new Set(fixturesData.map(f => f.date))].sort();
     const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
     const allBtn = document.createElement('button');
@@ -324,23 +324,31 @@ function buildDateStrip() {
     });
     container.appendChild(allBtn);
 
+    let todayBtn = null;
     dates.forEach(dateStr => {
-        const d   = new Date(dateStr + 'T12:00:00');
-        const btn = document.createElement('button');
-        btn.className   = 'date-pill';
+        const d       = new Date(dateStr + 'T12:00:00');
+        const isPast  = dateStr < today;
+        const isToday = dateStr === today;
+        const btn     = document.createElement('button');
+        btn.className   = 'date-pill' + (isPast ? ' past' : '') + (isToday ? ' today' : '');
         btn.dataset.date = dateStr;
-        btn.innerHTML   = `<span class="dp-day">${DAY_NAMES[d.getDay()]}</span><span class="dp-num">${d.getDate()}</span>`;
+        btn.innerHTML   = `<span class="dp-day">${isToday ? 'Today' : DAY_NAMES[d.getDay()]}</span><span class="dp-num">${d.getDate()}</span>`;
         btn.addEventListener('click', () => {
             currentDateFilter = dateStr;
             container.querySelectorAll('.date-pill').forEach(p => p.classList.remove('active'));
             btn.classList.add('active');
-            // When filtering by date show all statuses
             currentStatusFilter = 'all';
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             renderFixtures();
         });
         container.appendChild(btn);
+        if (isToday) todayBtn = btn;
     });
+
+    // Scroll strip so today is visible on load
+    if (todayBtn) {
+        requestAnimationFrame(() => todayBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }));
+    }
 }
 
 // ── All Groups Grid ───────────────────────────────────────
