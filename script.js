@@ -99,9 +99,34 @@ const fixturesData = [
 
 let currentStatusFilter = 'upcoming';
 let currentGroupFilter  = 'all';
+let currentDateFilter   = null;
+let currentTimezone     = 'IST';
 let featuredMatchId     = 1;
 
 // teamsData and teamSlugs loaded from teams-data.js
+
+// ── Timezone ──────────────────────────────────────────────
+const TIMEZONES = {
+    IST: { label: 'IST — India',       offset:  330 },
+    GMT: { label: 'GMT — London',      offset:    0 },
+    CET: { label: 'CET — Paris/Madrid',offset:   60 },
+    EST: { label: 'EST — New York',    offset: -300 },
+    CST: { label: 'CST — Mexico City', offset: -360 },
+    PST: { label: 'PST — Los Angeles', offset: -480 },
+};
+const IST_OFFSET = 330;
+
+function convertTime(istTimeStr) {
+    const clean = istTimeStr.replace(/\s*IST\s*/, '');
+    const [h, m] = clean.split(':').map(Number);
+    const istMin  = h * 60 + m;
+    const utcMin  = istMin - IST_OFFSET;
+    const tzOff   = TIMEZONES[currentTimezone].offset;
+    let   tgt     = ((utcMin + tzOff) % 1440 + 1440) % 1440;
+    const th = String(Math.floor(tgt / 60)).padStart(2, '0');
+    const tm = String(tgt % 60).padStart(2, '0');
+    return `${th}:${tm} ${currentTimezone}`;
+}
 
 // ── Particle Background ───────────────────────────────────
 function initParticles() {
@@ -171,14 +196,17 @@ function initParticles() {
 // ── Bootstrap ────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     initParticles();
+    buildDateStrip();
     renderFixtures();
     renderFeaturedMatch();
     updateStatistics();
     setupFilterButtons();
     setupGroupSelect();
+    setupTimezone();
     setupNavigation();
     setupGroupTabs();
     renderGroupStandings('Group A');
+    renderAllGroups();
     initScrollReveal();
     initSearch();
     setupModal();
@@ -196,6 +224,91 @@ function setupNavigation() {
             if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
+}
+
+// ── Timezone Selector ─────────────────────────────────────
+function setupTimezone() {
+    const sel = document.getElementById('timezone-select');
+    if (!sel) return;
+    sel.addEventListener('change', () => {
+        currentTimezone = sel.value;
+        renderFixtures();
+    });
+}
+
+// ── Date Strip ────────────────────────────────────────────
+function buildDateStrip() {
+    const container = document.getElementById('date-strip');
+    if (!container) return;
+
+    const dates = [...new Set(fixturesData.map(f => f.date))].sort();
+    const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'date-pill active';
+    allBtn.textContent = 'All';
+    allBtn.addEventListener('click', () => {
+        currentDateFilter = null;
+        container.querySelectorAll('.date-pill').forEach(p => p.classList.remove('active'));
+        allBtn.classList.add('active');
+        renderFixtures();
+    });
+    container.appendChild(allBtn);
+
+    dates.forEach(dateStr => {
+        const d   = new Date(dateStr + 'T12:00:00');
+        const btn = document.createElement('button');
+        btn.className   = 'date-pill';
+        btn.dataset.date = dateStr;
+        btn.innerHTML   = `<span class="dp-day">${DAY_NAMES[d.getDay()]}</span><span class="dp-num">${d.getDate()}</span>`;
+        btn.addEventListener('click', () => {
+            currentDateFilter = dateStr;
+            container.querySelectorAll('.date-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            // When filtering by date show all statuses
+            currentStatusFilter = 'all';
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            renderFixtures();
+        });
+        container.appendChild(btn);
+    });
+}
+
+// ── All Groups Grid ───────────────────────────────────────
+function renderAllGroups() {
+    const container = document.getElementById('all-groups-grid');
+    if (!container) return;
+
+    const groups = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+    container.innerHTML = groups.map(g => {
+        const name     = `Group ${g}`;
+        const standings = calculateGroupStandings(name);
+        const rows = standings.map((t, i) => {
+            const gd    = t.gf - t.ga;
+            const gdStr = gd > 0 ? `+${gd}` : `${gd}`;
+            const qual  = i < 2 ? 'gq' : '';
+            return `<tr class="${qual}">
+                <td class="gc-pos">${i + 1}</td>
+                <td class="gc-team"><span>${t.flag}</span> ${t.name}</td>
+                <td>${t.p}</td>
+                <td>${t.pts}</td>
+                <td class="gc-gd">${gdStr}</td>
+            </tr>`;
+        }).join('');
+        return `
+            <div class="group-card">
+                <div class="group-card-header">Group ${g}</div>
+                <table class="group-card-table">
+                    <thead><tr>
+                        <th>#</th><th class="gc-team">Team</th>
+                        <th title="Played">P</th>
+                        <th title="Points">Pts</th>
+                        <th title="Goal Difference">GD</th>
+                    </tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            </div>`;
+    }).join('');
 }
 
 // ── Filters ──────────────────────────────────────────────
@@ -232,6 +345,7 @@ function renderFixtures() {
     if (currentStatusFilter === 'upcoming')  filtered = filtered.filter(f => f.status === 'upcoming');
     if (currentStatusFilter === 'completed') filtered = filtered.filter(f => f.status === 'completed');
     if (currentGroupFilter  !== 'all')       filtered = filtered.filter(f => f.group === currentGroupFilter);
+    if (currentDateFilter)                   filtered = filtered.filter(f => f.date === currentDateFilter);
     if (search) filtered = filtered.filter(f =>
         f.team1.toLowerCase().includes(search) || f.team2.toLowerCase().includes(search)
     );
@@ -272,7 +386,7 @@ function createFixtureCard(fixture) {
 
     card.innerHTML = `
         <div class="match-header">
-            <div class="match-date">${fmtDate} · ${fixture.time}</div>
+            <div class="match-date">${fmtDate} · ${convertTime(fixture.time)}</div>
             <div class="match-group-badge">${fixture.group}</div>
         </div>
         <div class="match-container">
@@ -733,7 +847,7 @@ function openModal(fixture) {
             <div class="modal-meta-strip">
                 <span>📍 ${fixture.venue}, ${fixture.city}</span>
                 <span>📅 ${fmtDate}</span>
-                <span>🕐 ${fixture.time}</span>
+                <span>🕐 ${convertTime(fixture.time)}</span>
                 <span>${fixture.status === 'completed' ? '✅ Full Time' : '⏱ Upcoming'}</span>
             </div>
             ${highlightsBtnHtml}

@@ -37,7 +37,19 @@
             <div class="logo-brand">⚽ FIFA 2026</div>
             <div class="nav-links">
                 <a href="#matches"   class="nav-link active">Matches</a>
+                <a href="#groups"    class="nav-link">Groups</a>
                 <a href="#standings" class="nav-link">Standings</a>
+            </div>
+            <div class="tz-wrap">
+                <span class="tz-icon">🕐</span>
+                <select id="timezone-select" class="tz-select">
+                    <option value="IST">IST — India</option>
+                    <option value="GMT">GMT — London</option>
+                    <option value="CET">CET — Paris</option>
+                    <option value="EST">EST — New York</option>
+                    <option value="CST">CST — Mexico City</option>
+                    <option value="PST">PST — Los Angeles</option>
+                </select>
             </div>
         </div>
     </nav>
@@ -64,6 +76,11 @@
         <section id="matches" class="matches-section reveal">
             <div class="section-header">
                 <h2>Fixtures</h2>
+            </div>
+
+            <!-- Date Strip -->
+            <div class="date-strip-wrap">
+                <div id="date-strip" class="date-strip"></div>
             </div>
 
             <div class="search-wrap">
@@ -94,6 +111,15 @@
             </div>
 
             <div class="fixtures" id="fixtures"></div>
+        </section>
+
+        <!-- ── Groups Grid ───────────────────────────────────── -->
+        <section id="groups" class="groups-section reveal">
+            <div class="section-header">
+                <h2>Groups</h2>
+                <p class="section-subtitle">Top 2 teams from each group advance · <span class="qual-legend"></span></p>
+            </div>
+            <div id="all-groups-grid" class="all-groups-grid"></div>
         </section>
 
         <!-- ── Featured Match ─────────────────────────────── -->
