@@ -1202,7 +1202,7 @@ function buildTeamPanel(teamName, teamFlag) {
         : null;
     const fifaLinkHtml = fifaUrl
         ? `<a class="fifa-squad-link" href="${fifaUrl}" target="_blank" rel="noopener noreferrer">
-               View Full Squad &amp; Photos on FIFA.com ↗
+               View Full Squad on FIFA.com ↗
            </a>`
         : '';
 
