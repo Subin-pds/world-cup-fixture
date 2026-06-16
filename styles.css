@@ -152,7 +152,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 7px 14px;
+    padding: 6px 12px;
     background: rgba(255,255,255,.06);
     border: 1px solid rgba(255,255,255,.12);
     border-radius: 20px;
@@ -163,10 +163,39 @@
     transition: background .2s, border-color .2s;
     white-space: nowrap;
 }
-.myteam-btn:hover, .myteam-btn.active { background: rgba(255,215,0,.1); border-color: rgba(255,215,0,.35); }
-.myteam-btn.selected { background: rgba(255,215,0,.12); border-color: rgba(255,215,0,.4); color: var(--gold); }
-.myteam-clear { opacity: .6; margin-left: 4px; font-size: .75rem; }
-.myteam-clear:hover { opacity: 1; }
+.myteam-btn:hover { background: rgba(255,215,0,.1); border-color: rgba(255,215,0,.35); }
+.myteam-btn.selected { background: rgba(255,215,0,.1); border-color: rgba(255,215,0,.4); color: var(--gold); }
+.myteam-btn.filter-active { background: rgba(255,215,0,.2); border-color: var(--gold); }
+
+.myteam-flag-label { cursor: pointer; }
+.myteam-flag-label:hover { text-decoration: underline; }
+
+.myteam-filter-toggle {
+    font-size: .72rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18);
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+    color: var(--text2);
+}
+.myteam-filter-toggle:hover { background: rgba(26,115,232,.3); border-color: var(--blue); color: #fff; }
+.myteam-btn.filter-active .myteam-filter-toggle {
+    background: rgba(26,115,232,.4);
+    border-color: var(--blue);
+    color: #fff;
+}
+
+.myteam-clear {
+    font-size: .7rem;
+    opacity: .55;
+    padding: 2px 4px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: opacity .15s, background .15s;
+}
+.myteam-clear:hover { opacity: 1; background: rgba(255,82,82,.25); }
 
 .myteam-dropdown {
     position: absolute;
@@ -222,10 +251,49 @@
 .myteam-item.selected { background: rgba(255,215,0,.12); color: var(--gold); }
 
 .fixture-card.my-team-card {
-    border-color: rgba(255,215,0,.4);
-    box-shadow: 0 0 0 1px rgba(255,215,0,.25), 0 8px 28px rgba(255,215,0,.1);
+    border-color: rgba(255,215,0,.45);
+    box-shadow: 0 0 0 1px rgba(255,215,0,.2), 0 8px 32px rgba(255,215,0,.12);
 }
 .fixture-card.my-team-card::before { background: linear-gradient(90deg, #FFD700, #ffa500); }
+
+/* My Team badge on card */
+.match-header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.my-team-badge {
+    font-size: .62rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(255,215,0,.18);
+    border: 1px solid rgba(255,215,0,.45);
+    color: var(--gold);
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* My Matches full schedule header */
+.mymatches-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 4px 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+}
+.mymatches-flag { font-size: 2rem; }
+.mymatches-title { font-size: 1rem; font-weight: 700; color: var(--text); flex: 1; }
+.mymatches-count {
+    font-size: .75rem;
+    color: var(--text2);
+    background: var(--glass2);
+    padding: 3px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
 
 /* ── Mobile Bottom Nav ────────────────────────────────── */
 .bottom-nav {

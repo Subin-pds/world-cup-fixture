@@ -342,7 +342,14 @@ function renderTopScorers() {
 }
 
 // ── My Team ───────────────────────────────────────────────
-let myTeam = localStorage.getItem('myTeam') || null;
+let myTeam           = localStorage.getItem('myTeam') || null;
+let myTeamFilterMode = false; // true = show only my team's matches
+
+function getMyTeamFlag() {
+    if (!myTeam) return '';
+    const f = fixturesData.find(x => x.team1 === myTeam || x.team2 === myTeam);
+    return f ? (f.team1 === myTeam ? f.team1Flag : f.team2Flag) : '';
+}
 
 function setupMyTeam() {
     const btn      = document.getElementById('myteam-btn');
@@ -351,13 +358,19 @@ function setupMyTeam() {
 
     function updateBtn() {
         if (myTeam) {
-            const f = fixturesData.find(x => x.team1 === myTeam || x.team2 === myTeam);
-            const flag = f ? (f.team1 === myTeam ? f.team1Flag : f.team2Flag) : '';
-            btn.innerHTML = `${flag} ${myTeam} <span class="myteam-clear" id="myteam-clear">✕</span>`;
+            const flag = getMyTeamFlag();
+            btn.innerHTML = `
+                <span class="myteam-flag-label">${flag} ${myTeam}</span>
+                <span class="myteam-filter-toggle" id="myteam-filter-toggle" title="Show only my team's matches">
+                    ${myTeamFilterMode ? '📌 My Matches ✓' : '📌 My Matches'}
+                </span>
+                <span class="myteam-clear" id="myteam-clear" title="Remove favourite">✕</span>`;
             btn.classList.add('selected');
+            btn.classList.toggle('filter-active', myTeamFilterMode);
         } else {
             btn.innerHTML = '⭐ My Team';
-            btn.classList.remove('selected');
+            btn.classList.remove('selected', 'filter-active');
+            myTeamFilterMode = false;
         }
     }
 
@@ -376,6 +389,7 @@ function setupMyTeam() {
         dropdown.querySelectorAll('.myteam-item').forEach(item => {
             item.addEventListener('click', () => {
                 myTeam = item.dataset.team;
+                myTeamFilterMode = false;
                 localStorage.setItem('myTeam', myTeam);
                 closeDropdown();
                 updateBtn();
@@ -397,25 +411,45 @@ function setupMyTeam() {
     function openDropdown() {
         buildDropdown();
         dropdown.classList.add('open');
-        btn.classList.add('active');
         setTimeout(() => { const s = document.getElementById('myteam-search'); if (s) s.focus(); }, 50);
     }
     function closeDropdown() {
         dropdown.classList.remove('open');
-        btn.classList.remove('active');
     }
 
     btn.addEventListener('click', e => {
         e.stopPropagation();
+
+        // ✕ — clear team
         const clearBtn = document.getElementById('myteam-clear');
         if (clearBtn && clearBtn.contains(e.target)) {
             myTeam = null;
+            myTeamFilterMode = false;
             localStorage.removeItem('myTeam');
             updateBtn();
             renderFixtures();
             return;
         }
-        dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
+
+        // 📌 — toggle "My Matches" filter
+        const filterToggle = document.getElementById('myteam-filter-toggle');
+        if (filterToggle && filterToggle.contains(e.target)) {
+            if (!myTeam) return;
+            myTeamFilterMode = !myTeamFilterMode;
+            updateBtn();
+            renderFixtures();
+            return;
+        }
+
+        // team name label — open picker if no team, or open picker to change
+        if (!myTeam) {
+            dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
+        } else {
+            const flagLabel = btn.querySelector('.myteam-flag-label');
+            if (flagLabel && flagLabel.contains(e.target)) {
+                dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
+            }
+        }
     });
     document.addEventListener('click', () => closeDropdown());
     dropdown.addEventListener('click', e => e.stopPropagation());
@@ -667,6 +701,27 @@ function renderFixtures() {
 
     const search = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
 
+    // My Matches mode — override all other filters, show full schedule for selected team
+    if (myTeam && myTeamFilterMode) {
+        const flag = getMyTeamFlag();
+        let filtered = fixturesData.filter(f => f.team1 === myTeam || f.team2 === myTeam);
+        filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+
+        const hdr = document.createElement('div');
+        hdr.className = 'mymatches-header';
+        hdr.innerHTML = `<span class="mymatches-flag">${flag}</span>
+            <span class="mymatches-title">${myTeam} — Full Schedule</span>
+            <span class="mymatches-count">${filtered.length} matches</span>`;
+        container.appendChild(hdr);
+
+        filtered.forEach((fixture, i) => {
+            const card = createFixtureCard(fixture);
+            card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
+            container.appendChild(card);
+        });
+        return;
+    }
+
     let filtered = fixturesData;
     if (currentStatusFilter === 'upcoming')  filtered = filtered.filter(f => f.status === 'upcoming');
     if (currentStatusFilter === 'completed') filtered = filtered.filter(f => f.status === 'completed');
@@ -767,10 +822,13 @@ function createFixtureCard(fixture) {
             ? `<span class="match-status live-badge"><span class="live-dot-sm"></span> LIVE NOW</span>`
             : (() => { const t = timeUntil(fixture); return `<span class="match-status upcoming">${t ? `⏱ ${t}` : '⏱ Soon'}</span>`; })();
 
+    const isMyTeamCard = myTeam && (fixture.team1 === myTeam || fixture.team2 === myTeam);
+    const myTeamBadge  = isMyTeamCard ? `<span class="my-team-badge">⭐ My Team</span>` : '';
+
     card.innerHTML = `
         <div class="match-header">
             <div class="match-date">${fmtDate} · ${convertTime(fixture.time)}</div>
-            <div class="match-group-badge">${fixture.group}</div>
+            <div class="match-header-right">${myTeamBadge}<div class="match-group-badge">${fixture.group}</div></div>
         </div>
         <div class="match-container">
             <div class="team">
