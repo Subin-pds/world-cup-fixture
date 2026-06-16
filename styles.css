@@ -790,6 +790,36 @@ body::after {
     gap: 18px;
 }
 
+/* ── Match Day Header ─────────────────────────────────── */
+.match-day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 4px 6px;
+    margin-top: 8px;
+}
+.match-day-header:first-child { margin-top: 0; }
+.mdh-tag {
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--blue);
+    color: #fff;
+}
+.match-day-header:has(.mdh-tag:empty) .mdh-tag { display: none; }
+.mdh-day {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--text);
+}
+.mdh-date {
+    font-size: .78rem;
+    color: var(--text2);
+}
+
 /* ── Fixture Card ─────────────────────────────────────── */
 .fixture-card {
     background: var(--glass);

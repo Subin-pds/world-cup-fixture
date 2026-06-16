@@ -657,6 +657,10 @@ function initSearch() {
 }
 
 // ── Render Fixtures ───────────────────────────────────────
+function getISTDateStr(offsetDays = 0) {
+    return new Date(Date.now() + (330 + offsetDays * 1440) * 60000).toISOString().slice(0, 10);
+}
+
 function renderFixtures() {
     const container = document.getElementById('fixtures');
     container.innerHTML = '';
@@ -671,13 +675,17 @@ function renderFixtures() {
     if (search) filtered = filtered.filter(f =>
         f.team1.toLowerCase().includes(search) || f.team2.toLowerCase().includes(search)
     );
-    if (currentStatusFilter === 'upcoming') {
-        filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
-    } else if (currentStatusFilter === 'completed') {
-        filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
-    } else {
-        // 'all' — completed oldest first, then upcoming
-        filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+
+    filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+
+    // Upcoming with no date/search selected → show only today + tomorrow (Match Day view)
+    const isMatchDayView = currentStatusFilter === 'upcoming' && !currentDateFilter && !search;
+    if (isMatchDayView) {
+        const today    = getISTDateStr(0);
+        const tomorrow = getISTDateStr(1);
+        const near = filtered.filter(f => f.date === today || f.date === tomorrow);
+        if (near.length) filtered = near;
+        // else fall through to show all upcoming (tournament hasn't started or is over)
     }
 
     if (!filtered.length) {
@@ -685,11 +693,40 @@ function renderFixtures() {
         return;
     }
 
-    filtered.forEach((fixture, i) => {
-        const card = createFixtureCard(fixture);
-        card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
-        container.appendChild(card);
-    });
+    if (isMatchDayView && filtered.length) {
+        // Group by date with "TODAY" / "TOMORROW" headers
+        const today    = getISTDateStr(0);
+        const tomorrow = getISTDateStr(1);
+        const byDate   = {};
+        filtered.forEach(f => { (byDate[f.date] = byDate[f.date] || []).push(f); });
+
+        Object.keys(byDate).sort().forEach(date => {
+            const label = date === today ? 'Today' : date === tomorrow ? 'Tomorrow' : '';
+            const d     = new Date(date + 'T12:00:00Z');
+            const dayName = d.toLocaleDateString('en-US', { weekday: 'long' });
+            const dateFmt = d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            const hdr = document.createElement('div');
+            hdr.className = 'match-day-header';
+            hdr.innerHTML = `
+                <span class="mdh-tag">${label}</span>
+                <span class="mdh-day">${dayName}</span>
+                <span class="mdh-date">${dateFmt}</span>`;
+            container.appendChild(hdr);
+
+            byDate[date].forEach((fixture, i) => {
+                const card = createFixtureCard(fixture);
+                card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
+                container.appendChild(card);
+            });
+        });
+    } else {
+        filtered.forEach((fixture, i) => {
+            const card = createFixtureCard(fixture);
+            card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
+            container.appendChild(card);
+        });
+    }
 }
 
 // ── Live Match Detection ──────────────────────────────────
