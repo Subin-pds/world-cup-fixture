@@ -250,7 +250,8 @@ function buildDateStrip() {
     const container = document.getElementById('date-strip');
     if (!container) return;
 
-    const dates = [...new Set(fixturesData.map(f => f.date))].sort();
+    const today = new Date().toISOString().slice(0, 10);
+    const dates = [...new Set(fixturesData.map(f => f.date))].sort().filter(d => d >= today);
     const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
     const allBtn = document.createElement('button');
