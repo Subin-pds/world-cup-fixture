@@ -40,29 +40,18 @@
                 <a href="#groups"    class="nav-link">Groups</a>
                 <a href="#standings" class="nav-link">Standings</a>
             </div>
-            <div class="tz-wrap">
-                <span class="tz-icon">🕐</span>
-                <select id="timezone-select" class="tz-select">
-                    <optgroup label="Asia">
-                        <option value="IST">IST — India (+5:30)</option>
-                    </optgroup>
-                    <optgroup label="Gulf">
-                        <option value="GST">GST — UAE / Oman (+4)</option>
-                        <option value="IRST">IRST — Iran (+3:30)</option>
-                        <option value="AST">AST — Saudi / Qatar / Kuwait (+3)</option>
-                    </optgroup>
-                    <optgroup label="Europe (Summer)">
-                        <option value="EEST">EEST — Istanbul / Athens (+3)</option>
-                        <option value="CEST">CEST — Paris / Berlin / Madrid (+2)</option>
-                        <option value="BST">BST — London (+1)</option>
-                        <option value="GMT">GMT — UTC (0)</option>
-                    </optgroup>
-                    <optgroup label="Americas">
-                        <option value="EST">EST — New York (-5)</option>
-                        <option value="CST">CST — Mexico City (-6)</option>
-                        <option value="PST">PST — Los Angeles (-8)</option>
-                    </optgroup>
-                </select>
+            <div class="tz-picker" id="tz-picker">
+                <button class="tz-btn" id="tz-btn" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="tz-btn-globe">🌐</span>
+                    <span class="tz-btn-text">
+                        <span class="tz-btn-abbr" id="tz-btn-abbr">IST</span>
+                        <span class="tz-btn-region" id="tz-btn-region">India</span>
+                    </span>
+                    <svg class="tz-chevron" viewBox="0 0 10 6" fill="none">
+                        <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <div class="tz-dropdown" id="tz-dropdown" role="listbox"></div>
             </div>
         </div>
     </nav>

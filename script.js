@@ -297,13 +297,72 @@ function setupNavigation() {
 }
 
 // ── Timezone Selector ─────────────────────────────────────
+const TZ_GROUPS = [
+    { icon: '🌏', label: 'Asia',            keys: ['IST'] },
+    { icon: '🌍', label: 'Gulf',            keys: ['GST','IRST','AST'] },
+    { icon: '🌍', label: 'Europe (Summer)', keys: ['EEST','CEST','BST','GMT'] },
+    { icon: '🌎', label: 'Americas',        keys: ['EST','CST','PST'] },
+];
+
 function setupTimezone() {
-    const sel = document.getElementById('timezone-select');
-    if (!sel) return;
-    sel.addEventListener('change', () => {
-        currentTimezone = sel.value;
-        renderFixtures();
+    const picker   = document.getElementById('tz-picker');
+    const btn      = document.getElementById('tz-btn');
+    const dropdown = document.getElementById('tz-dropdown');
+    const abbrEl   = document.getElementById('tz-btn-abbr');
+    const regionEl = document.getElementById('tz-btn-region');
+    if (!picker) return;
+
+    function getRegion(label) { return label.split('—')[1]?.split('(')[0]?.trim() || label; }
+
+    function buildDropdown() {
+        dropdown.innerHTML = TZ_GROUPS.map(g => `
+            <div class="tz-group">
+                <div class="tz-group-label">${g.icon} ${g.label}</div>
+                ${g.keys.map(k => {
+                    const tz  = TIMEZONES[k];
+                    const off = tz.offset >= 0 ? `+${Math.floor(tz.offset/60)}${tz.offset%60?':'+String(tz.offset%60).padStart(2,'0'):''}` : `-${Math.floor(-tz.offset/60)}${(-tz.offset)%60?':'+String((-tz.offset)%60).padStart(2,'0'):''}`;
+                    const city = tz.label.split('—')[1]?.split('(')[0]?.trim() || k;
+                    return `<button class="tz-option ${k === currentTimezone ? 'selected' : ''}" data-key="${k}" role="option">
+                        <span class="tz-opt-abbr">${k}</span>
+                        <span class="tz-opt-city">${city}</span>
+                        <span class="tz-opt-off">${off}</span>
+                        ${k === currentTimezone ? '<span class="tz-check">✓</span>' : ''}
+                    </button>`;
+                }).join('')}
+            </div>`
+        ).join('');
+
+        dropdown.querySelectorAll('.tz-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                currentTimezone = opt.dataset.key;
+                abbrEl.textContent   = currentTimezone;
+                regionEl.textContent = getRegion(TIMEZONES[currentTimezone].label);
+                closeDropdown();
+                buildDropdown();
+                renderFixtures();
+            });
+        });
+    }
+
+    function openDropdown() {
+        dropdown.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.classList.add('active');
+    }
+    function closeDropdown() {
+        dropdown.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.classList.remove('active');
+    }
+
+    btn.addEventListener('click', e => {
+        e.stopPropagation();
+        dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
     });
+    document.addEventListener('click', () => closeDropdown());
+    dropdown.addEventListener('click', e => e.stopPropagation());
+
+    buildDropdown();
 }
 
 // ── Date Strip ────────────────────────────────────────────
