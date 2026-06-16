@@ -137,6 +137,63 @@ function convertTime(istTimeStr) {
     return `${th}:${tm} ${currentTimezone}`;
 }
 
+// ── Hero Sparkles ─────────────────────────────────────────
+function initSparkles() {
+    const hero = document.querySelector('.hero-content');
+    if (!hero) return;
+    for (let i = 0; i < 12; i++) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.style.cssText = `
+            left:${10 + Math.random() * 80}%;
+            top:${5 + Math.random() * 90}%;
+            animation-delay:${(Math.random() * 3).toFixed(2)}s;
+            animation-duration:${(1.8 + Math.random() * 2).toFixed(2)}s;
+            width:${2 + Math.random() * 3}px;
+            height:${2 + Math.random() * 3}px;
+        `;
+        hero.appendChild(s);
+    }
+}
+
+// ── Hero Countdown ────────────────────────────────────────
+function initHeroCountdown() {
+    const el = document.getElementById('hero-countdown');
+    if (!el) return;
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+        const now  = Date.now();
+        const next = fixturesData
+            .filter(f => f.status === 'upcoming')
+            .map(f => {
+                const [h, m] = f.time.replace(/\s*IST\s*/, '').split(':').map(Number);
+                const utcMs  = new Date(f.date + 'T00:00:00Z').getTime()
+                             + (h * 60 + m - IST_OFFSET) * 60000;
+                return { f, utcMs };
+            })
+            .filter(({ utcMs }) => utcMs > now)
+            .sort((a, b) => a.utcMs - b.utcMs)[0];
+
+        if (!next) { el.innerHTML = ''; return; }
+
+        const diff = next.utcMs - now;
+        const hrs  = Math.floor(diff / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+        const { f } = next;
+
+        el.innerHTML = `
+            <span class="cd-label">Next Match</span>
+            <span class="cd-teams">${f.team1Flag} ${f.team1} vs ${f.team2} ${f.team2Flag}</span>
+            <span class="cd-timer">${pad(hrs)}:${pad(mins)}:${pad(secs)}</span>`;
+    }
+
+    tick();
+    setInterval(tick, 1000);
+}
+
 // ── Particle Background ───────────────────────────────────
 function initParticles() {
     const canvas = document.getElementById('particle-canvas');
@@ -205,6 +262,8 @@ function initParticles() {
 // ── Bootstrap ────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     initParticles();
+    initSparkles();
+    initHeroCountdown();
     buildDateStrip();
     renderFixtures();
     renderFeaturedMatch();
