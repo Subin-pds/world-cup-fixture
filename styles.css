@@ -2229,10 +2229,8 @@ body::after {
     .modal-overlay  { padding: 10px; align-items: flex-end; }
     .modal          { max-height: 92vh; border-radius: 20px 20px 16px 16px; }
     .modal-header   { padding: 20px 18px 16px; }
-    .modal-panels   { grid-template-columns: 1fr; }
-    .panel-separator{ display: none; }
-    .modal-panel    { padding: 18px 18px 20px; }
-    .modal-panel:first-child { padding-bottom: 0; }
+    .modal-panels   { grid-template-columns: 1fr 1px 1fr; }
+    .modal-panel    { padding: 14px 10px 16px; }
     .modal-teams-names { gap: 12px; font-size: .8rem; }
     .modal-teams-names span { min-width: 80px; }
     .modal-big-flag { font-size: 3rem; }
@@ -2287,10 +2285,15 @@ body::after {
     .modal-teams-names { gap: 6px; font-size: .75rem; padding: 0 8px; }
     .modal-teams-names span { min-width: 60px; }
     .modal-meta-strip { gap: 10px; padding: 10px 12px; font-size: .72rem; }
-    .modal-panel    { padding: 14px 14px 16px; }
-    .player-card    { padding: 8px 10px; gap: 10px; }
-    .player-avatar  { width: 34px; height: 34px; font-size: .75rem; }
-    .player-name    { font-size: .82rem; }
+    .modal-panels      { grid-template-columns: 1fr 1px 1fr; }
+    .modal-panel       { padding: 10px 6px 12px; }
+    .panel-header      { gap: 6px; margin-bottom: 8px; }
+    .panel-flag        { font-size: 1.4rem; }
+    .panel-team-name   { font-size: .78rem; }
+    .player-card       { padding: 5px 4px; gap: 5px; }
+    .player-avatar     { width: 26px; height: 26px; font-size: .62rem; flex-shrink: 0; }
+    .player-name       { font-size: .7rem; }
+    .player-pos-badge  { font-size: .58rem; }
     .events-section  { padding: 14px 14px 12px; }
     .events-col-sep  { margin: 0 10px; }
     .ev-name         { font-size: .75rem; }
