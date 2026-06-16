@@ -43,12 +43,25 @@
             <div class="tz-wrap">
                 <span class="tz-icon">🕐</span>
                 <select id="timezone-select" class="tz-select">
-                    <option value="IST">IST — India</option>
-                    <option value="GMT">GMT — London</option>
-                    <option value="CET">CET — Paris</option>
-                    <option value="EST">EST — New York</option>
-                    <option value="CST">CST — Mexico City</option>
-                    <option value="PST">PST — Los Angeles</option>
+                    <optgroup label="Asia">
+                        <option value="IST">IST — India (+5:30)</option>
+                    </optgroup>
+                    <optgroup label="Gulf">
+                        <option value="GST">GST — UAE / Oman (+4)</option>
+                        <option value="IRST">IRST — Iran (+3:30)</option>
+                        <option value="AST">AST — Saudi / Qatar / Kuwait (+3)</option>
+                    </optgroup>
+                    <optgroup label="Europe (Summer)">
+                        <option value="EEST">EEST — Istanbul / Athens (+3)</option>
+                        <option value="CEST">CEST — Paris / Berlin / Madrid (+2)</option>
+                        <option value="BST">BST — London (+1)</option>
+                        <option value="GMT">GMT — UTC (0)</option>
+                    </optgroup>
+                    <optgroup label="Americas">
+                        <option value="EST">EST — New York (-5)</option>
+                        <option value="CST">CST — Mexico City (-6)</option>
+                        <option value="PST">PST — Los Angeles (-8)</option>
+                    </optgroup>
                 </select>
             </div>
         </div>

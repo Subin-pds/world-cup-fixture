@@ -107,12 +107,21 @@ let featuredMatchId     = 1;
 
 // ── Timezone ──────────────────────────────────────────────
 const TIMEZONES = {
-    IST: { label: 'IST — India',       offset:  330 },
-    GMT: { label: 'GMT — London',      offset:    0 },
-    CET: { label: 'CET — Paris/Madrid',offset:   60 },
-    EST: { label: 'EST — New York',    offset: -300 },
-    CST: { label: 'CST — Mexico City', offset: -360 },
-    PST: { label: 'PST — Los Angeles', offset: -480 },
+    // Asia
+    IST:  { label: 'IST — India (+5:30)',              offset:  330 },
+    // Gulf
+    GST:  { label: 'GST — UAE / Oman (+4)',            offset:  240 },
+    IRST: { label: 'IRST — Iran (+3:30)',               offset:  210 },
+    AST:  { label: 'AST — Saudi / Qatar / Kuwait (+3)',offset:  180 },
+    // Europe (summer — June 2026)
+    EEST: { label: 'EEST — Istanbul / Athens (+3)',    offset:  180 },
+    CEST: { label: 'CEST — Paris / Berlin / Madrid (+2)', offset: 120 },
+    BST:  { label: 'BST — London (+1)',                offset:   60 },
+    GMT:  { label: 'GMT — UTC (0)',                    offset:    0 },
+    // Americas
+    EST:  { label: 'EST — New York (-5)',               offset: -300 },
+    CST:  { label: 'CST — Mexico City (-6)',            offset: -360 },
+    PST:  { label: 'PST — Los Angeles (-8)',            offset: -480 },
 };
 const IST_OFFSET = 330;
 
