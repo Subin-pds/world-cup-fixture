@@ -277,6 +277,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initSearch();
     setupModal();
+
+    // Re-render fixtures every 30s to flip cards to LIVE when kickoff arrives
+    setInterval(() => { renderFixtures(); updateStatistics(); }, 30000);
 });
 
 // ── Navigation ───────────────────────────────────────────
@@ -451,21 +454,39 @@ function renderFixtures() {
     });
 }
 
+// ── Live Match Detection ──────────────────────────────────
+function getMatchUtcMs(fixture) {
+    const [h, m] = fixture.time.replace(/\s*IST\s*/, '').split(':').map(Number);
+    return new Date(fixture.date + 'T00:00:00Z').getTime() + (h * 60 + m - IST_OFFSET) * 60000;
+}
+
+function isMatchLive(fixture) {
+    if (fixture.status === 'completed') return false;
+    const kickoff = getMatchUtcMs(fixture);
+    const now     = Date.now();
+    return now >= kickoff && now <= kickoff + 115 * 60000; // up to 115 min window
+}
+
 // ── Fixture Card ──────────────────────────────────────────
 function createFixtureCard(fixture) {
+    const live = isMatchLive(fixture);
     const card = document.createElement('div');
-    card.className = `fixture-card ${fixture.status}`;
+    card.className = `fixture-card ${live ? 'live' : fixture.status}`;
 
     const dateObj = new Date(fixture.date + 'T12:00:00');
     const fmtDate = dateObj.toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' });
 
     const scoreHtml = fixture.status === 'completed'
         ? `<div class="score-box"><div class="score">${fixture.score1}&nbsp;-&nbsp;${fixture.score2}</div><div class="vs-text">FULL TIME</div></div>`
-        : `<div class="score-box"><div class="score">vs</div><div class="vs-text">UPCOMING</div></div>`;
+        : live
+            ? `<div class="score-box live-score-box"><div class="score">–</div><div class="vs-text live-pulse">● LIVE</div></div>`
+            : `<div class="score-box"><div class="score">vs</div><div class="vs-text">UPCOMING</div></div>`;
 
     const statusHtml = fixture.status === 'completed'
         ? `<span class="match-status completed">✓ FT</span>`
-        : `<span class="match-status upcoming">⏱ Soon</span>`;
+        : live
+            ? `<span class="match-status live-badge"><span class="live-dot-sm"></span> LIVE NOW</span>`
+            : `<span class="match-status upcoming">⏱ Soon</span>`;
 
     card.innerHTML = `
         <div class="match-header">
