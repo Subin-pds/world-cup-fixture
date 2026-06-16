@@ -587,6 +587,7 @@ function buildDateStrip() {
 
     const allBtn = document.createElement('button');
     allBtn.className = 'date-pill active';
+    allBtn.id = 'date-strip-all';
     allBtn.textContent = 'All';
     allBtn.addEventListener('click', () => {
         currentDateFilter = null;
@@ -674,6 +675,15 @@ function setupFilterButtons() {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentStatusFilter = btn.getAttribute('data-filter');
+
+            // Upcoming/Completed are independent of date strip — clear it
+            if (currentStatusFilter !== 'all') {
+                currentDateFilter = null;
+                document.querySelectorAll('.date-pill').forEach(p => p.classList.remove('active'));
+                const allDateBtn = document.getElementById('date-strip-all');
+                if (allDateBtn) allDateBtn.classList.add('active');
+            }
+
             renderFixtures();
         });
     });
