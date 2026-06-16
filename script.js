@@ -437,9 +437,11 @@ function renderFixtures() {
     );
     if (currentStatusFilter === 'upcoming') {
         filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
-    }
-    if (currentStatusFilter === 'completed') {
-        filtered = [...filtered].sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time));
+    } else if (currentStatusFilter === 'completed') {
+        filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+    } else {
+        // 'all' — completed oldest first, then upcoming
+        filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
     }
 
     if (!filtered.length) {
