@@ -747,24 +747,14 @@ function renderFixtures() {
         filtered = [...filtered].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
     }
 
-    // ── Upcoming → Table view ────────────────────────────────
-    if (currentStatusFilter === 'upcoming') {
+    // Upcoming with no date/search selected → show only today + tomorrow (Match Day view)
+    const isMatchDayView = currentStatusFilter === 'upcoming' && !currentDateFilter && !search;
+    if (isMatchDayView) {
         const today    = getISTDateStr(0);
         const tomorrow = getISTDateStr(1);
-
-        // Restrict to today + tomorrow unless a date is pinned or search active
-        if (!currentDateFilter && !search) {
-            const near = filtered.filter(f => f.date === today || f.date === tomorrow);
-            if (near.length) filtered = near;
-        }
-
-        if (!filtered.length) {
-            container.innerHTML = `<div class="empty-state"><p>No upcoming matches found.</p></div>`;
-            return;
-        }
-
-        renderUpcomingTable(filtered, container, today, tomorrow);
-        return;
+        const near = filtered.filter(f => f.date === today || f.date === tomorrow);
+        if (near.length) filtered = near;
+        // else fall through to show all upcoming (tournament hasn't started or is over)
     }
 
     if (!filtered.length) {
@@ -772,87 +762,40 @@ function renderFixtures() {
         return;
     }
 
-    filtered.forEach((fixture, i) => {
-        const card = createFixtureCard(fixture);
-        card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
-        container.appendChild(card);
-    });
-}
+    if (isMatchDayView && filtered.length) {
+        // Group by date with "TODAY" / "TOMORROW" headers
+        const today    = getISTDateStr(0);
+        const tomorrow = getISTDateStr(1);
+        const byDate   = {};
+        filtered.forEach(f => { (byDate[f.date] = byDate[f.date] || []).push(f); });
 
-// ── Upcoming Table Renderer ───────────────────────────────
-function renderUpcomingTable(fixtures, container, today, tomorrow) {
-    const byDate = {};
-    fixtures.forEach(f => { (byDate[f.date] = byDate[f.date] || []).push(f); });
+        Object.keys(byDate).sort().forEach(date => {
+            const label = date === today ? 'Today' : date === tomorrow ? 'Tomorrow' : '';
+            const d     = new Date(date + 'T12:00:00Z');
+            const dayName = d.toLocaleDateString('en-US', { weekday: 'long' });
+            const dateFmt = d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 
-    Object.keys(byDate).sort().forEach(date => {
-        const d       = new Date(date + 'T12:00:00Z');
-        const dayName = d.toLocaleDateString('en-US', { weekday: 'long' });
-        const dateFmt = d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
-        const label   = date === today ? 'Today' : date === tomorrow ? 'Tomorrow' : '';
+            const hdr = document.createElement('div');
+            hdr.className = 'match-day-header';
+            hdr.innerHTML = `
+                <span class="mdh-tag">${label}</span>
+                <span class="mdh-day">${dayName}</span>
+                <span class="mdh-date">${dateFmt}</span>`;
+            container.appendChild(hdr);
 
-        const hdr = document.createElement('div');
-        hdr.className = 'match-day-header';
-        hdr.innerHTML = `
-            ${label ? `<span class="mdh-tag">${label}</span>` : ''}
-            <span class="mdh-day">${dayName}</span>
-            <span class="mdh-date">${dateFmt}</span>`;
-        container.appendChild(hdr);
-
-        const rows = byDate[date].map(f => {
-            const live    = isMatchLive(f);
-            const t       = timeUntil(f);
-            const isMyT   = myTeam && (f.team1 === myTeam || f.team2 === myTeam);
-            const statusCell = live
-                ? `<span class="ut-live"><span class="live-dot-sm"></span> LIVE</span>`
-                : `<span class="ut-countdown">${t || 'Soon'}</span>`;
-            return `
-                <tr class="ut-row${isMyT ? ' ut-my-team' : ''}" data-id="${f.id}">
-                    <td class="ut-time">${convertTime(f.time)}</td>
-                    <td class="ut-group">${f.group.replace('Group ', '')}</td>
-                    <td class="ut-team ut-home">
-                        <span class="ut-flag">${f.team1Flag}</span>
-                        <span class="ut-name">${f.team1}</span>
-                        ${isMyT && f.team1 === myTeam ? '<span class="ut-star">⭐</span>' : ''}
-                    </td>
-                    <td class="ut-vs">vs</td>
-                    <td class="ut-team ut-away">
-                        ${isMyT && f.team2 === myTeam ? '<span class="ut-star">⭐</span>' : ''}
-                        <span class="ut-name">${f.team2}</span>
-                        <span class="ut-flag">${f.team2Flag}</span>
-                    </td>
-                    <td class="ut-venue">${f.city}</td>
-                    <td class="ut-status">${statusCell}</td>
-                </tr>`;
-        }).join('');
-
-        const wrap = document.createElement('div');
-        wrap.className = 'upcoming-table-wrap';
-        wrap.innerHTML = `
-            <table class="upcoming-table">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Grp</th>
-                        <th class="th-home">Home</th>
-                        <th></th>
-                        <th class="th-away">Away</th>
-                        <th class="th-venue">City</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>${rows}</tbody>
-            </table>`;
-        container.appendChild(wrap);
-
-        // Click row → open modal
-        wrap.querySelectorAll('.ut-row').forEach(row => {
-            row.style.cursor = 'pointer';
-            row.addEventListener('click', () => {
-                const f = fixtures.find(x => x.id === Number(row.dataset.id));
-                if (f) openModal(f);
+            byDate[date].forEach((fixture, i) => {
+                const card = createFixtureCard(fixture);
+                card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
+                container.appendChild(card);
             });
         });
-    });
+    } else {
+        filtered.forEach((fixture, i) => {
+            const card = createFixtureCard(fixture);
+            card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
+            container.appendChild(card);
+        });
+    }
 }
 
 // ── Live Match Detection ──────────────────────────────────
