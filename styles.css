@@ -1645,7 +1645,9 @@ body::after {
     .orb-2 { width: 200px; height: 200px; right: -40px; bottom: -40px; }
     .orb-3 { width: 120px; height: 120px; }
 
-    .hero-header    { padding: 64px 0 56px; }
+    .hero-header    { padding: 40px 0 32px; }
+    .emblem-img     { width: 150px; }
+    .hero-emblem    { margin-bottom: 20px; }
     .hero-stats     { gap: 10px; }
     .hero-stat      { padding: 16px 18px; min-width: 88px; }
 
@@ -1687,6 +1689,9 @@ body::after {
     .container     { padding: 0 12px; }
 
     .nav-links     { display: none; }
+    .hero-header   { padding: 24px 0 20px; }
+    .emblem-img    { width: 100px; animation: none; }
+    .hero-emblem   { margin-bottom: 12px; }
     .hero-title    { letter-spacing: -1.5px; }
     .hero-stats    { gap: 8px; }
     .hero-stat     { padding: 12px 14px; min-width: 78px; }
