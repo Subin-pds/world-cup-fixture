@@ -593,7 +593,7 @@ function teamFifaLink(name, flag) {
     const slug = teamSlugs[name];
     const base = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams';
     if (!slug) return `<span>${flag}</span> ${name}`;
-    return `<a class="gc-team-link" href="${base}/${slug}" target="_blank" rel="noopener noreferrer"><span>${flag}</span> ${name}</a>`;
+    return `<a class="gc-team-link" href="${base}/${slug}/squad" target="_blank" rel="noopener noreferrer"><span>${flag}</span> ${name}</a>`;
 }
 
 // ── All Groups Grid ───────────────────────────────────────
