@@ -1731,9 +1731,9 @@ body::after {
 .player-card {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 10px;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
     border: 1px solid transparent;
     background: rgba(255,255,255,.03);
     transition: all .2s ease;
@@ -1747,12 +1747,12 @@ body::after {
 }
 
 .player-avatar {
-    width: 40px; height: 40px;
+    width: 54px; height: 54px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: .82rem;
+    font-size: .92rem;
     font-weight: 900;
     flex-shrink: 0;
     font-family: 'Courier New', monospace;
@@ -1774,7 +1774,7 @@ body::after {
 .player-info { flex: 1; min-width: 0; }
 
 .player-name {
-    font-size: .88rem;
+    font-size: .96rem;
     font-weight: 700;
     color: var(--text);
     white-space: nowrap;
@@ -1783,7 +1783,7 @@ body::after {
 }
 
 .player-pos-badge {
-    font-size: .66rem;
+    font-size: .72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .8px;
@@ -2298,10 +2298,10 @@ body::after {
     .panel-header      { gap: 6px; margin-bottom: 8px; }
     .panel-flag        { font-size: 1.4rem; }
     .panel-team-name   { font-size: .78rem; }
-    .player-card       { padding: 5px 4px; gap: 5px; }
-    .player-avatar     { width: 26px; height: 26px; font-size: .62rem; flex-shrink: 0; }
-    .player-name       { font-size: .7rem; }
-    .player-pos-badge  { font-size: .58rem; }
+    .player-card       { padding: 7px 6px; gap: 7px; }
+    .player-avatar     { width: 34px; height: 34px; font-size: .7rem; flex-shrink: 0; }
+    .player-name       { font-size: .76rem; }
+    .player-pos-badge  { font-size: .63rem; }
     .events-section  { padding: 14px 14px 12px; }
     .events-col-sep  { margin: 0 10px; }
     .ev-name         { font-size: .75rem; }
