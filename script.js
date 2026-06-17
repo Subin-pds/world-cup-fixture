@@ -1241,8 +1241,11 @@ function buildPlayerCard(p) {
 function openPlayerPopup(name, num, pos, img) {
     const posClass = { GK:'pos-gk', DEF:'pos-def', MID:'pos-mid', FWD:'pos-fwd' }[pos] || 'pos-mid';
     const posColor = { GK:'#FFD700', DEF:'#64b5f6', MID:'#00e676', FWD:'#ff5252' }[pos] || '#fff';
-    const photoHtml = img
-        ? `#${num}<img src="${img}" alt="${name}" onload="this.style.opacity='1'" onerror="this.remove()">`
+    const hiResImg = img
+        ? img.replace(/aspectratio:[^,]+,/, '').replace(/width:\d+/, 'width:640').replace(/quality=\d+/, 'quality=90')
+        : '';
+    const photoHtml = hiResImg
+        ? `#${num}<img src="${hiResImg}" alt="${name}" onload="this.style.opacity='1'" onerror="this.remove()">`
         : `#${num}`;
     document.getElementById('player-popup-content').innerHTML = `
         <div class="pp-photo ${posClass}">${photoHtml}</div>

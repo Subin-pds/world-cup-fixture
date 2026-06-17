@@ -2373,6 +2373,7 @@ body::after {
 .player-popup-close {
     position: absolute;
     top: 12px; right: 12px;
+    z-index: 10;
     background: rgba(0,0,0,.45);
     border: 1px solid rgba(255,255,255,.2);
     border-radius: 50%;
