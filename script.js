@@ -1186,12 +1186,12 @@ function buildEventsSection(fixture) {
             <div class="events-label">Match Events</div>
             <div class="events-cols">
                 <div class="events-col ev-col-1">
-                    <div class="events-col-head">${fixture.team1Flag} ${fixture.team1}</div>
+                    <div class="events-col-head">${fixture.team1Flag}</div>
                     ${buildCol(t1)}
                 </div>
                 <div class="events-col-sep"></div>
                 <div class="events-col ev-col-2">
-                    <div class="events-col-head">${fixture.team2Flag} ${fixture.team2}</div>
+                    <div class="events-col-head">${fixture.team2Flag}</div>
                     ${buildCol(t2)}
                 </div>
             </div>
