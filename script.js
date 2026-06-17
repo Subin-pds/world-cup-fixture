@@ -135,7 +135,7 @@ function convertTime(istTimeStr) {
     const tm   = String(tgt % 60).padStart(2, '0');
     const ampm = rawH < 12 ? 'AM' : 'PM';
     const th   = rawH % 12 === 0 ? 12 : rawH % 12;
-    return `${th}:${tm} ${ampm} ${currentTimezone}`;
+    return `${th}:${tm} ${ampm}`;
 }
 
 // ── Hero Sparkles ─────────────────────────────────────────
