@@ -1337,9 +1337,9 @@ function openModal(fixture) {
                 <span>🕐 ${convertTime(fixture.time)}</span>
                 <span>${fixture.status === 'completed' ? '✅ Full Time' : '⏱ Upcoming'}</span>
             </div>
-            ${highlightsBtnHtml}
         </div>
         <div class="modal-divider"></div>
+        ${highlightsBtnHtml ? `<div class="highlights-wrap">${highlightsBtnHtml}</div>` : ''}
         ${fixture.status === 'completed' ? buildEventsSection(fixture) : ''}
         <div class="modal-panels">
             ${buildTeamPanel(fixture.team1, fixture.team1Flag)}

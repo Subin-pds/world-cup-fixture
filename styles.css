@@ -1627,12 +1627,16 @@ body::after {
 .ev-none { color: var(--text2); font-size: .8rem; }
 
 /* ── Highlights Button ─────────────────────────────────── */
+.highlights-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 18px 24px 4px;
+}
 .highlights-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-top: 16px;
-    padding: 10px 22px;
+    padding: 12px 28px;
     background: linear-gradient(135deg, #0a3fa5, #0056d2);
     color: #fff;
     border-radius: 10px;
