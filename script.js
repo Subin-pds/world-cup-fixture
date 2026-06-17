@@ -654,8 +654,11 @@ function renderAllGroups() {
             </tr>`;
         }).join('');
         return `
-            <div class="group-card">
-                <div class="group-card-header">Group ${g}</div>
+            <div class="group-card" data-group="${g}">
+                <div class="group-card-header">
+                    Group ${g}
+                    <span class="group-card-nav-hint">Standings ›</span>
+                </div>
                 <table class="group-card-table">
                     <thead><tr>
                         <th>#</th><th class="gc-team">Team</th>
@@ -667,6 +670,22 @@ function renderAllGroups() {
                 </table>
             </div>`;
     }).join('');
+
+    container.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        const card = e.target.closest('.group-card');
+        if (!card) return;
+        navigateToGroupStandings(card.dataset.group);
+    });
+}
+
+function navigateToGroupStandings(groupLetter) {
+    const groupName = `Group ${groupLetter}`;
+    document.querySelectorAll('.group-tab').forEach(t => t.classList.remove('active'));
+    const tab = document.querySelector(`.group-tab[data-group="${groupName}"]`);
+    if (tab) tab.classList.add('active');
+    renderGroupStandings(groupName);
+    document.getElementById('standings').scrollIntoView({ behavior: 'smooth' });
 }
 
 // ── Filters ──────────────────────────────────────────────

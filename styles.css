@@ -2028,15 +2028,24 @@ body::after {
     border: 1px solid var(--border);
     border-radius: 14px;
     overflow: hidden;
-    transition: transform .2s, box-shadow .2s;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    cursor: pointer;
+    user-select: none;
 }
 .group-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 28px rgba(0,0,0,.35);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.45);
+    border-color: rgba(26,115,232,.5);
+}
+.group-card:active {
+    transform: translateY(-1px);
 }
 .group-card-header {
     background: linear-gradient(135deg, rgba(10,63,165,.5), rgba(0,86,210,.3));
     padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: .8rem;
     font-weight: 800;
     letter-spacing: .08em;
@@ -2044,6 +2053,15 @@ body::after {
     color: #90c0ff;
     border-bottom: 1px solid rgba(255,255,255,.08);
 }
+.group-card-nav-hint {
+    font-size: .68rem;
+    opacity: .55;
+    font-weight: 500;
+    letter-spacing: .02em;
+    transition: opacity .15s;
+}
+.group-card:hover .group-card-nav-hint { opacity: 1; }
+
 .group-card-table {
     width: 100%;
     border-collapse: collapse;
