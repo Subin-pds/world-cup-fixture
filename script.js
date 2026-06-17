@@ -65,15 +65,15 @@ const fixturesData = [
     { id: 48, date: "2026-06-27", time: "05:30 IST", group: "Group H", team1: "Uruguay",      team1Flag: "🇺🇾", team2: "Spain",       team2Flag: "🇪🇸", score1: null, score2: null, status: "upcoming", venue: "Estadio Akron",           city: "Guadalajara" },
 
     // ===== GROUP I =====
-    { id: 49, date: "2026-06-17", time: "00:30 IST", group: "Group I", team1: "France",  team1Flag: "🇫🇷", team2: "Senegal", team2Flag: "🇸🇳", score1: null, score2: null, status: "upcoming", venue: "MetLife Stadium",         city: "New York/New Jersey" },
-    { id: 50, date: "2026-06-17", time: "03:30 IST", group: "Group I", team1: "Iraq",    team1Flag: "🇮🇶", team2: "Norway",  team2Flag: "🇳🇴", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",        city: "Boston" },
+    { id: 49, date: "2026-06-17", time: "00:30 IST", group: "Group I", team1: "France",  team1Flag: "🇫🇷", team2: "Senegal", team2Flag: "🇸🇳", score1: 3,    score2: 1,    status: "completed", venue: "MetLife Stadium",         city: "New York/New Jersey" },
+    { id: 50, date: "2026-06-17", time: "03:30 IST", group: "Group I", team1: "Iraq",    team1Flag: "🇮🇶", team2: "Norway",  team2Flag: "🇳🇴", score1: 1,    score2: 4,    status: "completed", venue: "Gillette Stadium",        city: "Boston" },
     { id: 51, date: "2026-06-23", time: "02:30 IST", group: "Group I", team1: "France",  team1Flag: "🇫🇷", team2: "Iraq",    team2Flag: "🇮🇶", score1: null, score2: null, status: "upcoming", venue: "Lincoln Financial Field", city: "Philadelphia" },
     { id: 52, date: "2026-06-23", time: "05:30 IST", group: "Group I", team1: "Norway",  team1Flag: "🇳🇴", team2: "Senegal", team2Flag: "🇸🇳", score1: null, score2: null, status: "upcoming", venue: "MetLife Stadium",         city: "New York/New Jersey" },
     { id: 53, date: "2026-06-27", time: "00:30 IST", group: "Group I", team1: "Norway",  team1Flag: "🇳🇴", team2: "France",  team2Flag: "🇫🇷", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",        city: "Boston" },
     { id: 54, date: "2026-06-27", time: "00:30 IST", group: "Group I", team1: "Senegal", team1Flag: "🇸🇳", team2: "Iraq",    team2Flag: "🇮🇶", score1: null, score2: null, status: "upcoming", venue: "BMO Field",               city: "Toronto" },
 
     // ===== GROUP J =====
-    { id: 55, date: "2026-06-17", time: "06:30 IST", group: "Group J", team1: "Argentina", team1Flag: "🇦🇷", team2: "Algeria",   team2Flag: "🇩🇿", score1: null, score2: null, status: "upcoming", venue: "Arrowhead Stadium",       city: "Kansas City" },
+    { id: 55, date: "2026-06-17", time: "06:30 IST", group: "Group J", team1: "Argentina", team1Flag: "🇦🇷", team2: "Algeria",   team2Flag: "🇩🇿", score1: 3,    score2: 0,    status: "completed", venue: "Arrowhead Stadium",       city: "Kansas City" },
     { id: 56, date: "2026-06-17", time: "09:30 IST", group: "Group J", team1: "Austria",   team1Flag: "🇦🇹", team2: "Jordan",    team2Flag: "🇯🇴", score1: null, score2: null, status: "upcoming", venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
     { id: 57, date: "2026-06-22", time: "22:30 IST", group: "Group J", team1: "Argentina", team1Flag: "🇦🇷", team2: "Austria",   team2Flag: "🇦🇹", score1: null, score2: null, status: "upcoming", venue: "AT&T Stadium",            city: "Dallas" },
     { id: 58, date: "2026-06-23", time: "08:30 IST", group: "Group J", team1: "Jordan",    team1Flag: "🇯🇴", team2: "Algeria",   team2Flag: "🇩🇿", score1: null, score2: null, status: "upcoming", venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
@@ -1112,6 +1112,24 @@ const matchEvents = {
     44: [
         { type: 'goal',   team: 1, player: 'Al-Amri',        minute: '41'   },
         { type: 'goal',   team: 2, player: 'Araujo',         minute: '80'   },
+    ],
+    49: [
+        { type: 'goal',   team: 1, player: 'Mbappé',         minute: '66'   },
+        { type: 'goal',   team: 1, player: 'Barcola',        minute: '82'   },
+        { type: 'goal',   team: 2, player: 'I. Mbaye',       minute: '90+5' },
+        { type: 'goal',   team: 1, player: 'Mbappé',         minute: '90+6' },
+    ],
+    50: [
+        { type: 'goal',   team: 2, player: 'Haaland',        minute: '29'   },
+        { type: 'goal',   team: 1, player: 'A. Hussein',     minute: '39'   },
+        { type: 'goal',   team: 2, player: 'Haaland',        minute: '43'   },
+        { type: 'goal',   team: 2, player: 'Østigård',       minute: '76'   },
+        { type: 'og',     team: 1, player: 'A. Hussein',     minute: '90+6' },
+    ],
+    55: [
+        { type: 'goal',   team: 1, player: 'Messi',          minute: '17'   },
+        { type: 'goal',   team: 1, player: 'Messi',          minute: '60'   },
+        { type: 'goal',   team: 1, player: 'Messi',          minute: '76'   },
     ],
 };
 
