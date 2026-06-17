@@ -195,11 +195,11 @@ function initParticles() {
 
     // Each ribbon: base Y position, wave amplitude, frequency, scroll speed, phase offset, rgba color
     const ribbons = [
-        { y: 0.30, amp: 0.10, freq: 0.55, spd: 0.16, ph: 0.0, r: 26,  g: 115, b: 232, a: 0.28 },
-        { y: 0.52, amp: 0.08, freq: 0.80, spd: 0.12, ph: 2.2, r: 255, g: 215, b: 0,   a: 0.18 },
-        { y: 0.70, amp: 0.07, freq: 0.65, spd: 0.20, ph: 4.1, r: 0,   g: 230, b: 118, a: 0.14 },
-        { y: 0.20, amp: 0.06, freq: 0.95, spd: 0.10, ph: 1.4, r: 90,  g: 156, b: 245, a: 0.20 },
-        { y: 0.62, amp: 0.09, freq: 0.45, spd: 0.18, ph: 3.6, r: 255, g: 165, b: 0,   a: 0.13 },
+        { y: 0.30, amp: 0.10, freq: 0.55, spd: 0.16, ph: 0.0, r: 26,  g: 115, b: 232, a: 0.10 },
+        { y: 0.52, amp: 0.08, freq: 0.80, spd: 0.12, ph: 2.2, r: 255, g: 215, b: 0,   a: 0.07 },
+        { y: 0.70, amp: 0.07, freq: 0.65, spd: 0.20, ph: 4.1, r: 0,   g: 230, b: 118, a: 0.06 },
+        { y: 0.20, amp: 0.06, freq: 0.95, spd: 0.10, ph: 1.4, r: 90,  g: 156, b: 245, a: 0.08 },
+        { y: 0.62, amp: 0.09, freq: 0.45, spd: 0.18, ph: 3.6, r: 255, g: 165, b: 0,   a: 0.05 },
     ];
 
     function wave(x, rib) {

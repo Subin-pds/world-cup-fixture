@@ -376,7 +376,7 @@ body::after {
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: 1;
+    opacity: .6;
 }
 
 .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
