@@ -74,7 +74,7 @@ const fixturesData = [
 
     // ===== GROUP J =====
     { id: 55, date: "2026-06-17", time: "06:30 IST", group: "Group J", team1: "Argentina", team1Flag: "🇦🇷", team2: "Algeria",   team2Flag: "🇩🇿", score1: 3,    score2: 0,    status: "completed", venue: "Arrowhead Stadium",       city: "Kansas City" },
-    { id: 56, date: "2026-06-17", time: "09:30 IST", group: "Group J", team1: "Austria",   team1Flag: "🇦🇹", team2: "Jordan",    team2Flag: "🇯🇴", score1: null, score2: null, status: "upcoming", venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
+    { id: 56, date: "2026-06-17", time: "09:30 IST", group: "Group J", team1: "Austria",   team1Flag: "🇦🇹", team2: "Jordan",    team2Flag: "🇯🇴", score1: 3,    score2: 1,    status: "completed", venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
     { id: 57, date: "2026-06-22", time: "22:30 IST", group: "Group J", team1: "Argentina", team1Flag: "🇦🇷", team2: "Austria",   team2Flag: "🇦🇹", score1: null, score2: null, status: "upcoming", venue: "AT&T Stadium",            city: "Dallas" },
     { id: 58, date: "2026-06-23", time: "08:30 IST", group: "Group J", team1: "Jordan",    team1Flag: "🇯🇴", team2: "Algeria",   team2Flag: "🇩🇿", score1: null, score2: null, status: "upcoming", venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
     { id: 59, date: "2026-06-28", time: "07:30 IST", group: "Group J", team1: "Algeria",   team1Flag: "🇩🇿", team2: "Austria",   team2Flag: "🇦🇹", score1: null, score2: null, status: "upcoming", venue: "Arrowhead Stadium",       city: "Kansas City" },
@@ -1150,6 +1150,12 @@ const matchEvents = {
         { type: 'goal',   team: 1, player: 'Messi',          minute: '17'   },
         { type: 'goal',   team: 1, player: 'Messi',          minute: '60'   },
         { type: 'goal',   team: 1, player: 'Messi',          minute: '76'   },
+    ],
+    56: [
+        { type: 'goal',   team: 1, player: 'Schmid',         minute: '21'   },
+        { type: 'goal',   team: 2, player: 'Olwan',          minute: '50'   },
+        { type: 'og',     team: 1, player: 'Al-Arab',        minute: '76'   },
+        { type: 'goal',   team: 1, player: 'Arnautović (P)', minute: '90+12'},
     ],
 };
 
