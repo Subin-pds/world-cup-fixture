@@ -1245,7 +1245,7 @@ function openPlayerPopup(name, num, pos, img) {
         ? img.replace(/aspectratio:[^,]+,/, '').replace(/width:\d+/, 'width:640').replace(/quality=\d+/, 'quality=90')
         : '';
     const photoHtml = hiResImg
-        ? `#${num}<img src="${hiResImg}" alt="${name}" onload="this.style.opacity='1'" onerror="this.remove()">`
+        ? `<img src="${hiResImg}" alt="${name}" onload="this.style.opacity='1'" onerror="this.remove()">`
         : `#${num}`;
     document.getElementById('player-popup-content').innerHTML = `
         <div class="pp-photo ${posClass}">${photoHtml}</div>

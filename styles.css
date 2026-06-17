@@ -2401,6 +2401,21 @@ body::after {
     font-weight: 900;
     font-family: 'Courier New', monospace;
 }
+.pp-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.06) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: ppShimmer 1.4s ease-in-out infinite;
+    pointer-events: none;
+}
+.pp-photo img[style*="opacity: 1"] ~ ::after,
+.pp-photo:has(img[style*="opacity: 1"])::after { animation: none; opacity: 0; }
+@keyframes ppShimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
 .pp-photo.pos-gk  { background: rgba(255,215,0,.12);  border-bottom: 3px solid rgba(255,215,0,.5);  color: var(--gold); }
 .pp-photo.pos-def { background: rgba(26,115,232,.12); border-bottom: 3px solid rgba(26,115,232,.5); color: var(--blue-light); }
 .pp-photo.pos-mid { background: rgba(0,230,118,.10);  border-bottom: 3px solid rgba(0,230,118,.45); color: var(--green); }
