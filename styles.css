@@ -51,22 +51,6 @@
     100% { background-position: 200% center; }
 }
 
-/* ── Floating Flags ───────────────────────────────────── */
-.float-flag {
-    position: absolute;
-    bottom: -60px;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 0;
-    animation: flagRise linear infinite;
-    user-select: none;
-}
-@keyframes flagRise {
-    0%   { transform: translateY(0)      rotate(-8deg); opacity: 0; }
-    8%   { opacity: .55; }
-    85%  { opacity: .35; }
-    100% { transform: translateY(-700px) rotate(8deg);  opacity: 0; }
-}
 
 /* ── Top Scorers ──────────────────────────────────────── */
 .scorers-section { padding: 60px 0 40px; }

@@ -267,19 +267,6 @@ function initScrollProgress() {
     }, { passive: true });
 }
 
-// ── Floating Flag Rain ────────────────────────────────────
-function initFloatingFlags() {
-    const hero = document.querySelector('.hero-header');
-    if (!hero) return;
-    const flags = [...new Set(fixturesData.flatMap(f => [f.team1Flag, f.team2Flag]))];
-    flags.forEach(flag => {
-        const el = document.createElement('span');
-        el.className = 'float-flag';
-        el.textContent = flag;
-        el.style.cssText = `left:${2 + Math.random()*96}%;animation-delay:${(Math.random()*12).toFixed(1)}s;animation-duration:${(10+Math.random()*8).toFixed(1)}s;font-size:${(1.1+Math.random()*1.1).toFixed(1)}rem`;
-        hero.appendChild(el);
-    });
-}
 
 // ── Per-card Countdown ────────────────────────────────────
 function timeUntil(fixture) {
@@ -477,7 +464,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModal();
     setupPlayerPopup();
     initScrollProgress();
-    initFloatingFlags();
     renderTopScorers();
     setupMyTeam();
 
