@@ -1184,9 +1184,13 @@ function buildEventsSection(fixture) {
 function buildPlayerCard(p) {
     const posClass = { GK:'pos-gk', DEF:'pos-def', MID:'pos-mid', FWD:'pos-fwd' }[p.pos] || 'pos-mid';
     const posColor = { GK:'#FFD700', DEF:'#64b5f6', MID:'#00e676', FWD:'#ff5252' }[p.pos] || '#fff';
+    const avatarInner = p.img
+        ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+        + `<span style="display:none">#${p.num}</span>`
+        : `#${p.num}`;
     return `
         <div class="player-card">
-            <div class="player-avatar ${posClass}">#${p.num}</div>
+            <div class="player-avatar ${posClass}">${avatarInner}</div>
             <div class="player-info">
                 <span class="player-name">${p.name}</span>
                 <span class="player-pos-badge" style="color:${posColor}">${p.pos}</span>
