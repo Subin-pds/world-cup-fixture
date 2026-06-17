@@ -1736,14 +1736,18 @@ body::after {
     border-radius: 12px;
     border: 1px solid transparent;
     background: rgba(255,255,255,.03);
-    transition: all .2s ease;
-    cursor: default;
+    transition: background .15s ease, border-color .15s ease;
+    cursor: pointer;
+    user-select: none;
 }
 
 .player-card:hover {
-    background: rgba(255,255,255,.06);
+    background: rgba(255,255,255,.08);
     border-color: var(--border);
-    transform: translateX(3px);
+}
+
+.player-card:active {
+    background: rgba(255,255,255,.12);
 }
 
 .player-avatar {
@@ -2309,8 +2313,6 @@ body::after {
 }
 
 /* ── Player Photo Popup ────────────────────────────────── */
-.player-card { cursor: pointer; }
-
 .player-popup-overlay {
     position: fixed;
     inset: 0;
