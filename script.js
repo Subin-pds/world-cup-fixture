@@ -138,24 +138,8 @@ function convertTime(istTimeStr) {
     return `${th}:${tm} ${ampm}`;
 }
 
-// ── Hero Sparkles ─────────────────────────────────────────
-function initSparkles() {
-    const hero = document.querySelector('.hero-content');
-    if (!hero) return;
-    for (let i = 0; i < 12; i++) {
-        const s = document.createElement('div');
-        s.className = 'sparkle';
-        s.style.cssText = `
-            left:${10 + Math.random() * 80}%;
-            top:${5 + Math.random() * 90}%;
-            animation-delay:${(Math.random() * 3).toFixed(2)}s;
-            animation-duration:${(1.8 + Math.random() * 2).toFixed(2)}s;
-            width:${2 + Math.random() * 3}px;
-            height:${2 + Math.random() * 3}px;
-        `;
-        hero.appendChild(s);
-    }
-}
+// ── Hero Sparkles (no-op — removed floating dots) ────────
+function initSparkles() {}
 
 // ── Hero Countdown ────────────────────────────────────────
 function initHeroCountdown() {
@@ -195,13 +179,13 @@ function initHeroCountdown() {
     setInterval(tick, 1000);
 }
 
-// ── Fireworks Background ──────────────────────────────────
+// ── Aurora Wave Background ────────────────────────────────
 function initParticles() {
     const canvas = document.getElementById('particle-canvas');
     if (!canvas || !canvas.getContext) return;
     const ctx = canvas.getContext('2d');
 
-    let W, H;
+    let W, H, t = 0;
     function resize() {
         W = canvas.width  = window.innerWidth;
         H = canvas.height = window.innerHeight;
@@ -209,98 +193,64 @@ function initParticles() {
     resize();
     window.addEventListener('resize', resize);
 
-    const PALETTES = [
-        ['#FFD700', '#FFA500', '#fff9a0'],
-        ['#5a9cf5', '#1a73e8', '#a8d0ff'],
-        ['#ffffff', '#e0e0e0', '#FFD700'],
-        ['#00E676', '#00BCD4', '#b2dfdb'],
+    // Each ribbon: base Y position, wave amplitude, frequency, scroll speed, phase offset, rgba color
+    const ribbons = [
+        { y: 0.30, amp: 0.10, freq: 0.55, spd: 0.16, ph: 0.0, r: 26,  g: 115, b: 232, a: 0.28 },
+        { y: 0.52, amp: 0.08, freq: 0.80, spd: 0.12, ph: 2.2, r: 255, g: 215, b: 0,   a: 0.18 },
+        { y: 0.70, amp: 0.07, freq: 0.65, spd: 0.20, ph: 4.1, r: 0,   g: 230, b: 118, a: 0.14 },
+        { y: 0.20, amp: 0.06, freq: 0.95, spd: 0.10, ph: 1.4, r: 90,  g: 156, b: 245, a: 0.20 },
+        { y: 0.62, amp: 0.09, freq: 0.45, spd: 0.18, ph: 3.6, r: 255, g: 165, b: 0,   a: 0.13 },
     ];
 
-    const rockets = [];
-    const sparks  = [];
-
-    function launch() {
-        const pal = PALETTES[Math.floor(Math.random() * PALETTES.length)];
-        rockets.push({
-            x:  W * (0.12 + Math.random() * 0.76),
-            y:  H + 10,
-            vy: -(6 + Math.random() * 5),
-            ty: H * (0.08 + Math.random() * 0.42),
-            pal,
-        });
+    function wave(x, rib) {
+        return H * rib.y
+            + Math.sin(x * rib.freq * 0.004 + t * rib.spd + rib.ph) * H * rib.amp
+            + Math.sin(x * 0.0018 + t * 0.09 + rib.ph * 0.7) * H * rib.amp * 0.45;
     }
 
-    function explode(r) {
-        const n = 80 + Math.floor(Math.random() * 50);
-        for (let i = 0; i < n; i++) {
-            const angle = (Math.PI * 2 / n) * i + (Math.random() - 0.5) * 0.4;
-            const spd   = 1.2 + Math.random() * 3.8;
-            sparks.push({
-                x: r.x, y: r.y,
-                vx: Math.cos(angle) * spd,
-                vy: Math.sin(angle) * spd,
-                color: r.pal[Math.floor(Math.random() * r.pal.length)],
-                alpha: 1,
-                decay: 0.013 + Math.random() * 0.009,
-                gravity: 0.055,
-                r: 1.1 + Math.random() * 1.6,
-            });
+    function drawRibbon(rib) {
+        const steps = Math.ceil(W / 4);
+
+        ctx.beginPath();
+        for (let i = 0; i <= steps; i++) {
+            const x = (i / steps) * W;
+            const y = wave(x, rib);
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
         }
-    }
+        // ribbon bottom edge (variable thickness)
+        for (let i = steps; i >= 0; i--) {
+            const x = (i / steps) * W;
+            const thick = H * 0.055 * (0.6 + 0.4 * Math.sin(x * 0.006 + t * 0.25 + rib.ph));
+            ctx.lineTo(x, wave(x, rib) + thick);
+        }
+        ctx.closePath();
 
-    function scheduleLaunch() {
-        launch();
-        if (Math.random() > 0.55) setTimeout(launch, 250 + Math.random() * 350);
-        setTimeout(scheduleLaunch, 2800 + Math.random() * 2200);
+        // vertical gradient makes ribbon glow brighter in the middle
+        const yMid = H * rib.y;
+        const grad = ctx.createLinearGradient(0, yMid - H * rib.amp * 2.5, 0, yMid + H * rib.amp * 2.5);
+        grad.addColorStop(0,   `rgba(${rib.r},${rib.g},${rib.b},0)`);
+        grad.addColorStop(0.4, `rgba(${rib.r},${rib.g},${rib.b},${rib.a})`);
+        grad.addColorStop(0.6, `rgba(${rib.r},${rib.g},${rib.b},${rib.a})`);
+        grad.addColorStop(1,   `rgba(${rib.r},${rib.g},${rib.b},0)`);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // bright edge line (glow crest)
+        ctx.beginPath();
+        for (let i = 0; i <= steps; i++) {
+            const x = (i / steps) * W;
+            const y = wave(x, rib);
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = `rgba(${rib.r},${rib.g},${rib.b},${Math.min(rib.a * 1.6, 0.55)})`;
+        ctx.lineWidth   = 1.5;
+        ctx.stroke();
     }
-    setTimeout(scheduleLaunch, 600);
 
     function tick() {
-        // motion-blur fade instead of clear — gives spark trails
-        ctx.fillStyle = 'rgba(5,8,26,0.20)';
-        ctx.fillRect(0, 0, W, H);
-
-        for (let i = rockets.length - 1; i >= 0; i--) {
-            const r = rockets[i];
-            r.y += r.vy;
-
-            ctx.globalAlpha = 0.9;
-            ctx.fillStyle = r.pal[0];
-            ctx.beginPath();
-            ctx.arc(r.x, r.y, 2.2, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.globalAlpha = 0.25;
-            ctx.fillStyle = r.pal[2] || '#fff';
-            ctx.beginPath();
-            ctx.arc(r.x, r.y + 7, 1.4, 0, Math.PI * 2);
-            ctx.fill();
-
-            if (r.y <= r.ty) {
-                explode(r);
-                rockets.splice(i, 1);
-            }
-        }
-
-        for (let i = sparks.length - 1; i >= 0; i--) {
-            const s = sparks[i];
-            s.vx  *= 0.97;
-            s.vy  *= 0.97;
-            s.vy  += s.gravity;
-            s.x   += s.vx;
-            s.y   += s.vy;
-            s.alpha -= s.decay;
-
-            if (s.alpha <= 0) { sparks.splice(i, 1); continue; }
-
-            ctx.globalAlpha = s.alpha;
-            ctx.fillStyle   = s.color;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        ctx.globalAlpha = 1;
+        ctx.clearRect(0, 0, W, H);
+        t += 0.007;
+        ribbons.forEach(drawRibbon);
         requestAnimationFrame(tick);
     }
 
