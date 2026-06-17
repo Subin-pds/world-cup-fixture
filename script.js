@@ -476,6 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initSearch();
     setupModal();
+    setupPlayerPopup();
     initScrollProgress();
     initFloatingFlags();
     renderTopScorers();
@@ -1206,14 +1207,42 @@ function buildPlayerCard(p) {
         ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
         + `<span style="display:none">#${p.num}</span>`
         : `#${p.num}`;
+    const safeName = p.name.replace(/'/g, '&#39;');
+    const safeImg  = (p.img || '').replace(/'/g, '&#39;');
     return `
-        <div class="player-card">
+        <div class="player-card" onclick="openPlayerPopup('${safeName}',${p.num},'${p.pos}','${safeImg}')">
             <div class="player-avatar ${posClass}">${avatarInner}</div>
             <div class="player-info">
                 <span class="player-name">${p.name}</span>
                 <span class="player-pos-badge" style="color:${posColor}">${p.pos}</span>
             </div>
         </div>`;
+}
+
+function openPlayerPopup(name, num, pos, img) {
+    const posClass = { GK:'pos-gk', DEF:'pos-def', MID:'pos-mid', FWD:'pos-fwd' }[pos] || 'pos-mid';
+    const posColor = { GK:'#FFD700', DEF:'#64b5f6', MID:'#00e676', FWD:'#ff5252' }[pos] || '#fff';
+    const photoHtml = img
+        ? `<img src="${img}" alt="${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none">#${num}</span>`
+        : `#${num}`;
+    document.getElementById('player-popup-content').innerHTML = `
+        <div class="pp-photo ${posClass}">${photoHtml}</div>
+        <div class="pp-num">#${num}</div>
+        <div class="pp-name">${name}</div>
+        <div class="pp-pos" style="color:${posColor}">${pos}</div>`;
+    document.getElementById('player-popup-overlay').classList.add('open');
+}
+
+function closePlayerPopup() {
+    document.getElementById('player-popup-overlay').classList.remove('open');
+}
+
+function setupPlayerPopup() {
+    document.getElementById('player-popup-close').addEventListener('click', closePlayerPopup);
+    document.getElementById('player-popup-overlay').addEventListener('click', e => {
+        if (e.target === document.getElementById('player-popup-overlay')) closePlayerPopup();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePlayerPopup(); });
 }
 
 function buildTeamPanel(teamName, teamFlag) {
