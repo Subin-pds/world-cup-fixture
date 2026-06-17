@@ -685,7 +685,7 @@ function navigateToGroupStandings(groupLetter) {
     const tab = document.querySelector(`.group-tab[data-group="${groupName}"]`);
     if (tab) tab.classList.add('active');
     renderGroupStandings(groupName);
-    document.getElementById('group-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('standings-heading').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ── Filters ──────────────────────────────────────────────
