@@ -1222,10 +1222,10 @@ function buildEventsSection(fixture) {
 function buildPlayerCard(p) {
     const posClass = { GK:'pos-gk', DEF:'pos-def', MID:'pos-mid', FWD:'pos-fwd' }[p.pos] || 'pos-mid';
     const posColor = { GK:'#FFD700', DEF:'#64b5f6', MID:'#00e676', FWD:'#ff5252' }[p.pos] || '#fff';
-    const avatarInner = p.img
-        ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-        + `<span style="display:none">#${p.num}</span>`
-        : `#${p.num}`;
+    const imgHtml = p.img
+        ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onload="this.style.opacity='1'" onerror="this.remove()">`
+        : '';
+    const avatarInner = `#${p.num}${imgHtml}`;
     const safeName = p.name.replace(/'/g, '&#39;');
     const safeImg  = (p.img || '').replace(/'/g, '&#39;');
     return `
@@ -1242,7 +1242,7 @@ function openPlayerPopup(name, num, pos, img) {
     const posClass = { GK:'pos-gk', DEF:'pos-def', MID:'pos-mid', FWD:'pos-fwd' }[pos] || 'pos-mid';
     const posColor = { GK:'#FFD700', DEF:'#64b5f6', MID:'#00e676', FWD:'#ff5252' }[pos] || '#fff';
     const photoHtml = img
-        ? `<img src="${img}" alt="${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none">#${num}</span>`
+        ? `#${num}<img src="${img}" alt="${name}" onload="this.style.opacity='1'" onerror="this.remove()">`
         : `#${num}`;
     document.getElementById('player-popup-content').innerHTML = `
         <div class="pp-photo ${posClass}">${photoHtml}</div>
