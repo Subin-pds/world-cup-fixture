@@ -1178,6 +1178,7 @@ const matchHighlights = {
     43: 'https://www.fifa.com/en/watch/jLS5YXPMr0XAd5lMHtbiJ',
     44: 'https://www.fifa.com/en/watch/2OO54UvFW7GK8vnsarneGk',
     49: 'https://www.fifa.com/en/watch/3EKjirmmC6D2Ss29rPdDph',
+    55: 'https://www.fifa.com/en/watch/7w5eTQ8xbmnSNHypyuYhdG',
 };
 
 function buildEventsSection(fixture) {
