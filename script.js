@@ -131,9 +131,11 @@ function convertTime(istTimeStr) {
     const utcMin  = istMin - IST_OFFSET;
     const tzOff   = TIMEZONES[currentTimezone].offset;
     let   tgt     = ((utcMin + tzOff) % 1440 + 1440) % 1440;
-    const th = String(Math.floor(tgt / 60)).padStart(2, '0');
-    const tm = String(tgt % 60).padStart(2, '0');
-    return `${th}:${tm} ${currentTimezone}`;
+    const rawH = Math.floor(tgt / 60);
+    const tm   = String(tgt % 60).padStart(2, '0');
+    const ampm = rawH < 12 ? 'AM' : 'PM';
+    const th   = rawH % 12 === 0 ? 12 : rawH % 12;
+    return `${th}:${tm} ${ampm} ${currentTimezone}`;
 }
 
 // ── Hero Sparkles ─────────────────────────────────────────
