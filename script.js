@@ -1279,10 +1279,6 @@ function openModal(fixture) {
                 <div class="modal-score-block">${scoreHtml}</div>
                 <span class="modal-big-flag">${fixture.team2Flag}</span>
             </div>
-            <div class="modal-teams-names">
-                <span>${fixture.team1}</span>
-                <span>${fixture.team2}</span>
-            </div>
             <div class="modal-meta-strip">
                 <span>📍 ${fixture.venue}, ${fixture.city}</span>
                 <span>📅 ${fmtDate}</span>
