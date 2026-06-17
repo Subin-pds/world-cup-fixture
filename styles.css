@@ -113,7 +113,7 @@
     padding: 10px 16px;
     border-radius: 10px;
     background: var(--glass);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,215,0,.14);
     transition: background .15s;
 }
 .scorer-row:hover { background: rgba(255,255,255,.06); }
@@ -859,7 +859,8 @@ body::after {
 /* ── Fixture Card ─────────────────────────────────────── */
 .fixture-card {
     background: var(--glass);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,215,0,.18);
+    box-shadow: 0 0 0 0 transparent, inset 0 0 0 0 transparent;
     border-radius: var(--r-lg);
     padding: 22px;
     cursor: pointer;
@@ -901,7 +902,7 @@ body::after {
     pointer-events: none;
 }
 
-.fixture-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg), 0 0 0 1px rgba(26,115,232,.2); border-color: rgba(26,115,232,.3); }
+.fixture-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,215,0,.35), 0 0 18px rgba(255,215,0,.1); border-color: rgba(255,215,0,.45); }
 .fixture-card:hover::after { opacity: 1; }
 
 .match-header {
@@ -1163,7 +1164,7 @@ body::after {
 
 .stat-card {
     background: var(--glass);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,215,0,.18);
     border-radius: var(--r);
     padding: 32px 22px;
     text-align: center;
@@ -1184,8 +1185,8 @@ body::after {
 
 .stat-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(26,115,232,.3);
-    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(26,115,232,.15);
+    border-color: rgba(255,215,0,.45);
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,215,0,.3), 0 0 18px rgba(255,215,0,.1);
 }
 
 .stat-icon { font-size: 2rem; display: block; margin-bottom: 14px; }
@@ -2010,7 +2011,7 @@ body::after {
 }
 .group-card {
     background: var(--glass);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,215,0,.18);
     border-radius: 14px;
     overflow: hidden;
     transition: transform .2s, box-shadow .2s, border-color .2s;
