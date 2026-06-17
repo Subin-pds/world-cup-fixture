@@ -1015,6 +1015,14 @@ body::after {
 
 .fixture-card.completed .vs-text { color: var(--green); }
 
+.match-kickoff-time {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: .5px;
+    text-transform: none;
+}
+
 .match-footer {
     display: flex;
     align-items: center;

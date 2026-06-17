@@ -848,7 +848,7 @@ function createFixtureCard(fixture) {
         ? `<div class="score-box"><div class="score">${fixture.score1}&nbsp;-&nbsp;${fixture.score2}</div><div class="vs-text">FULL TIME</div></div>`
         : live
             ? `<div class="score-box live-score-box"><div class="score">–</div><div class="vs-text live-pulse">● LIVE</div></div>`
-            : `<div class="score-box"><div class="score">vs</div><div class="vs-text">UPCOMING</div></div>`;
+            : `<div class="score-box"><div class="score">vs</div><div class="vs-text match-kickoff-time">${convertTime(fixture.time)}</div></div>`;
 
     const statusHtml = fixture.status === 'completed'
         ? `<span class="match-status completed">✓ FT</span>`
