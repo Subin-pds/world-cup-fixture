@@ -195,7 +195,7 @@ function initHeroCountdown() {
     setInterval(tick, 1000);
 }
 
-// ── Particle Background ───────────────────────────────────
+// ── Fireworks Background ──────────────────────────────────
 function initParticles() {
     const canvas = document.getElementById('particle-canvas');
     if (!canvas || !canvas.getContext) return;
@@ -209,51 +209,98 @@ function initParticles() {
     resize();
     window.addEventListener('resize', resize);
 
-    const COUNT = Math.min(70, Math.floor((W * H) / 14000));
-    const MAX_D = 130;
+    const PALETTES = [
+        ['#FFD700', '#FFA500', '#fff9a0'],
+        ['#5a9cf5', '#1a73e8', '#a8d0ff'],
+        ['#ffffff', '#e0e0e0', '#FFD700'],
+        ['#00E676', '#00BCD4', '#b2dfdb'],
+    ];
 
-    const pts = Array.from({ length: COUNT }, () => ({
-        x:  Math.random() * W,
-        y:  Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r:  Math.random() * 1.6 + 0.8,
-        gold: Math.random() > 0.72,
-    }));
+    const rockets = [];
+    const sparks  = [];
+
+    function launch() {
+        const pal = PALETTES[Math.floor(Math.random() * PALETTES.length)];
+        rockets.push({
+            x:  W * (0.12 + Math.random() * 0.76),
+            y:  H + 10,
+            vy: -(6 + Math.random() * 5),
+            ty: H * (0.08 + Math.random() * 0.42),
+            pal,
+        });
+    }
+
+    function explode(r) {
+        const n = 80 + Math.floor(Math.random() * 50);
+        for (let i = 0; i < n; i++) {
+            const angle = (Math.PI * 2 / n) * i + (Math.random() - 0.5) * 0.4;
+            const spd   = 1.2 + Math.random() * 3.8;
+            sparks.push({
+                x: r.x, y: r.y,
+                vx: Math.cos(angle) * spd,
+                vy: Math.sin(angle) * spd,
+                color: r.pal[Math.floor(Math.random() * r.pal.length)],
+                alpha: 1,
+                decay: 0.013 + Math.random() * 0.009,
+                gravity: 0.055,
+                r: 1.1 + Math.random() * 1.6,
+            });
+        }
+    }
+
+    function scheduleLaunch() {
+        launch();
+        if (Math.random() > 0.55) setTimeout(launch, 250 + Math.random() * 350);
+        setTimeout(scheduleLaunch, 2800 + Math.random() * 2200);
+    }
+    setTimeout(scheduleLaunch, 600);
 
     function tick() {
-        ctx.clearRect(0, 0, W, H);
+        // motion-blur fade instead of clear — gives spark trails
+        ctx.fillStyle = 'rgba(5,8,26,0.20)';
+        ctx.fillRect(0, 0, W, H);
 
-        for (let i = 0; i < pts.length; i++) {
-            for (let j = i + 1; j < pts.length; j++) {
-                const dx = pts[i].x - pts[j].x;
-                const dy = pts[i].y - pts[j].y;
-                const d  = Math.sqrt(dx * dx + dy * dy);
-                if (d < MAX_D) {
-                    ctx.globalAlpha = (1 - d / MAX_D) * 0.18;
-                    ctx.strokeStyle = '#5a9cf5';
-                    ctx.lineWidth   = 0.6;
-                    ctx.beginPath();
-                    ctx.moveTo(pts[i].x, pts[i].y);
-                    ctx.lineTo(pts[j].x, pts[j].y);
-                    ctx.stroke();
-                }
+        for (let i = rockets.length - 1; i >= 0; i--) {
+            const r = rockets[i];
+            r.y += r.vy;
+
+            ctx.globalAlpha = 0.9;
+            ctx.fillStyle = r.pal[0];
+            ctx.beginPath();
+            ctx.arc(r.x, r.y, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.globalAlpha = 0.25;
+            ctx.fillStyle = r.pal[2] || '#fff';
+            ctx.beginPath();
+            ctx.arc(r.x, r.y + 7, 1.4, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (r.y <= r.ty) {
+                explode(r);
+                rockets.splice(i, 1);
             }
         }
 
-        ctx.globalAlpha = 1;
-        pts.forEach(p => {
+        for (let i = sparks.length - 1; i >= 0; i--) {
+            const s = sparks[i];
+            s.vx  *= 0.97;
+            s.vy  *= 0.97;
+            s.vy  += s.gravity;
+            s.x   += s.vx;
+            s.y   += s.vy;
+            s.alpha -= s.decay;
+
+            if (s.alpha <= 0) { sparks.splice(i, 1); continue; }
+
+            ctx.globalAlpha = s.alpha;
+            ctx.fillStyle   = s.color;
             ctx.beginPath();
-            ctx.fillStyle = p.gold ? 'rgba(255,215,0,.65)' : 'rgba(90,156,245,.65)';
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
             ctx.fill();
+        }
 
-            p.x += p.vx;
-            p.y += p.vy;
-            if (p.x < 0 || p.x > W) p.vx *= -1;
-            if (p.y < 0 || p.y > H) p.vy *= -1;
-        });
-
+        ctx.globalAlpha = 1;
         requestAnimationFrame(tick);
     }
 

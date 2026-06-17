@@ -392,7 +392,7 @@ body::after {
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: .55;
+    opacity: .8;
 }
 
 .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
