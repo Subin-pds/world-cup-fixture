@@ -623,13 +623,14 @@ function renderAllGroups() {
     if (!container) return;
 
     const groups = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+    const qualifyingThirds = getQualifyingThirdPlaceTeams();
     container.innerHTML = groups.map(g => {
         const name     = `Group ${g}`;
         const standings = calculateGroupStandings(name);
         const rows = standings.map((t, i) => {
             const gd    = t.gf - t.ga;
             const gdStr = gd > 0 ? `+${gd}` : `${gd}`;
-            const qual  = i < 2 ? 'gq' : '';
+            const qual  = i < 2 ? 'gq' : (i === 2 && qualifyingThirds.has(t.name) ? 'gq-third' : '');
             return `<tr class="${qual}">
                 <td class="gc-pos">${i + 1}</td>
                 <td class="gc-team">${teamFifaLink(t.name, t.flag)}</td>
@@ -980,16 +981,36 @@ function calculateGroupStandings(groupName) {
     });
 }
 
+// ── Best Third-Placed Teams ────────────────────────────────
+// Round of 32 = 12 group winners + 12 runners-up + the 8 best third-placed teams
+function getQualifyingThirdPlaceTeams() {
+    const allGroups = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+    const thirds = allGroups
+        .map(g => calculateGroupStandings(`Group ${g}`)[2])
+        .filter(Boolean);
+
+    thirds.sort((a, b) => {
+        if (b.pts !== a.pts) return b.pts - a.pts;
+        const gd = (b.gf - b.ga) - (a.gf - a.ga);
+        if (gd !== 0) return gd;
+        if (b.gf !== a.gf) return b.gf - a.gf;
+        return b.cards - a.cards;
+    });
+
+    return new Set(thirds.slice(0, 8).map(t => t.name));
+}
+
 // ── Render Standings Table ────────────────────────────────
 function renderGroupStandings(groupName) {
     const container = document.getElementById('standings-table-container');
     const standings = calculateGroupStandings(groupName);
+    const qualifyingThirds = getQualifyingThirdPlaceTeams();
 
     const rows = standings.map((t, i) => {
         const gd       = t.gf - t.ga;
         const gdClass  = gd > 0 ? 'gd-positive' : gd < 0 ? 'gd-negative' : 'gd-zero';
         const gdStr    = gd > 0 ? `+${gd}` : `${gd}`;
-        const rowClass = i < 2 ? 'qualifies' : '';
+        const rowClass = i < 2 ? 'qualifies' : (i === 2 && qualifyingThirds.has(t.name) ? 'qualifies-third' : '');
         return `
             <tr class="${rowClass}">
                 <td><span class="pos-badge pos-${i+1}">${i+1}</span></td>

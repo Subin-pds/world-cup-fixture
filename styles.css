@@ -1302,6 +1302,16 @@ body::after {
     font-weight: 700;
 }
 
+/* best third-placed team — provisional Round of 32 spot */
+.standings-table tbody tr.qualifies-third td { border-left: 3px dashed var(--gold); }
+.standings-table tbody tr.qualifies-third td:first-child { border-left: none; }
+.standings-table tbody tr.qualifies-third .team-cell-name::after {
+    content: ' ↑*';
+    font-size: .7rem;
+    color: var(--gold);
+    font-weight: 700;
+}
+
 .standings-table td {
     padding: 15px 10px;
     text-align: center;
@@ -2099,6 +2109,9 @@ body::after {
 }
 .group-card-table tbody tr.gq:nth-child(1) { background: rgba(255,215,0,.04); }
 .group-card-table tbody tr.gq:nth-child(2) { background: rgba(90,156,245,.04); }
+.group-card-table tbody tr.gq-third td { color: var(--text); }
+.group-card-table tbody tr.gq-third .gc-pos { color: var(--gold); }
+.group-card-table tbody tr.gq-third:nth-child(3) { background: rgba(255,215,0,.04); border-left: 2px dashed var(--gold); }
 .qual-legend {
     display: inline-block;
     width: 10px; height: 10px;
