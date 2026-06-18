@@ -950,8 +950,8 @@ function calculateGroupStandings(groupName) {
     const teams   = {};
 
     matches.forEach(f => {
-        if (!teams[f.team1]) teams[f.team1] = { name: f.team1, flag: f.team1Flag, p:0, w:0, d:0, l:0, gf:0, ga:0, pts:0 };
-        if (!teams[f.team2]) teams[f.team2] = { name: f.team2, flag: f.team2Flag, p:0, w:0, d:0, l:0, gf:0, ga:0, pts:0 };
+        if (!teams[f.team1]) teams[f.team1] = { name: f.team1, flag: f.team1Flag, p:0, w:0, d:0, l:0, gf:0, ga:0, pts:0, cards:0 };
+        if (!teams[f.team2]) teams[f.team2] = { name: f.team2, flag: f.team2Flag, p:0, w:0, d:0, l:0, gf:0, ga:0, pts:0, cards:0 };
     });
 
     matches.filter(f => f.status === 'completed').forEach(f => {
@@ -962,13 +962,21 @@ function calculateGroupStandings(groupName) {
         if      (f.score1 > f.score2) { t1.w++; t1.pts += 3; t2.l++; }
         else if (f.score2 > f.score1) { t2.w++; t2.pts += 3; t1.l++; }
         else                           { t1.d++; t1.pts++;    t2.d++; t2.pts++; }
+
+        (matchEvents[f.id] || []).forEach(e => {
+            const team = e.team === 1 ? t1 : t2;
+            if      (e.type === 'yellow') team.cards -= 1;
+            else if (e.type === 'red')    team.cards -= 4;
+        });
     });
 
+    // FIFA tiebreak order: points → goal difference → goals scored → disciplinary (fewest cards) points
     return Object.values(teams).sort((a, b) => {
         if (b.pts !== a.pts) return b.pts - a.pts;
         const gd = (b.gf - b.ga) - (a.gf - a.ga);
         if (gd !== 0) return gd;
-        return b.gf - a.gf;
+        if (b.gf !== a.gf) return b.gf - a.gf;
+        return b.cards - a.cards;
     });
 }
 
@@ -998,6 +1006,7 @@ function renderGroupStandings(groupName) {
                 <td>${t.gf}</td>
                 <td>${t.ga}</td>
                 <td class="${gdClass}">${gdStr}</td>
+                <td title="Disciplinary points (Yellow -1, Red -4)">${t.cards}</td>
                 <td class="pts-cell">${t.pts}</td>
             </tr>`;
     }).join('');
@@ -1016,6 +1025,7 @@ function renderGroupStandings(groupName) {
                         <th title="Goals For">GF</th>
                         <th title="Goals Against">GA</th>
                         <th title="Goal Difference">GD</th>
+                        <th title="Disciplinary points (Yellow -1, Red -4)">DISC</th>
                         <th title="Points">PTS</th>
                     </tr>
                 </thead>
@@ -1049,17 +1059,26 @@ const matchEvents = {
         { type: 'yellow', team: 1, player: 'Lee Gi-hyuk',    minute: '89'   },
     ],
     7: [
+        { type: 'yellow', team: 1, player: 'Johnston',       minute: '11'   },
         { type: 'goal',   team: 2, player: 'Lukić',          minute: '21'   },
+        { type: 'yellow', team: 2, player: 'Demirović',      minute: '45'   },
+        { type: 'yellow', team: 2, player: 'Lukić',          minute: '45+1' },
+        { type: 'yellow', team: 1, player: 'De Fougerolles', minute: '53'   },
         { type: 'yellow', team: 2, player: 'Katić',          minute: '65'   },
         { type: 'goal',   team: 1, player: 'Larin',          minute: '78'   },
     ],
     8: [
+        { type: 'yellow', team: 1, player: 'Abunada',        minute: '16'   },
         { type: 'goal',   team: 2, player: 'Embolo (P)',     minute: '17'   },
+        { type: 'yellow', team: 1, player: 'Abdulsallam',    minute: '22'   },
+        { type: 'yellow', team: 2, player: 'Zakaria',        minute: '42'   },
         { type: 'goal',   team: 1, player: 'Khoukhi',        minute: '90+4' },
     ],
     13: [
         { type: 'goal',   team: 2, player: 'Saibari',        minute: '21'   },
         { type: 'goal',   team: 1, player: 'Vinícius Jr',    minute: '32'   },
+        { type: 'yellow', team: 1, player: 'Casemiro',       minute: '37'   },
+        { type: 'yellow', team: 1, player: 'Ibañez',         minute: '43'   },
     ],
     14: [
         { type: 'goal',   team: 2, player: 'McGinn',         minute: '28'   },
@@ -1093,8 +1112,11 @@ const matchEvents = {
     31: [
         { type: 'goal',   team: 1, player: 'Van Dijk',       minute: '50'   },
         { type: 'goal',   team: 2, player: 'Nakamura',       minute: '57'   },
+        { type: 'yellow', team: 1, player: 'Summerville',    minute: '61'   },
         { type: 'goal',   team: 1, player: 'Summerville',    minute: '64'   },
+        { type: 'yellow', team: 1, player: 'Depay',          minute: '83'   },
         { type: 'goal',   team: 2, player: 'Kamada',         minute: '88'   },
+        { type: 'yellow', team: 1, player: 'Van de Ven',     minute: '90+1' },
     ],
     32: [
         { type: 'goal',   team: 1, player: 'Ayari',          minute: '7'    },
@@ -1109,13 +1131,23 @@ const matchEvents = {
         { type: 'goal',   team: 1, player: 'Rezaeian',       minute: '33'   },
         { type: 'goal',   team: 2, player: 'Just',           minute: '54'   },
         { type: 'goal',   team: 1, player: 'Mohebbi',        minute: '64'   },
+        { type: 'yellow', team: 1, player: 'Hajisafi',       minute: '89'   },
     ],
     38: [
+        { type: 'yellow', team: 2, player: 'Attia',          minute: '13'   },
+        { type: 'yellow', team: 1, player: 'Castagne',       minute: '14'   },
         { type: 'goal',   team: 2, player: 'Ashour',         minute: '19'   },
+        { type: 'yellow', team: 2, player: 'Fattouh',        minute: '34'   },
         { type: 'og',     team: 1, player: 'Hany',           minute: '66'   },
+        { type: 'yellow', team: 1, player: 'De Cuyper',      minute: '75'   },
+    ],
+    43: [
+        { type: 'yellow', team: 2, player: 'Lopes Cabral',   minute: '15'   },
+        { type: 'yellow', team: 1, player: 'Pedri',          minute: '90+2' },
     ],
     44: [
         { type: 'goal',   team: 1, player: 'Al-Amri',        minute: '41'   },
+        { type: 'yellow', team: 1, player: 'Al-Amri',        minute: '43'   },
         { type: 'goal',   team: 2, player: 'Araujo',         minute: '80'   },
     ],
     49: [
@@ -1144,7 +1176,11 @@ const matchEvents = {
     ],
     61: [
         { type: 'goal',   team: 1, player: 'João Neves',     minute: '6'    },
+        { type: 'yellow', team: 1, player: 'B. Silva',       minute: '13'   },
+        { type: 'yellow', team: 2, player: 'Mbemba',         minute: '32'   },
         { type: 'goal',   team: 2, player: 'Wissa',          minute: '45+5' },
+        { type: 'yellow', team: 1, player: 'Semedo',         minute: '87'   },
+        { type: 'yellow', team: 1, player: 'Araújo',         minute: '90+1' },
     ],
     62: [
         { type: 'goal',   team: 2, player: 'Muñoz',          minute: '40'   },
@@ -1187,7 +1223,9 @@ const matchHighlights = {
     55: 'https://www.fifa.com/en/watch/7w5eTQ8xbmnSNHypyuYhdG',
     56: 'https://www.fifa.com/en/watch/77P4VoHiQj3RG3yEQVhGpH',
     61: 'https://www.fifa.com/en/watch/3phBNopGuBvaow9DPBc2D',
+    62: 'https://www.fifa.com/en/watch/6Tr0HFdKBRPzlKF5p6kFLD',
     67: 'https://www.fifa.com/en/watch/69ls3TcVt6PIJPxhiREehA',
+    68: 'https://www.fifa.com/en/watch/5yGWUJLlTqyvKydpUvLJnU',
 };
 
 function buildEventsSection(fixture) {
