@@ -81,16 +81,16 @@ const fixturesData = [
     { id: 60, date: "2026-06-28", time: "07:30 IST", group: "Group J", team1: "Jordan",    team1Flag: "🇯🇴", team2: "Argentina", team2Flag: "🇦🇷", score1: null, score2: null, status: "upcoming", venue: "AT&T Stadium",            city: "Dallas" },
 
     // ===== GROUP K =====
-    { id: 61, date: "2026-06-17", time: "22:30 IST", group: "Group K", team1: "Portugal",   team1Flag: "🇵🇹", team2: "DR Congo",   team2Flag: "🇨🇩", score1: null, score2: null, status: "upcoming", venue: "NRG Stadium",             city: "Houston" },
-    { id: 62, date: "2026-06-18", time: "07:30 IST", group: "Group K", team1: "Uzbekistan", team1Flag: "🇺🇿", team2: "Colombia",   team2Flag: "🇨🇴", score1: null, score2: null, status: "upcoming", venue: "Estadio Azteca",          city: "Mexico City" },
+    { id: 61, date: "2026-06-17", time: "22:30 IST", group: "Group K", team1: "Portugal",   team1Flag: "🇵🇹", team2: "DR Congo",   team2Flag: "🇨🇩", score1: 1,    score2: 1,    status: "completed", venue: "NRG Stadium",             city: "Houston" },
+    { id: 62, date: "2026-06-18", time: "07:30 IST", group: "Group K", team1: "Uzbekistan", team1Flag: "🇺🇿", team2: "Colombia",   team2Flag: "🇨🇴", score1: 1,    score2: 3,    status: "completed", venue: "Estadio Azteca",          city: "Mexico City" },
     { id: 63, date: "2026-06-23", time: "22:30 IST", group: "Group K", team1: "Portugal",   team1Flag: "🇵🇹", team2: "Uzbekistan", team2Flag: "🇺🇿", score1: null, score2: null, status: "upcoming", venue: "NRG Stadium",             city: "Houston" },
     { id: 64, date: "2026-06-24", time: "07:30 IST", group: "Group K", team1: "Colombia",   team1Flag: "🇨🇴", team2: "DR Congo",   team2Flag: "🇨🇩", score1: null, score2: null, status: "upcoming", venue: "Estadio Akron",           city: "Guadalajara" },
     { id: 65, date: "2026-06-28", time: "05:00 IST", group: "Group K", team1: "Colombia",   team1Flag: "🇨🇴", team2: "Portugal",   team2Flag: "🇵🇹", score1: null, score2: null, status: "upcoming", venue: "Hard Rock Stadium",       city: "Miami" },
     { id: 66, date: "2026-06-28", time: "05:00 IST", group: "Group K", team1: "DR Congo",   team1Flag: "🇨🇩", team2: "Uzbekistan", team2Flag: "🇺🇿", score1: null, score2: null, status: "upcoming", venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
 
     // ===== GROUP L =====
-    { id: 67, date: "2026-06-18", time: "01:30 IST", group: "Group L", team1: "England", team1Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", team2: "Croatia", team2Flag: "🇭🇷", score1: null, score2: null, status: "upcoming", venue: "AT&T Stadium",            city: "Dallas" },
-    { id: 68, date: "2026-06-18", time: "04:30 IST", group: "Group L", team1: "Ghana",   team1Flag: "🇬🇭", team2: "Panama",  team2Flag: "🇵🇦", score1: null, score2: null, status: "upcoming", venue: "BMO Field",               city: "Toronto" },
+    { id: 67, date: "2026-06-18", time: "01:30 IST", group: "Group L", team1: "England", team1Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", team2: "Croatia", team2Flag: "🇭🇷", score1: 4,    score2: 2,    status: "completed", venue: "AT&T Stadium",            city: "Dallas" },
+    { id: 68, date: "2026-06-18", time: "04:30 IST", group: "Group L", team1: "Ghana",   team1Flag: "🇬🇭", team2: "Panama",  team2Flag: "🇵🇦", score1: 1,    score2: 0,    status: "completed", venue: "BMO Field",               city: "Toronto" },
     { id: 69, date: "2026-06-24", time: "01:30 IST", group: "Group L", team1: "England", team1Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", team2: "Ghana",   team2Flag: "🇬🇭", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",        city: "Boston" },
     { id: 70, date: "2026-06-24", time: "04:30 IST", group: "Group L", team1: "Panama",  team1Flag: "🇵🇦", team2: "Croatia", team2Flag: "🇭🇷", score1: null, score2: null, status: "upcoming", venue: "BMO Field",               city: "Toronto" },
     { id: 71, date: "2026-06-28", time: "02:30 IST", group: "Group L", team1: "Panama",  team1Flag: "🇵🇦", team2: "England", team2Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", score1: null, score2: null, status: "upcoming", venue: "MetLife Stadium",         city: "New York/New Jersey" },
@@ -1142,6 +1142,27 @@ const matchEvents = {
         { type: 'og',     team: 1, player: 'Al-Arab',        minute: '76'   },
         { type: 'goal',   team: 1, player: 'Arnautović (P)', minute: '90+12'},
     ],
+    61: [
+        { type: 'goal',   team: 1, player: 'João Neves',     minute: '6'    },
+        { type: 'goal',   team: 2, player: 'Wissa',          minute: '45+5' },
+    ],
+    62: [
+        { type: 'goal',   team: 2, player: 'Muñoz',          minute: '40'   },
+        { type: 'goal',   team: 1, player: 'Fayzullaev',     minute: '60'   },
+        { type: 'goal',   team: 2, player: 'L. Díaz',        minute: '65'   },
+        { type: 'goal',   team: 2, player: 'Campaz',         minute: '90+9' },
+    ],
+    67: [
+        { type: 'goal',   team: 1, player: 'Kane (P)',       minute: '12'   },
+        { type: 'goal',   team: 2, player: 'Baturina',        minute: '38'   },
+        { type: 'goal',   team: 1, player: 'Kane',           minute: '43'   },
+        { type: 'goal',   team: 2, player: 'Musa',           minute: '45+2' },
+        { type: 'goal',   team: 1, player: 'Bellingham',     minute: '47'   },
+        { type: 'goal',   team: 1, player: 'Rashford',       minute: '85'   },
+    ],
+    68: [
+        { type: 'goal',   team: 1, player: 'Yirenkyi',       minute: '90+5' },
+    ],
 };
 
 // ── Match Highlights (Official FIFA) ─────────────────────
@@ -1165,6 +1186,8 @@ const matchHighlights = {
     49: 'https://www.fifa.com/en/watch/3EKjirmmC6D2Ss29rPdDph',
     55: 'https://www.fifa.com/en/watch/7w5eTQ8xbmnSNHypyuYhdG',
     56: 'https://www.fifa.com/en/watch/77P4VoHiQj3RG3yEQVhGpH',
+    61: 'https://www.fifa.com/en/watch/3phBNopGuBvaow9DPBc2D',
+    67: 'https://www.fifa.com/en/watch/69ls3TcVt6PIJPxhiREehA',
 };
 
 function buildEventsSection(fixture) {
