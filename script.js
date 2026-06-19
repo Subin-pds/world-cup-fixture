@@ -3,16 +3,16 @@ const fixturesData = [
     // ===== GROUP A =====
     { id: 1,  date: "2026-06-12", time: "05:30 IST", group: "Group A", team1: "Mexico",       team1Flag: "🇲🇽", team2: "South Africa",          team2Flag: "🇿🇦", score1: 2,    score2: 0,    status: "completed", venue: "Estadio Azteca",          city: "Mexico City" },
     { id: 2,  date: "2026-06-12", time: "08:30 IST", group: "Group A", team1: "South Korea",  team1Flag: "🇰🇷", team2: "Czechia",                team2Flag: "🇨🇿", score1: 2,    score2: 1,    status: "completed", venue: "Estadio Akron",           city: "Guadalajara" },
-    { id: 3,  date: "2026-06-18", time: "21:30 IST", group: "Group A", team1: "Czechia",      team1Flag: "🇨🇿", team2: "South Africa",          team2Flag: "🇿🇦", score1: null, score2: null, status: "upcoming",  venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
-    { id: 4,  date: "2026-06-19", time: "06:30 IST", group: "Group A", team1: "Mexico",       team1Flag: "🇲🇽", team2: "South Korea",           team2Flag: "🇰🇷", score1: null, score2: null, status: "upcoming",  venue: "Estadio Akron",           city: "Guadalajara" },
+    { id: 3,  date: "2026-06-18", time: "21:30 IST", group: "Group A", team1: "Czechia",      team1Flag: "🇨🇿", team2: "South Africa",          team2Flag: "🇿🇦", score1: 1,    score2: 1,    status: "completed",  venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
+    { id: 4,  date: "2026-06-19", time: "06:30 IST", group: "Group A", team1: "Mexico",       team1Flag: "🇲🇽", team2: "South Korea",           team2Flag: "🇰🇷", score1: 1,    score2: 0,    status: "completed",  venue: "Estadio Akron",           city: "Guadalajara" },
     { id: 5,  date: "2026-06-25", time: "06:30 IST", group: "Group A", team1: "Czechia",      team1Flag: "🇨🇿", team2: "Mexico",                team2Flag: "🇲🇽", score1: null, score2: null, status: "upcoming",  venue: "Estadio Azteca",          city: "Mexico City" },
     { id: 6,  date: "2026-06-25", time: "06:30 IST", group: "Group A", team1: "South Africa", team1Flag: "🇿🇦", team2: "South Korea",           team2Flag: "🇰🇷", score1: null, score2: null, status: "upcoming",  venue: "Estadio BBVA",            city: "Monterrey" },
 
     // ===== GROUP B =====
     { id: 7,  date: "2026-06-13", time: "00:30 IST", group: "Group B", team1: "Canada",                 team1Flag: "🇨🇦", team2: "Bosnia and Herzegovina", team2Flag: "🇧🇦", score1: 1,    score2: 1,    status: "completed", venue: "BMO Field",              city: "Toronto" },
     { id: 8,  date: "2026-06-14", time: "00:30 IST", group: "Group B", team1: "Qatar",                  team1Flag: "🇶🇦", team2: "Switzerland",            team2Flag: "🇨🇭", score1: 1,    score2: 1,    status: "completed",  venue: "Levi's Stadium",         city: "San Francisco Bay Area" },
-    { id: 9,  date: "2026-06-19", time: "00:30 IST", group: "Group B", team1: "Switzerland",            team1Flag: "🇨🇭", team2: "Bosnia and Herzegovina", team2Flag: "🇧🇦", score1: null, score2: null, status: "upcoming",  venue: "SoFi Stadium",           city: "Los Angeles" },
-    { id: 10, date: "2026-06-19", time: "03:30 IST", group: "Group B", team1: "Canada",                 team1Flag: "🇨🇦", team2: "Qatar",                  team2Flag: "🇶🇦", score1: null, score2: null, status: "upcoming",  venue: "BC Place",               city: "Vancouver" },
+    { id: 9,  date: "2026-06-19", time: "00:30 IST", group: "Group B", team1: "Switzerland",            team1Flag: "🇨🇭", team2: "Bosnia and Herzegovina", team2Flag: "🇧🇦", score1: 4,    score2: 1,    status: "completed",  venue: "SoFi Stadium",           city: "Los Angeles" },
+    { id: 10, date: "2026-06-19", time: "03:30 IST", group: "Group B", team1: "Canada",                 team1Flag: "🇨🇦", team2: "Qatar",                  team2Flag: "🇶🇦", score1: 6,    score2: 0,    status: "completed",  venue: "BC Place",               city: "Vancouver" },
     { id: 11, date: "2026-06-25", time: "00:30 IST", group: "Group B", team1: "Switzerland",            team1Flag: "🇨🇭", team2: "Canada",                 team2Flag: "🇨🇦", score1: null, score2: null, status: "upcoming",  venue: "BC Place",               city: "Vancouver" },
     { id: 12, date: "2026-06-25", time: "00:30 IST", group: "Group B", team1: "Bosnia and Herzegovina", team1Flag: "🇧🇦", team2: "Qatar",                  team2Flag: "🇶🇦", score1: null, score2: null, status: "upcoming",  venue: "Lumen Field",            city: "Seattle" },
 
@@ -1079,6 +1079,17 @@ const matchEvents = {
         { type: 'goal',   team: 1, player: 'Oh Hyeongyu',    minute: '80'   },
         { type: 'yellow', team: 1, player: 'Lee Gi-hyuk',    minute: '89'   },
     ],
+    3: [
+        { type: 'goal',   team: 1, player: 'Sadílek',        minute: '6'    },
+        { type: 'yellow', team: 2, player: 'Mokoena',        minute: '32'   },
+        { type: 'yellow', team: 2, player: 'Mbatha',         minute: '39'   },
+        { type: 'yellow', team: 1, player: 'Krejčí',         minute: '75'   },
+        { type: 'goal',   team: 2, player: 'Mokoena (P)',    minute: '83'   },
+    ],
+    4: [
+        { type: 'yellow', team: 2, player: 'Lee Kang-in',    minute: '4'    },
+        { type: 'goal',   team: 1, player: 'Romo',           minute: '50'   },
+    ],
     7: [
         { type: 'yellow', team: 1, player: 'Johnston',       minute: '11'   },
         { type: 'goal',   team: 2, player: 'Lukić',          minute: '21'   },
@@ -1094,6 +1105,24 @@ const matchEvents = {
         { type: 'yellow', team: 1, player: 'Abdulsallam',    minute: '22'   },
         { type: 'yellow', team: 2, player: 'Zakaria',        minute: '42'   },
         { type: 'goal',   team: 1, player: 'Khoukhi',        minute: '90+4' },
+    ],
+    9: [
+        { type: 'goal',   team: 1, player: 'Manzambi',       minute: '74'   },
+        { type: 'red',    team: 2, player: 'Muharemović',    minute: '80'   },
+        { type: 'goal',   team: 1, player: 'Vargas',         minute: '84'   },
+        { type: 'goal',   team: 1, player: 'Manzambi',       minute: '90'   },
+        { type: 'goal',   team: 2, player: 'Mahmić',         minute: '90+3' },
+        { type: 'goal',   team: 1, player: 'Xhaka (P)',      minute: '90+7' },
+    ],
+    10: [
+        { type: 'goal',   team: 1, player: 'Larin',          minute: '16'   },
+        { type: 'goal',   team: 1, player: 'J. David',       minute: '29'   },
+        { type: 'red',    team: 2, player: 'El Amin',        minute: '31'   },
+        { type: 'red',    team: 2, player: 'Madibo',         minute: '45'   },
+        { type: 'goal',   team: 1, player: 'J. David',       minute: '45'   },
+        { type: 'goal',   team: 1, player: 'Saliba',         minute: '64'   },
+        { type: 'og',     team: 1, player: 'Al Manai',      minute: '75'   },
+        { type: 'goal',   team: 1, player: 'J. David',       minute: '92'   },
     ],
     13: [
         { type: 'goal',   team: 2, player: 'Saibari',        minute: '21'   },
