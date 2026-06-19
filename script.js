@@ -20,7 +20,7 @@ const fixturesData = [
     { id: 13, date: "2026-06-14", time: "03:30 IST", group: "Group C", team1: "Brazil",   team1Flag: "🇧🇷", team2: "Morocco",  team2Flag: "🇲🇦", score1: 1,    score2: 1,    status: "completed", venue: "MetLife Stadium",          city: "New York/New Jersey" },
     { id: 14, date: "2026-06-14", time: "06:30 IST", group: "Group C", team1: "Haiti",    team1Flag: "🇭🇹", team2: "Scotland", team2Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", score1: 0,    score2: 1,    status: "completed", venue: "Gillette Stadium",         city: "Boston" },
     { id: 15, date: "2026-06-20", time: "03:30 IST", group: "Group C", team1: "Scotland", team1Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", team2: "Morocco",  team2Flag: "🇲🇦", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",         city: "Boston" },
-    { id: 16, date: "2026-06-20", time: "06:30 IST", group: "Group C", team1: "Brazil",   team1Flag: "🇧🇷", team2: "Haiti",    team2Flag: "🇭🇹", score1: null, score2: null, status: "upcoming", venue: "Lincoln Financial Field",  city: "Philadelphia" },
+    { id: 16, date: "2026-06-20", time: "06:00 IST", group: "Group C", team1: "Brazil",   team1Flag: "🇧🇷", team2: "Haiti",    team2Flag: "🇭🇹", score1: null, score2: null, status: "upcoming", venue: "Lincoln Financial Field",  city: "Philadelphia" },
     { id: 17, date: "2026-06-25", time: "03:30 IST", group: "Group C", team1: "Scotland", team1Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", team2: "Brazil",   team2Flag: "🇧🇷", score1: null, score2: null, status: "upcoming", venue: "Hard Rock Stadium",        city: "Miami" },
     { id: 18, date: "2026-06-25", time: "03:30 IST", group: "Group C", team1: "Morocco",  team1Flag: "🇲🇦", team2: "Haiti",    team2Flag: "🇭🇹", score1: null, score2: null, status: "upcoming", venue: "Mercedes-Benz Stadium",   city: "Atlanta" },
 
