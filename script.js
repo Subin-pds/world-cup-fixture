@@ -1284,6 +1284,7 @@ const matchHighlights = {
     13: 'https://www.fifa.com/en/watch/1e8ayUzYWGZDbZUEU42bgQ',
     14: 'https://www.fifa.com/en/watch/1amePIIN9Rt7kvMwQGMPke',
     15: 'https://www.fifa.com/en/watch/lLPqiMKeKkrKkEqOj9dxU',
+    16: 'https://www.fifa.com/en/watch/4B1cORLHftHRri3QzyPvng',
     19: 'https://www.fifa.com/en/watch/6jzgitUqP6YyXpwwuY6VRc',
     20: 'https://www.fifa.com/en/watch/6qvmyR3k0BcpuPrSmer7Mf',
     21: 'https://www.fifa.com/en/watch/1uOCG5cpsR45kemo4IdCO3',
