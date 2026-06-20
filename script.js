@@ -19,16 +19,16 @@ const fixturesData = [
     // ===== GROUP C =====
     { id: 13, date: "2026-06-14", time: "03:30 IST", group: "Group C", team1: "Brazil",   team1Flag: "🇧🇷", team2: "Morocco",  team2Flag: "🇲🇦", score1: 1,    score2: 1,    status: "completed", venue: "MetLife Stadium",          city: "New York/New Jersey" },
     { id: 14, date: "2026-06-14", time: "06:30 IST", group: "Group C", team1: "Haiti",    team1Flag: "🇭🇹", team2: "Scotland", team2Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", score1: 0,    score2: 1,    status: "completed", venue: "Gillette Stadium",         city: "Boston" },
-    { id: 15, date: "2026-06-20", time: "03:30 IST", group: "Group C", team1: "Scotland", team1Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", team2: "Morocco",  team2Flag: "🇲🇦", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",         city: "Boston" },
-    { id: 16, date: "2026-06-20", time: "06:00 IST", group: "Group C", team1: "Brazil",   team1Flag: "🇧🇷", team2: "Haiti",    team2Flag: "🇭🇹", score1: null, score2: null, status: "upcoming", venue: "Lincoln Financial Field",  city: "Philadelphia" },
+    { id: 15, date: "2026-06-20", time: "03:30 IST", group: "Group C", team1: "Scotland", team1Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", team2: "Morocco",  team2Flag: "🇲🇦", score1: 0,    score2: 1,    status: "completed", venue: "Gillette Stadium",         city: "Boston" },
+    { id: 16, date: "2026-06-20", time: "06:00 IST", group: "Group C", team1: "Brazil",   team1Flag: "🇧🇷", team2: "Haiti",    team2Flag: "🇭🇹", score1: 3,    score2: 0,    status: "completed", venue: "Lincoln Financial Field",  city: "Philadelphia" },
     { id: 17, date: "2026-06-25", time: "03:30 IST", group: "Group C", team1: "Scotland", team1Flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", team2: "Brazil",   team2Flag: "🇧🇷", score1: null, score2: null, status: "upcoming", venue: "Hard Rock Stadium",        city: "Miami" },
     { id: 18, date: "2026-06-25", time: "03:30 IST", group: "Group C", team1: "Morocco",  team1Flag: "🇲🇦", team2: "Haiti",    team2Flag: "🇭🇹", score1: null, score2: null, status: "upcoming", venue: "Mercedes-Benz Stadium",   city: "Atlanta" },
 
     // ===== GROUP D =====
     { id: 19, date: "2026-06-13", time: "06:30 IST", group: "Group D", team1: "USA",       team1Flag: "🇺🇸", team2: "Paraguay",  team2Flag: "🇵🇾", score1: 4,    score2: 1,    status: "completed", venue: "SoFi Stadium",            city: "Los Angeles" },
     { id: 20, date: "2026-06-14", time: "09:30 IST", group: "Group D", team1: "Australia", team1Flag: "🇦🇺", team2: "Türkiye",   team2Flag: "🇹🇷", score1: 2,    score2: 0,    status: "completed",  venue: "BC Place",                city: "Vancouver" },
-    { id: 21, date: "2026-06-20", time: "00:30 IST", group: "Group D", team1: "USA",       team1Flag: "🇺🇸", team2: "Australia", team2Flag: "🇦🇺", score1: null, score2: null, status: "upcoming",  venue: "Lumen Field",             city: "Seattle" },
-    { id: 22, date: "2026-06-20", time: "09:30 IST", group: "Group D", team1: "Türkiye",   team1Flag: "🇹🇷", team2: "Paraguay",  team2Flag: "🇵🇾", score1: null, score2: null, status: "upcoming",  venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
+    { id: 21, date: "2026-06-20", time: "00:30 IST", group: "Group D", team1: "USA",       team1Flag: "🇺🇸", team2: "Australia", team2Flag: "🇦🇺", score1: 2,    score2: 0,    status: "completed",  venue: "Lumen Field",             city: "Seattle" },
+    { id: 22, date: "2026-06-20", time: "09:30 IST", group: "Group D", team1: "Türkiye",   team1Flag: "🇹🇷", team2: "Paraguay",  team2Flag: "🇵🇾", score1: 0,    score2: 0,    status: "completed",  venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
     { id: 23, date: "2026-06-26", time: "07:30 IST", group: "Group D", team1: "Türkiye",   team1Flag: "🇹🇷", team2: "USA",       team2Flag: "🇺🇸", score1: null, score2: null, status: "upcoming",  venue: "SoFi Stadium",            city: "Los Angeles" },
     { id: 24, date: "2026-06-26", time: "07:30 IST", group: "Group D", team1: "Paraguay",  team1Flag: "🇵🇾", team2: "Australia", team2Flag: "🇦🇺", score1: null, score2: null, status: "upcoming",  venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
 
@@ -1133,6 +1133,19 @@ const matchEvents = {
     14: [
         { type: 'goal',   team: 2, player: 'McGinn',         minute: '28'   },
     ],
+    15: [
+        { type: 'goal',   team: 2, player: 'Saibari',        minute: '2'    },
+        { type: 'yellow', team: 2, player: 'Diop',           minute: '23'   },
+        { type: 'yellow', team: 1, player: 'Robertson',      minute: '65'   },
+    ],
+    16: [
+        { type: 'yellow', team: 2, player: 'Arcus',          minute: '4'    },
+        { type: 'goal',   team: 1, player: 'Cunha',          minute: '23'   },
+        { type: 'goal',   team: 1, player: 'Cunha',          minute: '36'   },
+        { type: 'goal',   team: 1, player: 'Vinícius Jr',    minute: '45+3' },
+        { type: 'yellow', team: 2, player: 'Pierrot',        minute: '45+4' },
+        { type: 'yellow', team: 1, player: 'Douglas Santos', minute: '64'   },
+    ],
     19: [
         { type: 'og',     team: 1, player: 'Bobadilla',      minute: '7'    },
         { type: 'goal',   team: 1, player: 'Balogun',        minute: '31'   },
@@ -1145,6 +1158,13 @@ const matchEvents = {
     20: [
         { type: 'goal',   team: 1, player: 'Irankunda',      minute: '27'   },
         { type: 'goal',   team: 1, player: 'Metcalfe',       minute: '75'   },
+    ],
+    21: [
+        { type: 'og',     team: 1, player: 'Burgess',        minute: '11'   },
+        { type: 'yellow', team: 2, player: 'Bos',            minute: '16'   },
+        { type: 'yellow', team: 2, player: 'Circati',        minute: '32'   },
+        { type: 'goal',   team: 1, player: 'Freeman',        minute: '43'   },
+        { type: 'yellow', team: 1, player: 'Robinson',       minute: '56'   },
     ],
     25: [
         { type: 'goal',   team: 1, player: 'Nmecha',         minute: '6'    },
@@ -1264,6 +1284,7 @@ const matchHighlights = {
     14: 'https://www.fifa.com/en/watch/1amePIIN9Rt7kvMwQGMPke',
     19: 'https://www.fifa.com/en/watch/6jzgitUqP6YyXpwwuY6VRc',
     20: 'https://www.fifa.com/en/watch/6qvmyR3k0BcpuPrSmer7Mf',
+    21: 'https://www.fifa.com/en/watch/1uOCG5cpsR45kemo4IdCO3',
     25: 'https://www.fifa.com/en/watch/3MSlsbd2rcnTGlcG4jhpdR',
     26: 'https://www.fifa.com/en/watch/4P79SuyJHO3ZGVuRYxjots',
     31: 'https://www.fifa.com/en/watch/hfEd1R54PslEMX4Rqb0EP',
