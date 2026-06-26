@@ -451,7 +451,6 @@ document.addEventListener('DOMContentLoaded', () => {
     buildDateStrip();
     renderFixtures();
 
-    updateStatistics();
     setupFilterButtons();
     setupGroupSelect();
     setupTimezone();
@@ -469,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderRound32();
 
     // Re-render fixtures every 30s to flip cards to LIVE when kickoff arrives
-    setInterval(() => { renderFixtures(); updateStatistics(); renderTopScorers(); }, 30000);
+    setInterval(() => { renderFixtures(); renderTopScorers(); }, 30000);
 });
 
 // ── Navigation ───────────────────────────────────────────
@@ -882,36 +881,6 @@ function createFixtureCard(fixture) {
     return card;
 }
 
-// ── Count-Up Animation ────────────────────────────────────
-function countUp(el, target, duration = 1100) {
-    if (!el) return;
-    const start = parseInt(el.textContent) || 0;
-    const t0 = performance.now();
-    const tick = now => {
-        const p = Math.min((now - t0) / duration, 1);
-        el.textContent = Math.round(start + (target - start) * (1 - Math.pow(1 - p, 3)));
-        if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-}
-
-// ── Statistics ────────────────────────────────────────────
-function updateStatistics() {
-    const total    = fixturesData.length;
-    const played   = fixturesData.filter(f => f.status === 'completed').length;
-    const goals    = fixturesData.filter(f => f.status === 'completed').reduce((s, f) => s + f.score1 + f.score2, 0);
-    const upcoming = fixturesData.filter(f => f.status === 'upcoming').length;
-    const teams    = new Set([...fixturesData.map(f => f.team1), ...fixturesData.map(f => f.team2)]).size;
-
-    countUp(document.getElementById('total-matches-stat'),    total);
-    countUp(document.getElementById('matches-played-stat'),   played);
-    countUp(document.getElementById('total-goals-stat'),      goals);
-    countUp(document.getElementById('upcoming-matches-stat'), upcoming);
-    countUp(document.getElementById('hero-matches'),          total);
-    countUp(document.getElementById('hero-goals'),            goals);
-    countUp(document.getElementById('hero-teams'),            teams);
-}
-
 
 // ── Scroll Reveal ─────────────────────────────────────────
 function initScrollReveal() {
@@ -1063,7 +1032,6 @@ function updateFixtureScore(fixtureId, score1, score2) {
     if (!f) return;
     f.score1 = score1; f.score2 = score2; f.status = 'completed';
     renderFixtures();
-    updateStatistics();
 }
 
 // ── Match Events Data ────────────────────────────────────

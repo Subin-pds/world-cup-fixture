@@ -1162,59 +1162,6 @@ body::after {
 /* ── Stats Section ────────────────────────────────────── */
 .stats-section { margin-bottom: 90px; }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 18px;
-}
-
-.stat-card {
-    background: var(--glass);
-    border: 1px solid rgba(255,215,0,.18);
-    border-radius: var(--r);
-    padding: 32px 22px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: all .3s ease;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-}
-
-.stat-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(26,115,232,.08), transparent 65%);
-    pointer-events: none;
-}
-
-.stat-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(255,215,0,.45);
-    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,215,0,.3), 0 0 18px rgba(255,215,0,.1);
-}
-
-.stat-icon { font-size: 2rem; display: block; margin-bottom: 14px; }
-
-.stat-card h3 {
-    font-size: 2.6rem;
-    font-weight: 900;
-    color: var(--gold);
-    margin-bottom: 8px;
-    font-family: 'Courier New', monospace;
-    text-shadow: 0 0 24px var(--gold-glow);
-    font-variant-numeric: tabular-nums;
-}
-
-.stat-card p {
-    color: var(--text2);
-    font-size: .78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
 /* ── Group Tabs ───────────────────────────────────────── */
 .group-tabs {
     display: flex;
@@ -2216,7 +2163,6 @@ body::after {
     .fixture-card,
     .hero-stat,
     .featured-match,
-    .stat-card,
     .standings-table-wrap,
     .modal,
     .group-select,
@@ -2253,8 +2199,6 @@ body::after {
     .featured-score { font-size: 2.6rem; margin: 0 10px; }
     .featured-match { padding: 28px 20px; }
     .featured-meta  { gap: 14px; font-size: .8rem; }
-
-    .stats-grid     { grid-template-columns: repeat(2, 1fr); }
 
     /* Standings — allow horizontal scroll on table only */
     .standings-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -2299,8 +2243,6 @@ body::after {
     .team-name     { font-size: .78rem; }
     .score         { font-size: 1.5rem; }
     .score-box     { min-width: 78px; padding: 10px 10px; }
-
-    .stats-grid    { grid-template-columns: 1fr 1fr; gap: 12px; }
 
     .standings-table th, .standings-table td { padding: 10px 5px; font-size: .75rem; }
     .standings-table th.col-team, .standings-table td.col-team { padding-left: 8px; min-width: 110px; }
