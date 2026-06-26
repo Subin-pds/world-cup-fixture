@@ -54,6 +54,7 @@
                 <a href="#matches"   class="nav-link active">Matches</a>
                 <a href="#groups"    class="nav-link">Groups</a>
                 <a href="#standings" class="nav-link">Standings</a>
+                <a href="#knockouts" class="nav-link">Knockouts</a>
             </div>
             <div class="tz-picker" id="tz-picker">
                 <button class="tz-btn" id="tz-btn" aria-haspopup="listbox" aria-expanded="false">
@@ -196,6 +197,15 @@
             <div id="standings-table-container" class="reveal"></div>
         </section>
 
+        <!-- ── Round of 32 ──────────────────────────────────── -->
+        <section id="knockouts" class="knockouts-section reveal">
+            <div class="section-header">
+                <h2>Round of 32</h2>
+                <p class="section-subtitle">Official bracket schedule · slots fill in as each group finishes — some still show the qualifying condition (e.g. "Best 3rd Group A/B/C/D/F") until all groups conclude</p>
+            </div>
+            <div id="round32-container" class="fixtures"></div>
+        </section>
+
         <!-- ── Top Scorers ─────────────────────────────────── -->
         <section id="scorers" class="scorers-section reveal">
             <div class="section-header">
@@ -247,6 +257,10 @@
         <a href="#standings" class="bn-item" data-section="standings">
             <span class="bn-icon">📊</span>
             <span class="bn-label">Standings</span>
+        </a>
+        <a href="#knockouts" class="bn-item" data-section="knockouts">
+            <span class="bn-icon">🏟️</span>
+            <span class="bn-label">Knockouts</span>
         </a>
         <a href="#scorers"   class="bn-item" data-section="scorers">
             <span class="bn-icon">⚽</span>

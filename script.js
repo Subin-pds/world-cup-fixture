@@ -466,6 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollProgress();
     renderTopScorers();
     setupMyTeam();
+    renderRound32();
 
     // Re-render fixtures every 30s to flip cards to LIVE when kickoff arrives
     setInterval(() => { renderFixtures(); updateStatistics(); renderTopScorers(); }, 30000);
@@ -537,6 +538,7 @@ function setupTimezone() {
                 closeDropdown();
                 buildDropdown();
                 renderFixtures();
+                renderRound32();
             });
         });
     }
@@ -1536,6 +1538,95 @@ const matchHighlights = {
     69: 'https://www.fifa.com/en/watch/YMV6IJCxemtC0s8HtqPn3',
     70: 'https://www.fifa.com/en/watch/5ewcE9E2gBUvXwyGfkEz1n',
 };
+
+// ── Round of 32 (Knockout Stage) ──────────────────────────
+// Official FIFA bracket slots/schedule (Match 73-88), published ahead of
+// group-stage completion. team1/team2 are filled in once a group concludes
+// and that slot resolves to a real team; slot1/slot2 hold the bracket label
+// shown as a fallback (e.g. "Runner-up Group K") until then. Best-3rd-place
+// slots stay TBD until ALL 12 groups finish, since the best-8-of-12 ranking
+// needs every group's third-place team to compare against.
+const round32Data = [
+    { matchNo: 73, date: "2026-06-29", time: "00:30 IST", venue: "SoFi Stadium",        city: "Los Angeles",
+      slot1: "Runner-up Group A", slot2: "Runner-up Group B",
+      team1: "South Africa", team1Flag: "🇿🇦", team2: "Canada", team2Flag: "🇨🇦" },
+    { matchNo: 74, date: "2026-06-30", time: "02:00 IST", venue: "Gillette Stadium",    city: "Boston",
+      slot1: "Winner Group E", slot2: "Best 3rd Group A/B/C/D/F",
+      team1: "Germany", team1Flag: "🇩🇪" },
+    { matchNo: 75, date: "2026-06-30", time: "06:30 IST", venue: "Estadio BBVA",        city: "Monterrey",
+      slot1: "Winner Group F", slot2: "Runner-up Group C",
+      team1: "Netherlands", team1Flag: "🇳🇱", team2: "Morocco", team2Flag: "🇲🇦" },
+    { matchNo: 76, date: "2026-06-29", time: "22:30 IST", venue: "NRG Stadium",         city: "Houston",
+      slot1: "Winner Group C", slot2: "Runner-up Group F",
+      team1: "Brazil", team1Flag: "🇧🇷", team2: "Japan", team2Flag: "🇯🇵" },
+    { matchNo: 77, date: "2026-07-01", time: "02:30 IST", venue: "MetLife Stadium",     city: "New York/New Jersey",
+      slot1: "Winner Group I", slot2: "Best 3rd Group C/D/F/G/H" },
+    { matchNo: 78, date: "2026-06-30", time: "22:30 IST", venue: "AT&T Stadium",        city: "Dallas",
+      slot1: "Runner-up Group E", slot2: "Runner-up Group I",
+      team1: "Ivory Coast", team1Flag: "🇨🇮" },
+    { matchNo: 79, date: "2026-07-01", time: "06:30 IST", venue: "Estadio Azteca",      city: "Mexico City",
+      slot1: "Winner Group A", slot2: "Best 3rd Group C/E/F/H/I",
+      team1: "Mexico", team1Flag: "🇲🇽" },
+    { matchNo: 80, date: "2026-07-01", time: "21:30 IST", venue: "Mercedes-Benz Stadium", city: "Atlanta",
+      slot1: "Winner Group L", slot2: "Best 3rd Group E/H/I/J/K" },
+    { matchNo: 81, date: "2026-07-02", time: "05:30 IST", venue: "Levi's Stadium",      city: "San Francisco Bay Area",
+      slot1: "Winner Group D", slot2: "Best 3rd Group B/E/F/I/J",
+      team1: "USA", team1Flag: "🇺🇸" },
+    { matchNo: 82, date: "2026-07-02", time: "01:30 IST", venue: "Lumen Field",         city: "Seattle",
+      slot1: "Winner Group G", slot2: "Best 3rd Group A/E/H/I/J" },
+    { matchNo: 83, date: "2026-07-03", time: "04:30 IST", venue: "BMO Field",           city: "Toronto",
+      slot1: "Runner-up Group K", slot2: "Runner-up Group L" },
+    { matchNo: 84, date: "2026-07-03", time: "00:30 IST", venue: "SoFi Stadium",        city: "Los Angeles",
+      slot1: "Winner Group H", slot2: "Runner-up Group J" },
+    { matchNo: 85, date: "2026-07-03", time: "08:30 IST", venue: "BC Place",            city: "Vancouver",
+      slot1: "Winner Group B", slot2: "Best 3rd Group E/F/G/I/J",
+      team1: "Switzerland", team1Flag: "🇨🇭" },
+    { matchNo: 86, date: "2026-07-04", time: "03:30 IST", venue: "Hard Rock Stadium",   city: "Miami",
+      slot1: "Winner Group J", slot2: "Runner-up Group H" },
+    { matchNo: 87, date: "2026-07-04", time: "07:00 IST", venue: "Arrowhead Stadium",   city: "Kansas City",
+      slot1: "Winner Group K", slot2: "Best 3rd Group D/E/I/J/L" },
+    { matchNo: 88, date: "2026-07-03", time: "23:30 IST", venue: "AT&T Stadium",        city: "Dallas",
+      slot1: "Runner-up Group D", slot2: "Runner-up Group G",
+      team1: "Australia", team1Flag: "🇦🇺" },
+];
+
+function renderRound32() {
+    const container = document.getElementById('round32-container');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const sorted = [...round32Data].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+
+    sorted.forEach((match, i) => {
+        const card = document.createElement('div');
+        card.className = 'fixture-card upcoming r32-card';
+
+        const dateObj = new Date(match.date + 'T12:00:00');
+        const fmtDate = dateObj.toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' });
+
+        const team = (name, flag, slot) => name
+            ? `<div class="team"><span class="team-flag">${flag}</span><div class="team-name">${name}</div></div>`
+            : `<div class="team tbd"><span class="team-flag">❔</span><div class="team-name">${slot}</div></div>`;
+
+        card.innerHTML = `
+            <div class="match-header">
+                <div class="match-date">${fmtDate} · ${convertTime(match.time)}</div>
+                <div class="match-header-right"><div class="match-group-badge">Match ${match.matchNo}</div></div>
+            </div>
+            <div class="match-container">
+                ${team(match.team1, match.team1Flag, match.slot1)}
+                <div class="score-box"><div class="score">vs</div><div class="vs-text match-kickoff-time">R32</div></div>
+                ${team(match.team2, match.team2Flag, match.slot2)}
+            </div>
+            <div class="match-footer">
+                <div class="match-venue">📍 ${match.venue}, ${match.city}</div>
+                ${(() => { const t = timeUntil(match); return `<span class="match-status upcoming">${t ? `⏱ ${t}` : '⏱ Soon'}</span>`; })()}
+            </div>`;
+
+        card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
+        container.appendChild(card);
+    });
+}
 
 function buildEventsSection(fixture) {
     const events = matchEvents[fixture.id];
