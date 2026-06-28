@@ -53,48 +53,48 @@ const fixturesData = [
     { id: 38, date: "2026-06-16", time: "00:30 IST", group: "Group G", team1: "Belgium",     team1Flag: "🇧🇪", team2: "Egypt",       team2Flag: "🇪🇬", score1: 1,    score2: 1,    status: "completed", venue: "Lumen Field",             city: "Seattle" },
     { id: 39, date: "2026-06-22", time: "00:30 IST", group: "Group G", team1: "Belgium",     team1Flag: "🇧🇪", team2: "Iran",        team2Flag: "🇮🇷", score1: 0,    score2: 0,    status: "completed", venue: "SoFi Stadium",            city: "Los Angeles" },
     { id: 40, date: "2026-06-22", time: "06:30 IST", group: "Group G", team1: "New Zealand", team1Flag: "🇳🇿", team2: "Egypt",       team2Flag: "🇪🇬", score1: 1,    score2: 3,    status: "completed", venue: "BC Place",                city: "Vancouver" },
-    { id: 41, date: "2026-06-27", time: "08:30 IST", group: "Group G", team1: "Egypt",       team1Flag: "🇪🇬", team2: "Iran",        team2Flag: "🇮🇷", score1: null, score2: null, status: "upcoming", venue: "Lumen Field",             city: "Seattle" },
-    { id: 42, date: "2026-06-27", time: "08:30 IST", group: "Group G", team1: "New Zealand", team1Flag: "🇳🇿", team2: "Belgium",     team2Flag: "🇧🇪", score1: null, score2: null, status: "upcoming", venue: "BC Place",                city: "Vancouver" },
+    { id: 41, date: "2026-06-27", time: "08:30 IST", group: "Group G", team1: "Egypt",       team1Flag: "🇪🇬", team2: "Iran",        team2Flag: "🇮🇷", score1: 1,    score2: 1,    status: "completed", venue: "Lumen Field",             city: "Seattle" },
+    { id: 42, date: "2026-06-27", time: "08:30 IST", group: "Group G", team1: "New Zealand", team1Flag: "🇳🇿", team2: "Belgium",     team2Flag: "🇧🇪", score1: 1,    score2: 5,    status: "completed", venue: "BC Place",                city: "Vancouver" },
 
     // ===== GROUP H =====
     { id: 43, date: "2026-06-15", time: "21:30 IST", group: "Group H", team1: "Spain",        team1Flag: "🇪🇸", team2: "Cape Verde",  team2Flag: "🇨🇻", score1: 0,    score2: 0,    status: "completed", venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
     { id: 44, date: "2026-06-16", time: "03:30 IST", group: "Group H", team1: "Saudi Arabia", team1Flag: "🇸🇦", team2: "Uruguay",     team2Flag: "🇺🇾", score1: 1,    score2: 1,    status: "completed", venue: "Hard Rock Stadium",       city: "Miami" },
     { id: 45, date: "2026-06-21", time: "21:30 IST", group: "Group H", team1: "Spain",        team1Flag: "🇪🇸", team2: "Saudi Arabia",team2Flag: "🇸🇦", score1: 4,    score2: 0,    status: "completed", venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
     { id: 46, date: "2026-06-22", time: "03:30 IST", group: "Group H", team1: "Uruguay",      team1Flag: "🇺🇾", team2: "Cape Verde",  team2Flag: "🇨🇻", score1: 2,    score2: 2,    status: "completed", venue: "Hard Rock Stadium",       city: "Miami" },
-    { id: 47, date: "2026-06-27", time: "05:30 IST", group: "Group H", team1: "Cape Verde",   team1Flag: "🇨🇻", team2: "Saudi Arabia",team2Flag: "🇸🇦", score1: null, score2: null, status: "upcoming", venue: "NRG Stadium",             city: "Houston" },
-    { id: 48, date: "2026-06-27", time: "05:30 IST", group: "Group H", team1: "Uruguay",      team1Flag: "🇺🇾", team2: "Spain",       team2Flag: "🇪🇸", score1: null, score2: null, status: "upcoming", venue: "Estadio Akron",           city: "Guadalajara" },
+    { id: 47, date: "2026-06-27", time: "05:30 IST", group: "Group H", team1: "Cape Verde",   team1Flag: "🇨🇻", team2: "Saudi Arabia",team2Flag: "🇸🇦", score1: 0,    score2: 0,    status: "completed", venue: "NRG Stadium",             city: "Houston" },
+    { id: 48, date: "2026-06-27", time: "05:30 IST", group: "Group H", team1: "Uruguay",      team1Flag: "🇺🇾", team2: "Spain",       team2Flag: "🇪🇸", score1: 0,    score2: 1,    status: "completed", venue: "Estadio Akron",           city: "Guadalajara" },
 
     // ===== GROUP I =====
     { id: 49, date: "2026-06-17", time: "00:30 IST", group: "Group I", team1: "France",  team1Flag: "🇫🇷", team2: "Senegal", team2Flag: "🇸🇳", score1: 3,    score2: 1,    status: "completed", venue: "MetLife Stadium",         city: "New York/New Jersey" },
     { id: 50, date: "2026-06-17", time: "03:30 IST", group: "Group I", team1: "Iraq",    team1Flag: "🇮🇶", team2: "Norway",  team2Flag: "🇳🇴", score1: 1,    score2: 4,    status: "completed", venue: "Gillette Stadium",        city: "Boston" },
     { id: 51, date: "2026-06-23", time: "02:30 IST", group: "Group I", team1: "France",  team1Flag: "🇫🇷", team2: "Iraq",    team2Flag: "🇮🇶", score1: 3, score2: 0, status: "completed", venue: "Lincoln Financial Field", city: "Philadelphia" },
     { id: 52, date: "2026-06-23", time: "05:30 IST", group: "Group I", team1: "Norway",  team1Flag: "🇳🇴", team2: "Senegal", team2Flag: "🇸🇳", score1: 3, score2: 2, status: "completed", venue: "MetLife Stadium",         city: "New York/New Jersey" },
-    { id: 53, date: "2026-06-27", time: "00:30 IST", group: "Group I", team1: "Norway",  team1Flag: "🇳🇴", team2: "France",  team2Flag: "🇫🇷", score1: null, score2: null, status: "upcoming", venue: "Gillette Stadium",        city: "Boston" },
-    { id: 54, date: "2026-06-27", time: "00:30 IST", group: "Group I", team1: "Senegal", team1Flag: "🇸🇳", team2: "Iraq",    team2Flag: "🇮🇶", score1: null, score2: null, status: "upcoming", venue: "BMO Field",               city: "Toronto" },
+    { id: 53, date: "2026-06-27", time: "00:30 IST", group: "Group I", team1: "Norway",  team1Flag: "🇳🇴", team2: "France",  team2Flag: "🇫🇷", score1: 1,    score2: 4,    status: "completed", venue: "Gillette Stadium",        city: "Boston" },
+    { id: 54, date: "2026-06-27", time: "00:30 IST", group: "Group I", team1: "Senegal", team1Flag: "🇸🇳", team2: "Iraq",    team2Flag: "🇮🇶", score1: 5,    score2: 0,    status: "completed", venue: "BMO Field",               city: "Toronto" },
 
     // ===== GROUP J =====
     { id: 55, date: "2026-06-17", time: "06:30 IST", group: "Group J", team1: "Argentina", team1Flag: "🇦🇷", team2: "Algeria",   team2Flag: "🇩🇿", score1: 3,    score2: 0,    status: "completed", venue: "Arrowhead Stadium",       city: "Kansas City" },
     { id: 56, date: "2026-06-17", time: "09:30 IST", group: "Group J", team1: "Austria",   team1Flag: "🇦🇹", team2: "Jordan",    team2Flag: "🇯🇴", score1: 3,    score2: 1,    status: "completed", venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
     { id: 57, date: "2026-06-22", time: "22:30 IST", group: "Group J", team1: "Argentina", team1Flag: "🇦🇷", team2: "Austria",   team2Flag: "🇦🇹", score1: 2, score2: 0, status: "completed", venue: "AT&T Stadium",            city: "Dallas" },
     { id: 58, date: "2026-06-23", time: "08:30 IST", group: "Group J", team1: "Jordan",    team1Flag: "🇯🇴", team2: "Algeria",   team2Flag: "🇩🇿", score1: 1, score2: 2, status: "completed", venue: "Levi's Stadium",          city: "San Francisco Bay Area" },
-    { id: 59, date: "2026-06-28", time: "07:30 IST", group: "Group J", team1: "Algeria",   team1Flag: "🇩🇿", team2: "Austria",   team2Flag: "🇦🇹", score1: null, score2: null, status: "upcoming", venue: "Arrowhead Stadium",       city: "Kansas City" },
-    { id: 60, date: "2026-06-28", time: "07:30 IST", group: "Group J", team1: "Jordan",    team1Flag: "🇯🇴", team2: "Argentina", team2Flag: "🇦🇷", score1: null, score2: null, status: "upcoming", venue: "AT&T Stadium",            city: "Dallas" },
+    { id: 59, date: "2026-06-28", time: "07:30 IST", group: "Group J", team1: "Algeria",   team1Flag: "🇩🇿", team2: "Austria",   team2Flag: "🇦🇹", score1: 3,    score2: 3,    status: "completed", venue: "Arrowhead Stadium",       city: "Kansas City" },
+    { id: 60, date: "2026-06-28", time: "07:30 IST", group: "Group J", team1: "Jordan",    team1Flag: "🇯🇴", team2: "Argentina", team2Flag: "🇦🇷", score1: 1,    score2: 3,    status: "completed", venue: "AT&T Stadium",            city: "Dallas" },
 
     // ===== GROUP K =====
     { id: 61, date: "2026-06-17", time: "22:30 IST", group: "Group K", team1: "Portugal",   team1Flag: "🇵🇹", team2: "DR Congo",   team2Flag: "🇨🇩", score1: 1,    score2: 1,    status: "completed", venue: "NRG Stadium",             city: "Houston" },
     { id: 62, date: "2026-06-18", time: "07:30 IST", group: "Group K", team1: "Uzbekistan", team1Flag: "🇺🇿", team2: "Colombia",   team2Flag: "🇨🇴", score1: 1,    score2: 3,    status: "completed", venue: "Estadio Azteca",          city: "Mexico City" },
     { id: 63, date: "2026-06-23", time: "22:30 IST", group: "Group K", team1: "Portugal",   team1Flag: "🇵🇹", team2: "Uzbekistan", team2Flag: "🇺🇿", score1: 5,    score2: 0,    status: "completed", venue: "NRG Stadium",             city: "Houston" },
     { id: 64, date: "2026-06-24", time: "07:30 IST", group: "Group K", team1: "Colombia",   team1Flag: "🇨🇴", team2: "DR Congo",   team2Flag: "🇨🇩", score1: 1,    score2: 0,    status: "completed", venue: "Estadio Akron",           city: "Guadalajara" },
-    { id: 65, date: "2026-06-28", time: "05:00 IST", group: "Group K", team1: "Colombia",   team1Flag: "🇨🇴", team2: "Portugal",   team2Flag: "🇵🇹", score1: null, score2: null, status: "upcoming", venue: "Hard Rock Stadium",       city: "Miami" },
-    { id: 66, date: "2026-06-28", time: "05:00 IST", group: "Group K", team1: "DR Congo",   team1Flag: "🇨🇩", team2: "Uzbekistan", team2Flag: "🇺🇿", score1: null, score2: null, status: "upcoming", venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
+    { id: 65, date: "2026-06-28", time: "05:00 IST", group: "Group K", team1: "Colombia",   team1Flag: "🇨🇴", team2: "Portugal",   team2Flag: "🇵🇹", score1: 0,    score2: 0,    status: "completed", venue: "Hard Rock Stadium",       city: "Miami" },
+    { id: 66, date: "2026-06-28", time: "05:00 IST", group: "Group K", team1: "DR Congo",   team1Flag: "🇨🇩", team2: "Uzbekistan", team2Flag: "🇺🇿", score1: 3,    score2: 1,    status: "completed", venue: "Mercedes-Benz Stadium",  city: "Atlanta" },
 
     // ===== GROUP L =====
     { id: 67, date: "2026-06-18", time: "01:30 IST", group: "Group L", team1: "England", team1Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", team2: "Croatia", team2Flag: "🇭🇷", score1: 4,    score2: 2,    status: "completed", venue: "AT&T Stadium",            city: "Dallas" },
     { id: 68, date: "2026-06-18", time: "04:30 IST", group: "Group L", team1: "Ghana",   team1Flag: "🇬🇭", team2: "Panama",  team2Flag: "🇵🇦", score1: 1,    score2: 0,    status: "completed", venue: "BMO Field",               city: "Toronto" },
     { id: 69, date: "2026-06-24", time: "01:30 IST", group: "Group L", team1: "England", team1Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", team2: "Ghana",   team2Flag: "🇬🇭", score1: 0,    score2: 0,    status: "completed", venue: "Gillette Stadium",        city: "Boston" },
     { id: 70, date: "2026-06-24", time: "04:30 IST", group: "Group L", team1: "Panama",  team1Flag: "🇵🇦", team2: "Croatia", team2Flag: "🇭🇷", score1: 0,    score2: 1,    status: "completed", venue: "BMO Field",               city: "Toronto" },
-    { id: 71, date: "2026-06-28", time: "02:30 IST", group: "Group L", team1: "Panama",  team1Flag: "🇵🇦", team2: "England", team2Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", score1: null, score2: null, status: "upcoming", venue: "MetLife Stadium",         city: "New York/New Jersey" },
-    { id: 72, date: "2026-06-28", time: "02:30 IST", group: "Group L", team1: "Croatia", team1Flag: "🇭🇷", team2: "Ghana",   team2Flag: "🇬🇭", score1: null, score2: null, status: "upcoming", venue: "Lincoln Financial Field", city: "Philadelphia" },
+    { id: 71, date: "2026-06-28", time: "02:30 IST", group: "Group L", team1: "Panama",  team1Flag: "🇵🇦", team2: "England", team2Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", score1: 0,    score2: 2,    status: "completed", venue: "MetLife Stadium",         city: "New York/New Jersey" },
+    { id: 72, date: "2026-06-28", time: "02:30 IST", group: "Group L", team1: "Croatia", team1Flag: "🇭🇷", team2: "Ghana",   team2Flag: "🇬🇭", score1: 2,    score2: 1,    status: "completed", venue: "Lincoln Financial Field", city: "Philadelphia" },
 ];
 
 let currentStatusFilter = 'upcoming';
@@ -1319,6 +1319,22 @@ const matchEvents = {
         { type: 'goal',   team: 2, player: 'Salah',           minute: '67'   },
         { type: 'goal',   team: 2, player: 'Trézéguet',       minute: '82'   },
     ],
+    41: [
+        { type: 'goal',   team: 1, player: 'Saber',           minute: '5'    },
+        { type: 'goal',   team: 2, player: 'Rezaeian',        minute: '14'   },
+        { type: 'yellow', team: 2, player: 'Kanani',          minute: '19'   },
+        { type: 'yellow', team: 1, player: 'Lashin',          minute: '90+1' },
+    ],
+    42: [
+        { type: 'goal',   team: 2, player: 'Trossard',        minute: '28'   },
+        { type: 'yellow', team: 1, player: 'Stamenic',        minute: '46'   },
+        { type: 'goal',   team: 2, player: 'Trossard',        minute: '50'   },
+        { type: 'yellow', team: 1, player: 'Just',            minute: '56'   },
+        { type: 'goal',   team: 2, player: 'De Bruyne',       minute: '66'   },
+        { type: 'goal',   team: 1, player: 'Just',            minute: '84'   },
+        { type: 'goal',   team: 2, player: 'Lukaku',          minute: '86'   },
+        { type: 'goal',   team: 2, player: 'Saelemaekers',    minute: '90+4' },
+    ],
     43: [
         { type: 'yellow', team: 2, player: 'Lopes Cabral',   minute: '15'   },
         { type: 'yellow', team: 1, player: 'Pedri',          minute: '90+2' },
@@ -1346,6 +1362,17 @@ const matchEvents = {
         { type: 'goal',   team: 2, player: 'Varela',         minute: '61'   },
         { type: 'yellow', team: 2, player: 'Diney',          minute: '90+3' },
     ],
+    47: [
+        { type: 'yellow', team: 2, player: 'Abdulhamid',     minute: '4'    },
+        { type: 'yellow', team: 1, player: 'Pina',           minute: '8'    },
+        { type: 'yellow', team: 2, player: 'Aldawsari',      minute: '67'   },
+        { type: 'yellow', team: 2, player: 'Albrikan',       minute: '90+3' },
+    ],
+    48: [
+        { type: 'goal',   team: 2, player: 'Baena',          minute: '42'   },
+        { type: 'yellow', team: 1, player: 'De la Cruz',     minute: '70'   },
+        { type: 'red',    team: 1, player: 'Canobbio',       minute: '90+5' },
+    ],
     49: [
         { type: 'goal',   team: 1, player: 'Mbappé',         minute: '66'   },
         { type: 'goal',   team: 1, player: 'Barcola',        minute: '82'   },
@@ -1372,6 +1399,26 @@ const matchEvents = {
         { type: 'goal',   team: 1, player: 'Haaland',        minute: '58'   },
         { type: 'goal',   team: 2, player: 'Sarr',           minute: '90+3' },
     ],
+    53: [
+        { type: 'goal',   team: 2, player: 'Dembélé',         minute: '7'    },
+        { type: 'yellow', team: 1, player: 'Berg',            minute: '10'   },
+        { type: 'goal',   team: 2, player: 'Dembélé',         minute: '20'   },
+        { type: 'goal',   team: 1, player: 'Aasgaard',        minute: '21'   },
+        { type: 'goal',   team: 2, player: 'Dembélé',         minute: '32'   },
+        { type: 'goal',   team: 2, player: 'Doué',            minute: '90+4' },
+    ],
+    54: [
+        { type: 'goal',   team: 1, player: 'Diarra',          minute: '4'    },
+        { type: 'red',    team: 2, player: 'Sulaka',          minute: '13'   },
+        { type: 'yellow', team: 1, player: 'Seck',            minute: '18'   },
+        { type: 'goal',   team: 1, player: 'Sarr',            minute: '56'   },
+        { type: 'goal',   team: 1, player: 'Gueye',           minute: '59'   },
+        { type: 'goal',   team: 1, player: 'Gueye',           minute: '71'   },
+        { type: 'yellow', team: 2, player: 'Alammari',        minute: '75'   },
+        { type: 'yellow', team: 1, player: 'Gueye',           minute: '81'   },
+        { type: 'goal',   team: 1, player: 'Ndiaye',          minute: '82'   },
+        { type: 'yellow', team: 2, player: 'Doski',           minute: '90'   },
+    ],
     55: [
         { type: 'goal',   team: 1, player: 'Messi',          minute: '17'   },
         { type: 'goal',   team: 1, player: 'Messi',          minute: '60'   },
@@ -1397,6 +1444,22 @@ const matchEvents = {
         { type: 'goal',   team: 2, player: 'Benbouali',      minute: '69'   },
         { type: 'goal',   team: 2, player: 'Gouiri',         minute: '82'   },
         { type: 'yellow', team: 1, player: 'Abudahab',       minute: '90'   },
+    ],
+    59: [
+        { type: 'yellow', team: 2, player: 'Arnautović',      minute: '11'   },
+        { type: 'goal',   team: 2, player: 'Arnautović',      minute: '28'   },
+        { type: 'goal',   team: 1, player: 'Belghali',        minute: '41'   },
+        { type: 'goal',   team: 2, player: 'Sabitzer',        minute: '55'   },
+        { type: 'goal',   team: 1, player: 'Mahrez',          minute: '60'   },
+        { type: 'goal',   team: 1, player: 'Mahrez',          minute: '90+3' },
+        { type: 'goal',   team: 2, player: 'Kalajdzic',       minute: '90+5' },
+    ],
+    60: [
+        { type: 'goal',   team: 2, player: 'Lo Celso',        minute: '19'   },
+        { type: 'yellow', team: 1, player: 'Abu Taha',        minute: '19'   },
+        { type: 'goal',   team: 2, player: 'L. Martínez (P)', minute: '30'   },
+        { type: 'goal',   team: 1, player: 'Al-Tamari',       minute: '55'   },
+        { type: 'goal',   team: 2, player: 'Messi',           minute: '80'   },
     ],
     61: [
         { type: 'goal',   team: 1, player: 'João Neves',     minute: '6'    },
@@ -1428,6 +1491,19 @@ const matchEvents = {
         { type: 'yellow', team: 2, player: 'Pickel',         minute: '90+3' },
         { type: 'yellow', team: 1, player: 'Lerma',          minute: '90+4' },
     ],
+    65: [
+        { type: 'yellow', team: 1, player: 'Puerta',          minute: '75'   },
+    ],
+    66: [
+        { type: 'goal',   team: 2, player: 'Shomurodov',       minute: '10'   },
+        { type: 'yellow', team: 1, player: 'Sadiki',           minute: '21'   },
+        { type: 'yellow', team: 2, player: 'Khusanov',         minute: '43'   },
+        { type: 'yellow', team: 1, player: 'Mbuku',            minute: '45+4' },
+        { type: 'yellow', team: 2, player: 'Nasrullaev',       minute: '48'   },
+        { type: 'goal',   team: 1, player: 'Wissa (P)',        minute: '68'   },
+        { type: 'goal',   team: 1, player: 'Mayele',           minute: '78'   },
+        { type: 'goal',   team: 1, player: 'Wissa',            minute: '90+1' },
+    ],
     67: [
         { type: 'goal',   team: 1, player: 'Kane (P)',       minute: '12'   },
         { type: 'goal',   team: 2, player: 'Baturina',        minute: '38'   },
@@ -1447,6 +1523,19 @@ const matchEvents = {
         { type: 'goal',   team: 2, player: 'Budimir',        minute: '54'   },
         { type: 'yellow', team: 1, player: 'Barcenas',       minute: '61'   },
         { type: 'yellow', team: 2, player: 'P. Sucic',       minute: '72'   },
+    ],
+    71: [
+        { type: 'yellow', team: 1, player: 'Fajardo',         minute: '53'   },
+        { type: 'yellow', team: 2, player: 'Quansah',          minute: '60'   },
+        { type: 'goal',   team: 2, player: 'Bellingham',       minute: '62'   },
+        { type: 'goal',   team: 2, player: 'Kane',             minute: '67'   },
+        { type: 'yellow', team: 1, player: 'Andrade',          minute: '84'   },
+    ],
+    72: [
+        { type: 'goal',   team: 1, player: 'Sucic',            minute: '31'   },
+        { type: 'yellow', team: 1, player: 'Perišić',          minute: '68'   },
+        { type: 'goal',   team: 2, player: 'Luckassen',        minute: '73'   },
+        { type: 'goal',   team: 1, player: 'Vlašić',           minute: '83'   },
     ],
 };
 
@@ -1487,24 +1576,33 @@ const matchHighlights = {
     38: 'https://www.fifa.com/en/watch/2XSqobMgEwKFuhEozWztJl',
     39: 'https://www.fifa.com/en/watch/2eqX8tJNDvSqLjtLDPgDkT',
     40: 'https://www.fifa.com/en/watch/30AjAOgeWPeCcjnTx6hdH0',
+    41: 'https://www.fifa.com/en/watch/4h74CcFsYuSUjg53SPcBvi',
+    42: 'https://www.fifa.com/en/watch/4ctyVS6mvtXal2AiNXdYdk',
     43: 'https://www.fifa.com/en/watch/jLS5YXPMr0XAd5lMHtbiJ',
     44: 'https://www.fifa.com/en/watch/2OO54UvFW7GK8vnsarneGk',
     45: 'https://www.fifa.com/en/watch/4ZigaLfUmzRMpzV7ETANXM',
+    47: 'https://www.fifa.com/en/watch/6cEIYSaBZmtelEG6H679Pu',
+    48: 'https://www.fifa.com/en/watch/2Iw0XHRZ4pZhQeVyekPApR',
     49: 'https://www.fifa.com/en/watch/3EKjirmmC6D2Ss29rPdDph',
     50: 'https://www.fifa.com/en/watch/SsQRwgoouokLgVYDKitmB',
     51: 'https://www.fifa.com/en/watch/5baxscpTWAh30KnlPk6NPK',
     52: 'https://www.fifa.com/en/watch/2z83J5vynam1wsTQNemf5u',
+    53: 'https://www.fifa.com/en/watch/THUuOCgcktTdRUWJbCDNL',
+    54: 'https://www.fifa.com/en/watch/maf9mo9s3FMRyykghM66d',
     55: 'https://www.fifa.com/en/watch/7w5eTQ8xbmnSNHypyuYhdG',
     56: 'https://www.fifa.com/en/watch/77P4VoHiQj3RG3yEQVhGpH',
     57: 'https://www.fifa.com/en/watch/6N4dkwqyP1sUURyCXExX5s',
+    60: 'https://www.fifa.com/en/watch/5BIvKB59XPeexfnCVgq1on',
     61: 'https://www.fifa.com/en/watch/3phBNopGuBvaow9DPBc2D',
     62: 'https://www.fifa.com/en/watch/6Tr0HFdKBRPzlKF5p6kFLD',
     63: 'https://www.fifa.com/en/watch/4se3Lqdtrvu86pMuaqlUpn',
     64: 'https://www.fifa.com/en/watch/26nrhBN70NStG6P9xmqto7',
+    65: 'https://www.fifa.com/en/watch/8tSsUTDaizPYqH3tPtPym',
     67: 'https://www.fifa.com/en/watch/69ls3TcVt6PIJPxhiREehA',
     68: 'https://www.fifa.com/en/watch/5yGWUJLlTqyvKydpUvLJnU',
     69: 'https://www.fifa.com/en/watch/YMV6IJCxemtC0s8HtqPn3',
     70: 'https://www.fifa.com/en/watch/5ewcE9E2gBUvXwyGfkEz1n',
+    71: 'https://www.fifa.com/en/watch/22YjMVCjKIb6m3PjnvWtXB',
 };
 
 // ── Round of 32 (Knockout Stage) ──────────────────────────
@@ -1520,7 +1618,7 @@ const round32Data = [
       team1: "South Africa", team1Flag: "🇿🇦", team2: "Canada", team2Flag: "🇨🇦" },
     { matchNo: 74, date: "2026-06-30", time: "02:00 IST", venue: "Gillette Stadium",    city: "Boston",
       slot1: "Winner Group E", slot2: "Best 3rd Group A/B/C/D/F",
-      team1: "Germany", team1Flag: "🇩🇪" },
+      team1: "Germany", team1Flag: "🇩🇪", team2: "Paraguay", team2Flag: "🇵🇾" },
     { matchNo: 75, date: "2026-06-30", time: "06:30 IST", venue: "Estadio BBVA",        city: "Monterrey",
       slot1: "Winner Group F", slot2: "Runner-up Group C",
       team1: "Netherlands", team1Flag: "🇳🇱", team2: "Morocco", team2Flag: "🇲🇦" },
@@ -1528,34 +1626,41 @@ const round32Data = [
       slot1: "Winner Group C", slot2: "Runner-up Group F",
       team1: "Brazil", team1Flag: "🇧🇷", team2: "Japan", team2Flag: "🇯🇵" },
     { matchNo: 77, date: "2026-07-01", time: "02:30 IST", venue: "MetLife Stadium",     city: "New York/New Jersey",
-      slot1: "Winner Group I", slot2: "Best 3rd Group C/D/F/G/H" },
+      slot1: "Winner Group I", slot2: "Best 3rd Group C/D/F/G/H",
+      team1: "France", team1Flag: "🇫🇷", team2: "Sweden", team2Flag: "🇸🇪" },
     { matchNo: 78, date: "2026-06-30", time: "22:30 IST", venue: "AT&T Stadium",        city: "Dallas",
       slot1: "Runner-up Group E", slot2: "Runner-up Group I",
-      team1: "Ivory Coast", team1Flag: "🇨🇮" },
+      team1: "Ivory Coast", team1Flag: "🇨🇮", team2: "Norway", team2Flag: "🇳🇴" },
     { matchNo: 79, date: "2026-07-01", time: "06:30 IST", venue: "Estadio Azteca",      city: "Mexico City",
       slot1: "Winner Group A", slot2: "Best 3rd Group C/E/F/H/I",
-      team1: "Mexico", team1Flag: "🇲🇽" },
+      team1: "Mexico", team1Flag: "🇲🇽", team2: "Ecuador", team2Flag: "🇪🇨" },
     { matchNo: 80, date: "2026-07-01", time: "21:30 IST", venue: "Mercedes-Benz Stadium", city: "Atlanta",
-      slot1: "Winner Group L", slot2: "Best 3rd Group E/H/I/J/K" },
+      slot1: "Winner Group L", slot2: "Best 3rd Group E/H/I/J/K",
+      team1: "England", team1Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", team2: "DR Congo", team2Flag: "🇨🇩" },
     { matchNo: 81, date: "2026-07-02", time: "05:30 IST", venue: "Levi's Stadium",      city: "San Francisco Bay Area",
       slot1: "Winner Group D", slot2: "Best 3rd Group B/E/F/I/J",
-      team1: "USA", team1Flag: "🇺🇸" },
+      team1: "USA", team1Flag: "🇺🇸", team2: "Bosnia and Herzegovina", team2Flag: "🇧🇦" },
     { matchNo: 82, date: "2026-07-02", time: "01:30 IST", venue: "Lumen Field",         city: "Seattle",
-      slot1: "Winner Group G", slot2: "Best 3rd Group A/E/H/I/J" },
+      slot1: "Winner Group G", slot2: "Best 3rd Group A/E/H/I/J",
+      team1: "Belgium", team1Flag: "🇧🇪", team2: "Senegal", team2Flag: "🇸🇳" },
     { matchNo: 83, date: "2026-07-03", time: "04:30 IST", venue: "BMO Field",           city: "Toronto",
-      slot1: "Runner-up Group K", slot2: "Runner-up Group L" },
+      slot1: "Runner-up Group K", slot2: "Runner-up Group L",
+      team1: "Portugal", team1Flag: "🇵🇹", team2: "Croatia", team2Flag: "🇭🇷" },
     { matchNo: 84, date: "2026-07-03", time: "00:30 IST", venue: "SoFi Stadium",        city: "Los Angeles",
-      slot1: "Winner Group H", slot2: "Runner-up Group J" },
+      slot1: "Winner Group H", slot2: "Runner-up Group J",
+      team1: "Spain", team1Flag: "🇪🇸", team2: "Austria", team2Flag: "🇦🇹" },
     { matchNo: 85, date: "2026-07-03", time: "08:30 IST", venue: "BC Place",            city: "Vancouver",
       slot1: "Winner Group B", slot2: "Best 3rd Group E/F/G/I/J",
-      team1: "Switzerland", team1Flag: "🇨🇭" },
+      team1: "Switzerland", team1Flag: "🇨🇭", team2: "Algeria", team2Flag: "🇩🇿" },
     { matchNo: 86, date: "2026-07-04", time: "03:30 IST", venue: "Hard Rock Stadium",   city: "Miami",
-      slot1: "Winner Group J", slot2: "Runner-up Group H" },
+      slot1: "Winner Group J", slot2: "Runner-up Group H",
+      team1: "Argentina", team1Flag: "🇦🇷", team2: "Cape Verde", team2Flag: "🇨🇻" },
     { matchNo: 87, date: "2026-07-04", time: "07:00 IST", venue: "Arrowhead Stadium",   city: "Kansas City",
-      slot1: "Winner Group K", slot2: "Best 3rd Group D/E/I/J/L" },
+      slot1: "Winner Group K", slot2: "Best 3rd Group D/E/I/J/L",
+      team1: "Colombia", team1Flag: "🇨🇴", team2: "Ghana", team2Flag: "🇬🇭" },
     { matchNo: 88, date: "2026-07-03", time: "23:30 IST", venue: "AT&T Stadium",        city: "Dallas",
       slot1: "Runner-up Group D", slot2: "Runner-up Group G",
-      team1: "Australia", team1Flag: "🇦🇺" },
+      team1: "Australia", team1Flag: "🇦🇺", team2: "Egypt", team2Flag: "🇪🇬" },
 ];
 
 function renderRound32() {
@@ -1572,9 +1677,14 @@ function renderRound32() {
         const dateObj = new Date(match.date + 'T12:00:00');
         const fmtDate = dateObj.toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' });
 
-        const team = (name, flag, slot) => name
-            ? `<div class="team"><span class="team-flag">${flag}</span><div class="team-name">${name}</div></div>`
-            : `<div class="team tbd"><span class="team-flag">❔</span><div class="team-name">${slot}</div></div>`;
+        const team = (name, flag, slot) => {
+            if (!name) return `<div class="team tbd"><span class="team-flag">❔</span><div class="team-name">${slot}</div></div>`;
+            const inner = `<span class="team-flag">${flag}</span><div class="team-name">${name}</div>`;
+            const slug  = teamSlugs[name];
+            return slug
+                ? `<a class="team" href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/${slug}/squad" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${inner}</a>`
+                : `<div class="team">${inner}</div>`;
+        };
 
         card.innerHTML = `
             <div class="match-header">
