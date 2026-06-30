@@ -1537,6 +1537,22 @@ const matchEvents = {
         { type: 'goal',   team: 2, player: 'Luckassen',        minute: '73'   },
         { type: 'goal',   team: 1, player: 'Vlašić',           minute: '83'   },
     ],
+    73: [
+        { type: 'goal', team: 2, player: 'Stephen Eustáquio', minute: '90+2' },
+    ],
+    74: [
+        { type: 'goal', team: 2, player: 'Julio Enciso', minute: '42' },
+        { type: 'goal', team: 1, player: 'Kai Havertz',  minute: '53' },
+    ],
+    75: [
+        { type: 'goal', team: 1, player: 'Cody Gakpo', minute: '72'   },
+        { type: 'goal', team: 2, player: 'Issa Diop',  minute: '90+1' },
+    ],
+    76: [
+        { type: 'goal', team: 2, player: 'Kaishu Sano',        minute: '29'   },
+        { type: 'goal', team: 1, player: 'Casemiro',           minute: '56'   },
+        { type: 'goal', team: 1, player: 'Gabriel Martinelli', minute: '90+5' },
+    ],
 };
 
 // ── Match Highlights (Official FIFA) ─────────────────────
@@ -1603,6 +1619,9 @@ const matchHighlights = {
     69: 'https://www.fifa.com/en/watch/YMV6IJCxemtC0s8HtqPn3',
     70: 'https://www.fifa.com/en/watch/5ewcE9E2gBUvXwyGfkEz1n',
     71: 'https://www.fifa.com/en/watch/22YjMVCjKIb6m3PjnvWtXB',
+    73: 'https://www.fifa.com/en/watch/6dFyzSCghyabYGJRQk8RYB',
+    74: 'https://www.fifa.com/en/watch/1ObqWjTvyAO5EaR5aAQYbQ',
+    76: 'https://www.fifa.com/en/watch/2RdUNscru4TZmci6y3Akdp',
 };
 
 // ── Round of 32 (Knockout Stage) ──────────────────────────
@@ -1615,16 +1634,20 @@ const matchHighlights = {
 const round32Data = [
     { matchNo: 73, date: "2026-06-29", time: "00:30 IST", venue: "SoFi Stadium",        city: "Los Angeles",
       slot1: "Runner-up Group A", slot2: "Runner-up Group B",
-      team1: "South Africa", team1Flag: "🇿🇦", team2: "Canada", team2Flag: "🇨🇦" },
+      team1: "South Africa", team1Flag: "🇿🇦", team2: "Canada", team2Flag: "🇨🇦",
+      score1: 0, score2: 1, status: "completed" },
     { matchNo: 74, date: "2026-06-30", time: "02:00 IST", venue: "Gillette Stadium",    city: "Boston",
       slot1: "Winner Group E", slot2: "Best 3rd Group A/B/C/D/F",
-      team1: "Germany", team1Flag: "🇩🇪", team2: "Paraguay", team2Flag: "🇵🇾" },
+      team1: "Germany", team1Flag: "🇩🇪", team2: "Paraguay", team2Flag: "🇵🇾",
+      score1: 1, score2: 1, status: "completed", aet: true, pens1: 3, pens2: 4 },
     { matchNo: 75, date: "2026-06-30", time: "06:30 IST", venue: "Estadio BBVA",        city: "Monterrey",
       slot1: "Winner Group F", slot2: "Runner-up Group C",
-      team1: "Netherlands", team1Flag: "🇳🇱", team2: "Morocco", team2Flag: "🇲🇦" },
+      team1: "Netherlands", team1Flag: "🇳🇱", team2: "Morocco", team2Flag: "🇲🇦",
+      score1: 1, score2: 1, status: "completed", aet: true, pens1: 2, pens2: 3 },
     { matchNo: 76, date: "2026-06-29", time: "22:30 IST", venue: "NRG Stadium",         city: "Houston",
       slot1: "Winner Group C", slot2: "Runner-up Group F",
-      team1: "Brazil", team1Flag: "🇧🇷", team2: "Japan", team2Flag: "🇯🇵" },
+      team1: "Brazil", team1Flag: "🇧🇷", team2: "Japan", team2Flag: "🇯🇵",
+      score1: 2, score2: 1, status: "completed" },
     { matchNo: 77, date: "2026-07-01", time: "02:30 IST", venue: "MetLife Stadium",     city: "New York/New Jersey",
       slot1: "Winner Group I", slot2: "Best 3rd Group C/D/F/G/H",
       team1: "France", team1Flag: "🇫🇷", team2: "Sweden", team2Flag: "🇸🇪" },
@@ -1671,8 +1694,9 @@ function renderRound32() {
     const sorted = [...round32Data].sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
 
     sorted.forEach((match, i) => {
+        const completed = match.status === 'completed';
         const card = document.createElement('div');
-        card.className = 'fixture-card upcoming r32-card';
+        card.className = `fixture-card r32-card ${completed ? 'completed' : 'upcoming'}`;
 
         const dateObj = new Date(match.date + 'T12:00:00');
         const fmtDate = dateObj.toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' });
@@ -1686,6 +1710,18 @@ function renderRound32() {
                 : `<div class="team">${inner}</div>`;
         };
 
+        const subLabel = match.pens1 != null
+            ? `${match.pens1}-${match.pens2} PENS`
+            : (match.aet ? 'AET' : 'FULL TIME');
+
+        const scoreHtml = completed
+            ? `<div class="score-box"><div class="score">${match.score1}&nbsp;-&nbsp;${match.score2}</div><div class="vs-text">${subLabel}</div></div>`
+            : `<div class="score-box"><div class="score">vs</div><div class="vs-text match-kickoff-time">R32</div></div>`;
+
+        const statusHtml = completed
+            ? `<span class="match-status completed">✓ ${match.pens1 != null ? 'PENS' : 'FT'}</span>`
+            : (() => { const t = timeUntil(match); return `<span class="match-status upcoming">${t ? `⏱ ${t}` : '⏱ Soon'}</span>`; })();
+
         card.innerHTML = `
             <div class="match-header">
                 <div class="match-date">${fmtDate} · ${convertTime(match.time)}</div>
@@ -1693,13 +1729,23 @@ function renderRound32() {
             </div>
             <div class="match-container">
                 ${team(match.team1, match.team1Flag, match.slot1)}
-                <div class="score-box"><div class="score">vs</div><div class="vs-text match-kickoff-time">R32</div></div>
+                ${scoreHtml}
                 ${team(match.team2, match.team2Flag, match.slot2)}
             </div>
             <div class="match-footer">
                 <div class="match-venue">📍 ${match.venue}, ${match.city}</div>
-                ${(() => { const t = timeUntil(match); return `<span class="match-status upcoming">${t ? `⏱ ${t}` : '⏱ Soon'}</span>`; })()}
+                ${statusHtml}
             </div>`;
+
+        if (match.team1 && match.team2) {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => openModal({
+                ...match,
+                id: match.matchNo,
+                group: 'Round of 32',
+                stageLabel: 'Round of 32 · Knockout Stage',
+            }));
+        }
 
         card.style.animationDelay = `${Math.min(i * 40, 400)}ms`;
         container.appendChild(card);
@@ -1847,6 +1893,10 @@ function openModal(fixture) {
            <span class="modal-score">${fixture.score2}</span>`
         : `<span class="modal-score-vs">VS</span>`;
 
+    const fullTimeLabel = fixture.pens1 != null
+        ? `🥅 Pens ${fixture.pens1}-${fixture.pens2}`
+        : (fixture.aet ? '✅ After Extra Time' : '✅ Full Time');
+
     const hlUrl = matchHighlights[fixture.id];
     const highlightsBtnHtml = (fixture.status === 'completed' && hlUrl)
         ? `<a class="highlights-btn" href="${hlUrl}" target="_blank" rel="noopener noreferrer">
@@ -1857,7 +1907,7 @@ function openModal(fixture) {
 
     content.innerHTML = `
         <div class="modal-header">
-            <div class="modal-group-badge">${fixture.group} · Group Stage</div>
+            <div class="modal-group-badge">${fixture.stageLabel || `${fixture.group} · Group Stage`}</div>
             <div class="modal-teams-row">
                 <span class="modal-big-flag">${fixture.team1Flag}</span>
                 <div class="modal-score-block">${scoreHtml}</div>
@@ -1867,7 +1917,7 @@ function openModal(fixture) {
                 <span>📍 ${fixture.venue}, ${fixture.city}</span>
                 <span>📅 ${fmtDate}</span>
                 <span>🕐 ${convertTime(fixture.time)}</span>
-                <span>${fixture.status === 'completed' ? '✅ Full Time' : '⏱ Upcoming'}</span>
+                <span>${fixture.status === 'completed' ? fullTimeLabel : '⏱ Upcoming'}</span>
             </div>
         </div>
         <div class="modal-divider"></div>
